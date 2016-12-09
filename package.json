@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "react": "^15.3.2",
-    "util": "^2.0.0"
+    "util": "0.10.3"
   },
   "author": "Mitchell M. Rose",
   "license": "MIT",
