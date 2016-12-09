@@ -15,3 +15,14 @@ Install
 
 Usage
 -----
+Import to your component:
+
+```import Reactdump from './Reactdump';```
+
+Include within your component's render() method, passing the object and an optional opts argument
+
+```<Reactdump obj={user} />```
+
+Contributing
+------------
+Pull requests welcome with accompanying tests
