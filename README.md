@@ -9,9 +9,9 @@ For example, ```<Reactdump obj={user} />``` might yield:
 
 ![reactdump example](https://raw.github.com/ragamufin/nodedump/master/images_for_readme/nodedump-user.png "reactdump of variable 'user'")
 
-Installation
-------------
-
+Install
+-------
+[sudo] npm install react-dump
 
 Usage
 -----
