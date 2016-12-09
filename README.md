@@ -23,6 +23,10 @@ Include within your component's render() method, passing the object and an optio
 
 ```<Reactdump obj={user} />```
 
+License
+-------
+MIT
+
 Contributing
 ------------
 Pull requests welcome with accompanying tests
