@@ -1,6 +1,6 @@
 {
   "name": "react-dump",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A visual debugging component for React",
   "main": "index.js",
   "scripts": {
