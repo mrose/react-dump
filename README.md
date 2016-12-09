@@ -5,7 +5,7 @@ Inspired by Andrew Hewitt's [nodedump](https://raw.github.com/ragamufin/nodedump
 
 Think of it as `console.log` on steroids. Recurses fully into levels deep objects.
 Sometimes visualizing a complex object makes it easier to think about.
-For example, ```<Reactdump obj={user} />``` might yeild:
+For example, ```<Reactdump obj={user} />``` might yield:
 
 ![reactdump example](https://raw.github.com/ragamufin/nodedump/master/images_for_readme/nodedump-user.png "reactdump of variable 'user'")
 
