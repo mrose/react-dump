@@ -1,7 +1,7 @@
 
-  "name": "reactdump",
+  "name": "react-dump",
   "version": "0.0.1",
-  "description": "Outputs variables in a visual, easy to read format based on Adobe ColdFusion's CFDump tag.",
+  "description": "A visual debugging component for React",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,13 +13,16 @@
   "keywords":[
     "debug",
     "react",
-    "component",
+    "react-component",
     "dump",
     "variable",
     "log",
-    "cfdump"
+    "cfdump",
     "nodedump"
     ],
+  "dependencies": {
+    "react": "^15.3.2",
+  },
   "author": "Mitchell M. Rose",
   "license": "MIT",
   "bugs": {

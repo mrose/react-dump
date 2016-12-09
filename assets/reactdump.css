@@ -1,0 +1,53 @@
+table.reactdump, table.reactdump th, table.reactdump td { border-collapse: separate; border-spacing:2px; width: auto; line-height:normal; }
+table.reactdump {
+  font-size: x-small;
+  font-family: verdana, arial, helvetica, sans-serif;
+  cell-spacing: 2px;
+  background-color: #dddddd;
+  color: #222222;
+}
+table.reactdump .reactdump-label { cursor:pointer; }
+--table.reactdump td, table.reactdump th { background-color: #eeeeee; }
+--table.reactdump { background-color: #aaaaaa; }
+--table.reactdump th { text-align: left; color: white; padding: 5px; background-color: #cccccc; }
+--table.reactdump td { vertical-align : top; padding: 3px; background-color: #eeeeee; }
+table.reactdump { background-color: #707000; }
+table.reactdump th { text-align: left; color: white; padding: 5px; background-color: #ADAD00; }
+table.reactdump td { vertical-align : top; padding: 3px; background-color: #FFFF9E; }
+
+table.reactdump td.reactdump-data { background-color: #ffffff; }
+table.reactdump td.reactdump-data pre { line-height:normal; background-color: #ffffff; border:0; padding:0; }
+table.reactdump td.reactdump-data pre code { font-size: small; font-family: Consolas, Menlo, Monaco, Lucida Console, monospace, Courier New, monospace, serif; }
+table.reactdump-String { background-color: #888888; }
+table.reactdump-String td.reactdump-String { background-color: #dddddd; }
+table.reactdump-String td.reactdump-data { white-space: pre; }
+table.reactdump-Number { background-color: #FF8833; }
+table.reactdump-Number td.reactdump-Number { background-color: #FFB885; }
+table.reactdump-Boolean { background-color : #eebb00; }
+table.reactdump-Boolean td.reactdump-Boolean { background-color: #FFDA75; }
+table.reactdump-Boolean td.reactdump-data span.reactdump-no { color: #aa0000; }
+table.reactdump-Boolean td.reactdump-data span.reactdump-yes { color: #008800; }
+table.reactdump-Date { background-color: #CE8D98; }
+table.reactdump-Date td.reactdump-Date { background-color: #ffcbd4; }
+table.reactdump-Math td.reactdump-data { color: white; font-weight: bold; background-color: #ADAD00; }
+table.reactdump-Null, table.reactdump-Undefined { background-color: #333333; }
+table.reactdump-Null td.reactdump-data, table.reactdump-Undefined td.reactdump-data { color:#ffffff; background-color: #333333; }
+
+table.reactdump-Object {  background-color: #0000cc; }
+table.reactdump-Object th.reactdump-Object { background-color: #4444cc; }
+table.reactdump-Object td.reactdump-Object { background-color: #ccddff; }
+
+table.reactdump-Array { background-color: #006600; }
+table.reactdump-Array th.reactdump-Array { background-color: #009900; }
+table.reactdump-Array td.reactdump-Array { background-color: #ccffcc; }
+table.reactdump-Function { background-color: #aa4400; }
+table.reactdump-Function th.reactdump-Function { background-color: #cc6600; }
+table.reactdump-RegExp { background-color: #884488; }
+table.reactdump-RegExp th.reactdump-RegExp { background-color: #aa66aa; }
+table.reactdump-RegExp td.reactdump-RegExp { background-color: #ffddff; }
+table.reactdump-Error { background-color: #CC3300; }
+table.reactdump-Error th.reactdump-Error { background-color: #CC3300; }
+table.reactdump-Error td.reactdump-data { white-space: pre; }
+table.reactdump-'+CIRCULARREFERENCE+', table.reactdump-'+ERRORDATATYPE+' { background-color: #333333; }
+table.reactdump-'+CIRCULARREFERENCE+' td.reactdump-'+CIRCULARREFERENCE+', table.reactdump-'+ERRORDATATYPE+' th.reactdump-'+ERRORDATATYPE+' { background-color: #333333; }
+table.reactdump-'+CIRCULARREFERENCE+' td.reactdump-label { color: #ffffff; }
