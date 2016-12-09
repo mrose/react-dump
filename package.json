@@ -1,6 +1,6 @@
 {
   "name": "react-dump",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A visual debugging component for React",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,8 @@
     "nodedump"
   ],
   "dependencies": {
-    "react": "^15.3.2"
+    "react": "^15.3.2",
+    "util": "^2.0.0"
   },
   "author": "Mitchell M. Rose",
   "license": "MIT",
