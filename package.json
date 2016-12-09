@@ -1,0 +1,29 @@
+
+  "name": "reactdump",
+  "version": "0.0.1",
+  "description": "Outputs variables in a visual, easy to read format based on Adobe ColdFusion's CFDump tag.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrose/reactdump.git"
+  },
+  "keywords":[
+    "debug",
+    "react",
+    "component",
+    "dump",
+    "variable",
+    "log",
+    "cfdump"
+    "nodedump"
+    ],
+  "author": "Mitchell M. Rose",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrose/reactdump/issues"
+  },
+  "homepage": "https://github.com/mrose/reactdump#readme"
+}
