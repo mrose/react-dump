@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import '../assets/reactdump.css'; // Tell Webpack that Reactdump.js uses these styles
 import '../assets/toggly.js'; // tell webpack to include toggly
 import { format } from 'util';
