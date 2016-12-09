@@ -19,9 +19,9 @@
     "log",
     "cfdump",
     "nodedump"
-    ],
+  ],
   "dependencies": {
-    "react": "^15.3.2",
+    "react": "^15.3.2"
   },
   "author": "Mitchell M. Rose",
   "license": "MIT",
