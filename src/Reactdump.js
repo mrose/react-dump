@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../assets/reactdump.css'; // Tell Webpack that Reactdump.js uses these styles
 import '../assets/toggly.js'; // tell webpack to include toggly
-import { format } from 'util';
+import util, { format } from 'util';
 
 // Default options
 var DEFAULTOPTS = {
@@ -81,9 +81,8 @@ export default class Reactdump extends Component {
   }
 
   render() {
-    const d = {__html: this.dump(this.props.obj, this.props.opts) }
     return (
-      <div dangerouslySetInnerHTML={d} />
+      <div dangerouslySetInnerHTML={{__html: this.dump(this.props.obj, this.props.opts) }} />
     )
   }
 

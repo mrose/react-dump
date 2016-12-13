@@ -4,7 +4,7 @@
   "description": "A visual debugging component for React",
   "main": "index.js",
   "scripts": {
-    "test": "react-scripts test --env=jsdom"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -21,10 +21,11 @@
     "nodedump"
   ],
   "dependencies": {
-    "react": "^15.3.2",
-    "util": "0.10.3",
-    "react-scripts": "0.8.1"
+    "util": "0.10.3"
   },
+  "peerDependencies": {
+    "react": "^15.3.2"
+    },
   "author": "Mitchell M. Rose",
   "license": "MIT",
   "bugs": {
