@@ -17,11 +17,11 @@ Usage
 -----
 Import to your component:
 
-```import Reactdump from 'Reactdump';```
+```import Dump from 'react-dump';```
 
 Include within your component's render() method, passing the object and an optional opts argument
 
-```<Reactdump obj={user} />```
+```<Dump obj={user} />```
 
 License
 -------

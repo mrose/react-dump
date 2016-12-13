@@ -50,7 +50,7 @@ var CIRCULARTOPSTRINGLIMIT = 12;
 var TOP = '[TOP]';
 
 // exports.dump = dump;
-export default class Reactdump extends Component {
+export default class Dump extends Component {
 
   constructor(props) {
     super(props);

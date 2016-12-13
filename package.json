@@ -1,6 +1,6 @@
 {
   "name": "react-dump",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A visual debugging component for React",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrose/reactdump.git"
+    "url": "git+https://github.com/mrose/react-dump.git"
   },
   "keywords": [
     "debug",
