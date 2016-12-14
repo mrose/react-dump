@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import '../assets/reactdump.css'; // Tell Webpack that Reactdump.js uses these styles
-import '../assets/toggly.js'; // tell webpack to include toggly
+import './reactdump.css'; // Tell Webpack that Reactdump.js uses these styles
+import './toggly.js'; // tell webpack to include toggly
 import util, { format } from 'util';
 
 // Default options
 var DEFAULTOPTS = {
   collapse: false
-  ,dumpFunctionName: 'reactdump'
+  ,dumpFunctionName: 'dump'
   ,expand: true
   ,hide:null
   ,hideTypes:null
@@ -72,12 +72,6 @@ export default class Dump extends Component {
     this.getDataType = this.getDataType.bind(this);
     this.getPathToCircularRef = this.getPathToCircularRef.bind(this);
     this.dumpObject = this.dumpObject.bind(this);
-  }
-
-  // prevent unnecessary render calls by adding conditional rendering logic
-  // inside of shouldComponentUpdate()
-  shouldComponentUpdate() {
-
   }
 
   render() {
@@ -575,7 +569,19 @@ export default class Dump extends Component {
 
 }
 
-Reactdump.defaultProps = {
+Dump.defaultProps = {
   obj: ''
-  , opts: { }
+  , opts: {
+      collapse: false
+    , dumpFunctionName: 'dump'
+    , expand: true
+    , hide:null
+    , hideTypes:null
+    , label:null
+    , levels: null
+    , show:null
+    , sortKeys: true
+    , syntaxHighlight:true
+    , top:null
+  }
 };
