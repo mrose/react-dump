@@ -2,8 +2,27 @@ import React from 'react'
 import '../reactdump.css'
 import { format, isRegExp } from 'util'
 
-// Default options at bottom see Dump.defaultProps
+const defaultProps = {
+    // the variable to be dumped
+    obj: null
+  , collapse: false
+    // quack. sometimes an array of types which should appear expanded
+  , expand: true
+  , hide: null
+    // data types that should be hidden
+  , hideTypes: null
+    // an arbitrary string label to display as a header
+  , label: null
+    // number of nested levels to display
+  , levels: null
+  , show: null
+    // boolean that determines whether keys are sorted when an object is a struct
+  , sortKeys: true
+    // maximum number of rows to be shown
+  , top: null
+} // assigned to component after component definition, no hoisting within
 
+/*
 const applicableCFOPTS = {
     var: null // Variable to display
   , output: 'browser' // where to send results browser|console|file
@@ -15,28 +34,29 @@ const applicableCFOPTS = {
   , show: null // show column or keys
   , top: null // The number of rows to display. For a structure, this is the number of nested levels to display (useful for large stuctures)
 }
+*/
 
 // output related constants
 const TABLE = '<table class="reactdump reactdump-%s"><tbody>%s</tbody></table>'
-let ROWHEADER = '<tr><th colspan="2" class="reactdump-label reactdump-%s"%s onclick="{this.reactdumptoggleTable(this)}">%s</th></tr>'
-let ROW = '<tr%s><td class="reactdump-label reactdump-%s"%s onclick="{this.reactdumptoggleRow()}">%s</td><td class="reactdump-data"%s>%s</td></tr>'
-let ROWHEADER1COL = '<tr><th class="reactdump-label reactdump-%s"%s onclick="{this.reactdumptoggleTable(this)}">%s</th></tr>'
-let ROW1COL = '<tr%s><td class="reactdump-data">%s</td></tr>'
-let EMPTY = ' [empty]'
-let ROWHEADEREMPTY = '<tr><th class="reactdump-%s">%s%s</th></tr>'
-let ROWEMPTY = '<tr><td class="reactdump-%s">%s%s</td></tr>'
-let TITLEEXPANDED = ''
-let TITLECOLLAPSED = ''
-let TITLEFILTERED = ' [Filtered - %s]'
-let TITLEFILTEREDSHOWN = '%d of %d items shown'
-let TITLEFILTEREDHIDDEN = '%d of %d items hidden'
-let TITLEFILTEREDTOP = 'Top %d of %d items shown'
-let TITLEFILTEREDLEVELS = '%d levels shown'
-let EXPANDEDLABELSTYLE = ' title="' +  TITLEEXPANDED + '"'
-let COLLAPSEDLABELSTYLE = ' style="font-style: italic;" title="' + TITLECOLLAPSED + '"'
-let COLLAPSEDSTYLE = ' style="display:none"'
-let CIRCULARSPLITSTRING = ' &raquo; '
-let CIRCULARTOPSTRINGLIMIT = 12
+const ROWHEADER = '<tr><th colspan="2" class="reactdump-label reactdump-%s"%s onclick="{this.reactdumptoggleTable(this)}">%s</th></tr>'
+const ROW = '<tr%s><td class="reactdump-label reactdump-%s"%s onclick="{this.reactdumptoggleRow()}">%s</td><td class="reactdump-data"%s>%s</td></tr>'
+const ROWHEADER1COL = '<tr><th class="reactdump-label reactdump-%s"%s onclick="{this.reactdumptoggconstable(this)}">%s</th></tr>'
+const ROW1COL = '<tr%s><td class="reactdump-data">%s</td></tr>'
+const EMPTY = ' [empty]'
+const ROWHEADEREMPTY = '<tr><th class="reactdump-%s">%s%s</th></tr>'
+const ROWEMPTY = '<tr><td class="reactdump-%s">%s%s</td></tr>'
+const TITLEEXPANDED = ''
+const TITLECOLLAPSED = ''
+const TITLEFILTERED = ' [Filtered - %s]'
+const TITLEFILTEREDSHOWN = '%d of %d items shown'
+const TITLEFILTEREDHIDDEN = '%d of %d items hidden'
+const TITLEFILTEREDTOP = 'Top %d of %d items shown'
+const TITLEFILTEREDLEVELS = '%d levels shown'
+const EXPANDEDLABELSTYLE = ' title="' +  TITLEEXPANDED + '"'
+const COLLAPSEDLABELSTYLE = ' style="font-style: italic;" title="' + TITLECOLLAPSED + '"'
+const COLLAPSEDSTYLE = ' style="display:none"'
+const CIRCULARSPLITSTRING = ' &raquo; '
+const CIRCULARTOPSTRINGLIMIT = 12
 const TOP = '[TOP]'
 // below 2 are used as literals in the CSS
 let CIRCULARREFERENCE = 'Circular-Reference'
@@ -88,12 +108,7 @@ export default class Dump extends React.Component {
 //      <pre>{this.dump(this.props.opts)}</pre>
 
 
-  /*
-   * dump a variable
-   *
-   * @param {options} options
-   * @returns {html|String}
-   */
+   // @returns {html|String}
   dump = (obj, ...opts) => {
     let cache = { bFilteredLevel: false }
     let topPath = TOP
@@ -106,9 +121,7 @@ export default class Dump extends React.Component {
         topPath += ' - ' + dataType;
       */
     }
-    let currentPath = [topPath]
-
-    return this.dumpObject(obj, opts, cache, currentPath)
+    return this.dumpObject(obj, opts, cache, [topPath])
   }
 
 
@@ -116,20 +129,18 @@ export default class Dump extends React.Component {
     * Does all the dirty laundry of capturing variable output, recursively
     *
     * @param {any} obj
+    * @param {objects} options
     * @param {objects} cache
     * @param {array} currentPath
-    * @param {objects} options
     * @returns {string}
     */
   dumpObject = (obj, options, cache = {}, currentPath=[]) => {
-    var data = ''
+    let data = ''
     let dataType = this.getDataType(obj)
     let isSimpleType = (['String','Number','Boolean','Undefined','Null','Date','Math'].indexOf(dataType) >= 0)
     let label = dataType
     let expand = true
     let expandCells = true
-    let bEmpty = false
-    let bHeader = !isSimpleType
 
 
     switch (dataType) {
@@ -155,12 +166,12 @@ export default class Dump extends React.Component {
 
       case 'RegExp':
       case 'Error':
-        data += this.doRowHeader1Col(dataType, label, this.expandOrCollapse(options, dataType) )
-        data += this.doRow1Col(dataType, obj.toString(), this.expandOrCollapse(options, dataType) )
+        data += this.doRowHeader1Col(dataType, label, this.expandedOrCollapsed(options, dataType) )
+        data += this.doRow1Col(dataType, obj.toString(), this.expandedOrCollapsed(options, dataType) )
         break;
 
       case 'Function':
-        data += this.doFunctionDataType(obj, dataType, label, this.expandOrCollapse(options, dataType) )
+        data += this.doFunctionDataType(obj, dataType, label, this.expandedOrCollapsed(options, dataType) )
         break;
 
       default:
@@ -170,149 +181,14 @@ export default class Dump extends React.Component {
           // case 'Array':
           // case 'Object':
           // default complex type
-          data += this.doComplexDataType(obj, dataType, label, expand, options)
-
-
-
+          data += this.doComplexDataType(obj, dataType, label, expand, options, cache, currentPath)
         }
 
     } // switch
 
-/*
-
-     // Non-Simple types
-     if (!isSimpleType) {
-
-
-       switch (dataType) {
-
-
-         case 'Array':
-         case 'Object':
-         default:
-
-           // check for circular references
-           let circPath = this.getPathToCircularRef(obj, cache, currentPath)
-           if (circPath.length > 0) {
-             dataType = CIRCULARREFERENCE
-             data = this.doRow(dataType, dataType, circPath.join(CIRCULARSPLITSTRING), expand)
-           } else {
-             let subPath
-             let loopObj = []
-             for (let key in obj) {
-               loopObj.push(key)
-             }
-
-             if (dataType !== 'Array' && options.sortKeys) {
-               // note implicit return on fat arrow fn
-               loopObj.sort( (a, b) => a.toLowerCase().localeCompare(b.toLowerCase()) )
-             }
-
-             cache.level++
-             let filtered = []
-             let bFilteredTop = false
-             let numTotalKeys = loopObj.length
-             let key, val
-             let numKeysShown = 0
-             let numKeysHidden = 0ß
-             let errThrown
-             for (let i = 0; i < loopObj.length; i++) {
-               key = loopObj[i]
-               errThrown = ''
-               try {
-                 val = obj[key]
-               } catch(err) {
-                 errThrown = err.toString()
-               }
-
-               if (bIsFirstCall) {
-                 if(!(!options.show || (options.show.length && (options.show.indexOf(key) >= 0 || options.show.indexOf(Number(key)) >= 0)))){
-                   numKeysHidden++
-                   continue
-                 } else if (options.hide && options.hide.length && (options.hide.indexOf(key) >= 0 || options.hide.indexOf(Number(key)) >= 0 || options.hide.filter(util.isRegExp).some( (regExp) => regExp.test(key) ))) {
-                   numKeysHidden++
-                   continue
-                 }
-                 if(options.top > 0 && numKeysShown === options.top){
-                   bFilteredTop = true;
-                   break;
-                 }
-               }
-               // skip any data types that should be hidden
-               if (options.hideTypes) {
-                 let subDataType = this.getDataType(val)
-                 if (options.hideTypes.indexOf(subDataType) > -1 || options.hideTypes.indexOf(subDataType.toLowerCase()) > -1) {
-                   numKeysHidden++
-                   continue
-                 }
-               }
-
-               numKeysShown++
-               if (options.levels !== null && currentPath.length > options.levels) {
-                 cache.bFilteredLevel = true
-                 data += this.doRow(dataType, key, '', true)
-                 continue
-               }
-
-               if (errThrown.length > 0) {
-                 let errorRow = this.doRowHeader1Col(ERRORDATATYPE, ERRORDATATYPE, true)
-                 + this.doRow1Col(ERRORDATATYPE, errThrown, true)
- //                        + this.doRow1Col(ERRORDATATYPE, '<pre><code class="lang-javascript">'+hljs.highlight('javascript', errThrown).value+'</code></pre>', true);
-                 data += this.doRow(dataType, key, doTable({ERRORDATATYPE}, {errorRow}), expandCells)
-                 continue
-               }
-
-               subPath = this.clone(currentPath, 'Array')
-               subPath.push(key)
-
-               data += this.doRow(dataType, key, this.dumpObject(val, cache, ß, options), expand, expandCells)
-             }
-
-             if (numTotalKeys === 0) {
-               bEmpty = true
-             } else {
-               if (bIsFirstCall) {
-                 if (numKeysShown !== numTotalKeys) {
-                   if (options.show || options.hideTypes) {
-                     filtered.push(format(TITLEFILTEREDSHOWN, numKeysShown, numTotalKeys))
-                   } else if(options.hide) {
-                     filtered.push(format(TITLEFILTEREDHIDDEN, numKeysHidden, numTotalKeys))
-                     numTotalKeys -= numKeysHidden
-                   }
-                   if (!(options.show || options.hideTypes) && bFilteredTop) {
-                     filtered.push(format(TITLEFILTEREDTOP, numKeysShown, numTotalKeys))
-                   }
-                 }
-                 if (cache.bFilteredLevel) {
-                   filtered.push(format(TITLEFILTEREDLEVELS, options.levels))
-                 }
-               } else if (options.hideTypes && numKeysShown !== numTotalKeys) {
-                 // show the filtered label for types being hidden
-                 filtered.push(format(TITLEFILTEREDSHOWN, numKeysShown, numTotalKeys))
-               }
-
-               if (filtered.length > 0) {
-                 label += format(TITLEFILTERED, filtered.join(', '))
-               }
-               data = this.doRowHeader(dataType, label, expand) + data
-             }
-           }
-         break;
-       }
-
-     }
-
-       if (bEmpty) {
-         data = bHeader ? this.doRowHeaderEmpty(dataType, label) : this.doRowEmpty(dataType, label);
-       }
-*/
         return this.doTable( dataType, data )
    }
 
-  /*
-   * output simple boolean datatype
-   *
-   */
   doBooleanDataType = (obj, dataType, label, expand, expandCells) => {
     let val = '<span class="'+(obj ? 'reactdump-yes' : 'reactdump-no')+'">' + obj + '</span>'
     return this.doRow(dataType, label, val, expand, expandCells)
@@ -328,23 +204,8 @@ export default class Dump extends React.Component {
   }
 
   doFunctionDataType = (obj, dataType, label, expand) => {
-      let data = ''
-      let txt = obj.toString()
-      data += this.doRowHeader1Col(dataType, label, expand)
-/*
-//           if(options.syntaxHighlight){
-//             var purtyText = hljs.highlight('javascript', txt);
-//             //var purtyText = hljs.highlightAuto(txt);
-//             txt = purtyText.value;
-//           } else {
-//             var txt = this.escapeHtml(obj.toString());
-//           }
-*/
-      txt = this.escapeHtml(obj.toString())
-
-      data += this.doRow1Col(dataType, '<pre><code class="lang-javascript">'+txt+'</code></pre>', expand)
-      //data += doRow1Col(dataType, '<pre><code>'+escapeHtml(obj.toString())+'</code></pre>', expand)
-    return data
+    let txt = this.escapeHtml(obj.toString())
+    return this.doRowHeader1Col(dataType, label, expand) + this.doRow1Col(dataType, '<pre><code class="lang-javascript">' + txt + '</code></pre>', expand)
   }
 
   doComplexDataType = (obj, dataType, label, expand, options, cache, currentPath) => {
@@ -352,14 +213,13 @@ export default class Dump extends React.Component {
     // check for circular references
     let circPath = this.getPathToCircularRef(obj, cache, currentPath)
     if (circPath.length > 0) {
-      dataType = CIRCULARREFERENCE
-      return this.doRow(dataType, dataType, circPath.join(CIRCULARSPLITSTRING), expand)
+      return this.doRow(CIRCULARREFERENCE, CIRCULARREFERENCE, circPath.join(CIRCULARSPLITSTRING), expand)
     }
 
     // set keys to collapse if an array of types was passed for expand and the current data-type is one of them
     let expandCells = (typeof options.expand === 'object' && expand) ? false : expand
-
-    let key, val, errThrown, subPath
+    let data = ''
+    let key, val
     let loopObj = this.newLoopObj(obj, dataType, options.sortKeys)
     let filtered = []
     let bFilteredTop = false
@@ -370,82 +230,70 @@ export default class Dump extends React.Component {
 
     cache.level++
 
+    if (numTotalKeys === 0) {
+      return this.doRowHeaderEmpty(dataType, label)
+    }
+
     for (let i = 0; i < loopObj.length; i++) {
       key = loopObj[i]
-      let { errThrown, val } = this.resolveObjKey(obj, key)
-      let { bContinue, numKeysHidden, bFilteredTop, bIsFirstCall } = this.doComplexObjFirstCall(currentPath, numKeysHidden, numKeysShown, options, key)
+// todo don't like data updated by reference
+      val = this.resolveObjKey(obj, key, dataType, expandCells, data)
+      let { bContinue, numKeysHidden, bFilteredTop } = this.doComplexObjFirstCall(currentPath, numKeysHidden, numKeysShown, options, key)
       if (!bContinue) break;
 
-      let { numKeysHidden } = this.skipComplexObjHiddenTypes(obj, options, numKeysHidden )
+      // increment numKeysHidden when hiding requested types
+      numKeysHidden = this.skipComplexObjHiddenTypes(obj, options, numKeysHidden )
 
+      // numKeysShown is incremented regardless of hidden or not
       numKeysShown++
-      if (options.levels !== null && currentPath.length > options.levels) {
-        cache.bFilteredLevel = true
-        data += this.doRow(dataType, key, '', true)
-        continue
+
+      // update cache & write row if requested level exists and is exceeded
+// todo: ddon't like data updated by reference
+      cache = this.cacheFilteredLevel(options, currentPath, cache, dataType, key, data)
+
+      let subPath = this.clone(currentPath, 'Array').push(key)
+
+      // recursively dump...
+      data += this.doRow(dataType, key, this.dumpObject(val, options, cache, subPath), expand, expandCells)
+    } // loop dun
+
+    if (bIsFirstCall) {
+      if (numKeysShown !== numTotalKeys) {
+        if (options.show || options.hideTypes) {
+          filtered.push(format(TITLEFILTEREDSHOWN, numKeysShown, numTotalKeys))
+        } else if(options.hide) {
+          filtered.push(format(TITLEFILTEREDHIDDEN, numKeysHidden, numTotalKeys))
+          numTotalKeys -= numKeysHidden
+        }
+        if (!(options.show || options.hideTypes) && bFilteredTop) {
+          filtered.push(format(TITLEFILTEREDTOP, numKeysShown, numTotalKeys))
+        }
       }
-
-      if (errThrown.length > 0) {
-        let errorRow = this.doRowHeader1Col(ERRORDATATYPE, ERRORDATATYPE, true)
-        + this.doRow1Col(ERRORDATATYPE, errThrown, true)
-//                        + this.doRow1Col(ERRORDATATYPE, '<pre><code class="lang-javascript">'+hljs.highlight('javascript', errThrown).value+'</code></pre>', true);
-        data += this.doRow(dataType, key, this.doTable({ERRORDATATYPE}, {errorRow}), expandCells)
-        continue
+      if (cache.bFilteredLevel) {
+        filtered.push(format(TITLEFILTEREDLEVELS, options.levels))
       }
-
-      subPath = this.clone(currentPath, 'Array')
-      subPath.push(key)
-
-      data += this.doRow(dataType, key, this.dumpObject(val, cache, subPath, options), expand, expandCells)
+    } else if (options.hideTypes && numKeysShown !== numTotalKeys) {
+      // show the filtered label for types being hidden
+      filtered.push(format(TITLEFILTEREDSHOWN, numKeysShown, numTotalKeys))
     }
 
-    if (numTotalKeys === 0) {
-      bEmpty = true
-    } else {
-      if (bIsFirstCall) {
-        if (numKeysShown !== numTotalKeys) {
-          if (options.show || options.hideTypes) {
-            filtered.push(format(TITLEFILTEREDSHOWN, numKeysShown, numTotalKeys))
-          } else if(options.hide) {
-            filtered.push(format(TITLEFILTEREDHIDDEN, numKeysHidden, numTotalKeys))
-            numTotalKeys -= numKeysHidden
-          }
-          if (!(options.show || options.hideTypes) && bFilteredTop) {
-            filtered.push(format(TITLEFILTEREDTOP, numKeysShown, numTotalKeys))
-          }
-        }
-        if (cache.bFilteredLevel) {
-          filtered.push(format(TITLEFILTEREDLEVELS, options.levels))
-        }
-      } else if (options.hideTypes && numKeysShown !== numTotalKeys) {
-        // show the filtered label for types being hidden
-        filtered.push(format(TITLEFILTEREDSHOWN, numKeysShown, numTotalKeys))
-      }
-
-      if (filtered.length > 0) {
-        label += format(TITLEFILTERED, filtered.join(', '))
-      }
-      data = this.doRowHeader(dataType, label, expand) + data
+    if (filtered.length > 0) {
+      label += format(TITLEFILTERED, filtered.join(', '))
     }
+    data = this.doRowHeader(dataType, label, expand) + data
+
   }
-
-//break;
-//}
-
-
-
-  // }
 
   // hard to understand when this would ever happen...
   doComplexObjFirstCall = (currentPath, numKeysHidden, numKeysShown, options, key) => {
+    let bIsFirstCall = (currentPath.length === 0)
     let r = {
         bContinue: true
       , numKeysHidden: numKeysHidden
       , bFilteredTop: false
-      , bIsFirstCall: (currentPath.length === 0)
     }
 
-    if (r.bIsFirstCall) {
+    if (bIsFirstCall) {
       if(!(!options.show || (options.show.length && (options.show.indexOf(key) >= 0 || options.show.indexOf(Number(key)) >= 0)))){
         r.numKeysHidden = numKeysHidden++
       } else if (options.hide && options.hide.length && (options.hide.indexOf(key) >= 0 || options.hide.indexOf(Number(key)) >= 0 || options.hide.filter(isRegExp).some( (regExp) => regExp.test(key) ))) {
@@ -461,12 +309,12 @@ export default class Dump extends React.Component {
 
   //  skip any data types that should be hidden
   skipComplexObjHiddenTypes = (obj, options, numKeysHidden ) => {
-    let r = { numKeysHidden: numKeysHidden }
+    let r = numKeysHidden
     let dataType = this.getDataType(obj)
 
     if (options.hideTypes &&
        (options.hideTypes.indexOf(dataType) > -1 || options.hideTypes.indexOf(dataType.toLowerCase()) > -1) ) {
-      r.numKeysHidden++
+      r++
     }
 
     return r
@@ -487,19 +335,20 @@ export default class Dump extends React.Component {
     return loopObj
   }
 
-  resolveObjKey = (obj, key) => {
-    let r = { errThrown:'' }
+  resolveObjKey = (obj, key, dataType, expandCells, data) => {
+    let val
     try {
-      r.val = obj[key]
+      val = obj[key]
     } catch(err) {
-      r.errThrown = err.toString()
+      let errorRow = this.doRowHeader1Col(ERRORDATATYPE, ERRORDATATYPE, true) + this.doRow1Col(ERRORDATATYPE, err.toString(), true)
+        // + this.doRow1Col(ERRORDATATYPE, '<pre><code class="lang-javascript">'+hljs.highlight('javascript', errThrown).value+'</code></pre>', true);
+        data += this.doRow(dataType, key, this.doTable( ERRORDATATYPE, errorRow), expandCells)
     }
-    return r
+    return val
   }
 
-
   // figure out if it should be expanded/collapsed
-  expandOrCollapse = (options, dataType) => {
+  expandedOrCollapsed = (options, dataType) => {
     let {expand} = options
     let ret = expand
 
@@ -521,56 +370,35 @@ export default class Dump extends React.Component {
     return ret
   }
 
+  cacheFilteredLevel = (options, currentPath, cache, dataType, key, data) => {
+    let r = cache
+    if (options.levels !== null && currentPath.length > options.levels) {
+      r.bFilteredLevel = true
+      data += this.doRow(dataType, key, '', true)
+    }
+    return r
+  }
 
-  /*
-   * Creates tables
-   *
-   * @param {string} dataType
-   * @param {string} data body for the table
-   * @returns the output for the table
-   */
   doTable = (dataType, data) => {
     return format(TABLE, dataType, data)
   }
 
-  /*
-   * Builds the style tag for the headers of tables
-   *
-   * @param {string} dataType
-   * @param {Boolean} expand
-   * @returns {String|EXPANDEDLABELSTYLE|COLLAPSEDLABELSTYLE}
-   */
+  // Builds the style tag for the headers of tables
   doHeaderStyle = (dataType, expand) => {
     return expand ? EXPANDEDLABELSTYLE : COLLAPSEDLABELSTYLE
   }
 
-  /*
-   * Builds the style tag for a row
-   *
-   * @param {string} dataType
-   * @param {Boolean} expand
-   * @returns {COLLAPSEDSTYLE|String}
-   */
+   // Builds the style tag for a row
   doRowStyle = (dataType, expand) => {
     return expand ? '' : COLLAPSEDSTYLE
   }
 
-  /*
-   * Builds the style tag for the label cell
-   *
-   * @param {Boolean} expand
-   * @returns {String|COLLAPSEDLABELSTYLE|EXPANDEDLABELSTYLE}
-   */
+   // Builds the style tag for the label cell
   doCellLabelStyle = (expand) => {
     return expand ? EXPANDEDLABELSTYLE : COLLAPSEDLABELSTYLE
   }
 
-  /*
-   * Builds the style tag for the data cell
-   *
-   * @param {Boolean} expand
-   * @returns {String|COLLAPSEDSTYLE}
-   */
+   // Builds the style tag for the data cell
   doCellStyle = (expand) => {
     return expand ? '' : COLLAPSEDSTYLE
   }
@@ -599,7 +427,7 @@ export default class Dump extends React.Component {
    */
   doRow = (dataType, key, data, expand, expandCell) => {
     return format(
-      ROW
+        ROW
       , this.doRowStyle(dataType, expand)
       , dataType
       , this.doCellLabelStyle(expandCell)
@@ -632,34 +460,17 @@ export default class Dump extends React.Component {
     return format(ROW1COL, this.doRowStyle(dataType, expand), data)
   }
 
-  /*
-   * Builds the empty row
-   *
-   * @param {string} dataType
-   * @param {string} data
-   * @returns {string}
-   */
+  // Builds the empty row
   doRowEmpty = (dataType, data) => {
     return format(ROWEMPTY, dataType, data, EMPTY)
   }
 
-  /*
-   * Builds the header row for empty vars
-   *
-   * @param {string} dataType
-   * @param {string} data
-   * @returns {string}
-   */
+   // Builds the header row for empty vars
   doRowHeaderEmpty = (dataType, data) => {
     format(ROWHEADEREMPTY, dataType, data, EMPTY)
   }
 
-  /*
-   * Encodes HTML strings so they are displayed as such
-   *
-   * @param {string} html
-   * @returns {string}
-   */
+   // Encodes HTML strings so they are displayed as such
   escapeHtml = (html) => {
     return String(html)
       .replace(/&(?!\w+;)/g, '&amp;')
@@ -682,7 +493,7 @@ export default class Dump extends React.Component {
     return dataType
   }
 
-  // tbd use immmutables?
+  // todo
   /*
    * Clones variables to avoid pass by reference issues
    *
@@ -747,16 +558,4 @@ export default class Dump extends React.Component {
 
 }
 
-Dump.defaultProps = {
-    obj: null
-  , collapse: false
-  , expand: true // quack. sometimes an array of types which should appear expanded
-  , hide: null
-  , hideTypes: null // data types that should be hidden
-  , label: null
-  , levels: null
-  , show: null
-  , sortKeys: true
-  , syntaxHighlight: false
-  , top: null
-}
+Dump.defaultProps = defaultProps
