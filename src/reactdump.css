@@ -48,6 +48,6 @@ table.reactdump-RegExp td.reactdump-RegExp { background-color: #ffddff; }
 table.reactdump-Error { background-color: #CC3300; }
 table.reactdump-Error th.reactdump-Error { background-color: #CC3300; }
 table.reactdump-Error td.reactdump-data { white-space: pre; }
-table.reactdump-Circular-Reference, table.reactdump-Error-thrown { background-color: #333333; }
+table.reactdump-Circular-Reference, table.reactdump-Error { background-color: #333333; }
 table.reactdump-Circular-Reference td.reactdump-Circular-Reference, table.reactdump-Error-thrown th.reactdump-Error-thrown { background-color: #333333; }
 table.reactdump-Circular-Reference td.reactdump-label { color: #ffffff; }
