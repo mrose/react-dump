@@ -1,5 +1,5 @@
 import React from 'react'
-import getDataType from  './getDataType'
+import getObjectClassName from './getObjectClassName'
 import Boolean from './Boolean'
 import String from './String'
 import Math from './Math'
@@ -19,14 +19,7 @@ const defaultProps = {
     obj: null
   , opts: {
         label: '' // string header for top level header dump output
-                     // in previous versions, expand could be an array of dataTypes to expand
-      , expand: true // expands views
-      , output: 'browser' // NOT IMPLEMENTED where to send results browser|console|file
-      , format: 'html' // NOT IMPLEMENTED output text or HTML format
-      , hide: null // NOT IMPLEMENTED hide column or keys
-      , keys: null // NOT IMPLEMENTED For a structure, number of keys to display
-      , show: null // NOT IMPLEMENTED show column or keys
-      , top: null // NOT IMPLEMENTED The number of rows to display. For a structure, this is the number of nested levels to display (useful for large stuctures)
+      , expand: true // boolean, expands views
     }
   , cache: {
       bFilteredLevel: false
@@ -34,70 +27,51 @@ const defaultProps = {
     , objects: []
     , paths: []
   }
-
   , currentPath: []
 }
+
+/*
+// in previous versions, expand could be an array of object class names to expand
+, opts.output: 'browser' // NOT IMPLEMENTED where to send results browser|console|file
+, opts.format: 'html' // NOT IMPLEMENTED output text or HTML format
+, opts.hide: null // NOT IMPLEMENTED hide column or keys
+, opts.keys: null // NOT IMPLEMENTED For a structure, number of keys to display
+, opts.show: null // NOT IMPLEMENTED show column or keys
+, opts.top: null // NOT IMPLEMENTED The number of rows to display. For a structure, this is the number of nested levels to display (useful for large stuctures)
+*/
 
 export default class DataTyper extends React.Component {
 
 
   render() {
-    let dataType = getDataType(this.props.obj)
-    let label = dataType
-    if ( this.props.currentPath === '[TOP]' ) {
-      label = this.opts.label + ' - ' + dataType
-      //      if (opts.label) {
-      //        opts.label += ' - ' + this.getDataType(obj)
-              /*
-              topPath += ' ' + options.label;
-              if(topPath.length > CIRCULARTOPSTRINGLIMIT)
-                topPath = topPath.substr(0, CIRCULARTOPSTRINGLIMIT) + '...';
-                topPath += ' - ' + dataType;
-              */
-      //      }
+    let objectClassName = getObjectClassName(this.props.obj)
+    let opts = {...this.props.opts}
+    opts.label = objectClassName
+    if ( this.props.currentPath.length === 1 ) {
+      opts.label = this.props.opts.label + ' - ' + objectClassName
     }
 
-    switch (dataType) {
-      case 'Boolean':
-        return <Boolean obj={this.props.obj} label={label} expand={this.props.opts.expand} expandCells={this.props.opts.expand} />
+    let classes = {
+        Array: <Arr obj={this.props.obj} opts={opts} cache={this.props.cache} currentPath={this.props.currentPath} />
+      , Boolean: <Boolean obj={this.props.obj} opts={opts} />
+      , Date: <Date obj={this.props.obj} opts={opts} />
+      , Error: <Error obj={this.props.obj} opts={opts} />
+      , Function: <Function obj={this.props.obj} opts={opts} />
+      , Math: <Math obj={this.props.obj} opts={opts} />
+      , Null: <Null obj={this.props.obj} opts={opts} />
+      , Number: <Number obj={this.props.obj} opts={opts} />
+      , Object: <Obj obj={this.props.obj} opts={opts} cache={this.props.cache} currentPath={this.props.currentPath} />
+      , RegExp: <RegExp obj={this.props.obj} opts={opts} />
+      , String: <String obj={this.props.obj} opts={opts} />
+      , Undefined: <Undefined obj={this.props.obj} opts={opts} />
+    }
 
-      case 'String':
-        return <String obj={this.props.obj} label={label} expand={this.props.opts.expand} expandCells={this.props.opts.expand} />
+    // when found in the classes array:
+    if ( Object.keys(classes).indexOf(objectClassName) >= 0 ) {
+      return classes[objectClassName]
+    }
+    return <Error obj={this.props.obj} opts={{label:'Unknown Class', expand:opts.expand}} />
 
-      case 'Math':
-        return <Math obj={this.props.obj} label={label} expand={this.props.opts.expand} />
-
-      case 'Undefined':
-        return <Undefined obj={this.props.obj} label={label} expand={this.props.opts.expand} />
-
-      case 'Null':
-        return <Null obj={this.props.obj} label={label} expand={this.props.opts.expand} />
-
-      case 'Date':
-        return <Date obj={this.props.obj} label={label} expand={this.props.opts.expand} expandCells={this.props.opts.expand} />
-
-      case 'Number':
-        return <Number obj={this.props.obj} label={label} expand={this.props.opts.expand} expandCells={this.props.opts.expand} />
-
-      case 'RegExp':
-        return <RegExp obj={this.props.obj} label={label} expand={this.props.opts.expand} />
-
-      case 'Error':
-        return <Error obj={this.props.obj} label={label} expand={this.props.opts.expand} />
-
-      case 'Function':
-        return <Function obj={this.props.obj} label={label} expand={this.props.opts.expand} />
-
-      case 'Array':
-        return <Arr obj={this.props.obj} label={label} opts={this.props.opts} cache={this.props.cache} currentPath={this.props.currentPath} />
-
-      case 'Object':
-        return <Obj obj={this.props.obj} label={label} expand={this.props.opts.expand} />
-
-      default:
-        return <Error obj={this.props.obj} label='Unknown Data Type' expand={this.props.opts.expand} />
-
-      } // /switch
   }
 
 }

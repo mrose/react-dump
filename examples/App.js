@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Dump from 'react-dump';
+import React from 'react'
+import ReactDump from 'react-dump'
 
-class App extends Component {
+class App extends React.Component {
   render() {
     // build object to be dumped
     let validate = () => false
@@ -14,7 +12,7 @@ class App extends Component {
       updateSession();
       this.signedIn = true;
       return true;
-    };
+    }
     let user = {
         firstName: 'Charles'
         ,lastName: 'Teague'
@@ -31,21 +29,15 @@ class App extends Component {
                 ,status: 'Been there done that'
             }
         ]
-    };
-    //        <div dangerouslySetInnerHTML={{__html: dump(user) }} />
+    }
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
         <Dump obj={user}/>
       </div>
-    );
+    )
   }
+
 }
 
-export default App;
+export default App

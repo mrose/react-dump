@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Reactdump from '../src/Reactdump';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Reactdump from '../src/components/Reactdump'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
@@ -8,10 +8,10 @@ it('renders without crashing', () => {
   const updateSession = () => { }
   const signIn = (username, password) => {
     // validate username and password
-    if (!validate(username, password)) return false;
-    updateSession();
-    this.signedIn = true;
-    return true;
+    if (!validate(username, password)) return false
+    updateSession()
+    this.signedIn = true
+    return true
   }
 
   const user = {
@@ -30,8 +30,8 @@ it('renders without crashing', () => {
         ,status: 'Been there done that'
       }
     ]
-};
+  }
 
+  ReactDOM.render(<Reactdump obj={user} />, div)
 
-  ReactDOM.render(<Reactdump obj={user} />, div);
-});
+})

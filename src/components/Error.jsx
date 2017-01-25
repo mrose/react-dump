@@ -6,16 +6,18 @@ import RowHeader from './RowHeader'
 // assigned to component after component definition, no hoisting within
 const defaultProps = {
     obj: null
-  , label: ''
-  , expand: true
+  , opts: {
+        label: 'Error'
+      , expand: true
+    }
 }
 
 export default class Error extends React.Component {
   render() {
     return (
-      <Table dataType='Error' >
-        <RowHeader dataType='Error' label={this.props.label} expand={this.props.expand} cols='1' />
-        <Row dataType='Error' label={this.props.label} expand={this.props.expand} expandCells={this.props.expandCells}>
+      <Table className='reactdump reactdump-Error' >
+        <RowHeader className='reactdump-label reactdump-Error' label={this.props.opts.label} expand={this.props.opts.expand} cols='1' />
+        <Row className='reactdump-label reactdump-Error' label={this.props.opts.label} expand={this.props.opts.expand} expandCells={this.props.opts.expand}>
           {this.props.obj.toString()}
         </Row>
       </Table>

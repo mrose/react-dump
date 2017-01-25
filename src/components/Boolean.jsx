@@ -5,18 +5,18 @@ import Row from './Row'
 // assigned to component after component definition, no hoisting within
 const defaultProps = {
     obj: null
-  , label: ''
-  , expand: true
-  , expandCells: true
+  , opts: {
+        label: 'Boolean'
+      , expand: true
+    }
 }
 
 export default class Boolean extends React.Component {
   render() {
-    const classNm = this.props.obj ? 'reactdump-yes' : 'reactdump-no'
     return (
-      <Table dataType='Boolean' >
-        <Row dataType='Boolean' label={this.props.label} expand={this.props.expand} expandCell={this.props.expandCells}>
-          <span className={classNm}>{this.props.obj.toString()}</span>
+      <Table className='reactdump reactdump-Boolean' >
+        <Row className='reactdump-label reactdump-Boolean' label={this.props.opts.label} expand={this.props.opts.expand} expandCell={this.props.opts.expand}>
+          <span className={this.props.obj ? 'reactdump-yes' : 'reactdump-no'}>{this.props.obj.toString()}</span>
         </Row>
       </Table>
     )

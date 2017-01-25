@@ -2,19 +2,19 @@ import React from 'react'
 import Table from './Table'
 import Row from './Row'
 
-// assigned to component after component definition, no hoisting within
 const defaultProps = {
     obj: null
-  , label: ''
-  , expand: true
-  , expandCells: true
+  , opts: {
+        label: 'Number'
+      , expand: true
+    }
 }
 
 export default class Number extends React.Component {
   render() {
     return (
-      <Table dataType='Number' >
-        <Row dataType='Number' label={this.props.label} expand={this.props.expand} expandCells={this.props.expandCells}>
+      <Table className='reactdump reactdump-Number' >
+        <Row className='reactdump-label reactdump-Number' label={this.props.opts.label} expand={this.props.opts.expand} expandCells={this.props.opts.expand}>
           {this.props.obj.toString()}
         </Row>
       </Table>

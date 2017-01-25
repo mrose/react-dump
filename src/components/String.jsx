@@ -3,12 +3,12 @@ import Table from './Table'
 import Row from './Row'
 import escapeHtml from './escapeHtml'
 
-// assigned to component after component definition, no hoisting within
 const defaultProps = {
     obj: null
-  , label: ''
-  , expand: true
-  , expandCells: true
+  , opts: {
+        label: 'String'
+      , expand: true
+    }
 }
 
 export default class String extends React.Component {
@@ -16,8 +16,8 @@ export default class String extends React.Component {
   render() {
     if (this.props.obj.length !== 0) {
       return (
-        <Table dataType='String' >
-          <Row dataType='String' label={this.props.label} expand={this.props.expand} expandCell={this.props.expandCells}>
+        <Table className='reactdump reactdump-String' >
+          <Row className='reactdump-label reactdump-String' label={this.props.opts.label} expand={this.props.opts.expand} expandCell={this.props.opts.expand}>
             {escapeHtml(this.props.obj)}
           </Row>
         </Table>

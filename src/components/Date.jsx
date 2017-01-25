@@ -5,16 +5,17 @@ import Row from './Row'
 // assigned to component after component definition, no hoisting within
 const defaultProps = {
     obj: null
-  , label: ''
-  , expand: true
-  , expandCells: true
+  , opts: {
+        label: 'Date'
+      , expand: true
+    }
 }
 
 export default class Date extends React.Component {
   render() {
     return (
-      <Table dataType='Date' >
-        <Row dataType='Date' label={this.props.label} expand={this.props.expand} expandCells={this.props.expandCells}>
+      <Table className='reactdump reactdump-Date' >
+        <Row className='reactdump-label reactdump-Date' label={this.props.opts.label} expand={this.props.opts.expand} expandCells={this.props.opts.expand}>
         {this.props.obj.toString()}
         </Row>
       </Table>

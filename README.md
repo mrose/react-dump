@@ -5,7 +5,7 @@ Inspired by Andrew Hewitt's [nodedump](https://github.com/ragamufin/nodedump)
 
 Think of it as `console.log` on steroids. Recurses fully into levels deep objects.
 Sometimes visualizing a complex object makes it easier to think about.
-For example, ```<Reactdump obj={user} />``` might yield:
+For example, ```<ReactDump obj={user} />``` might yield:
 
 ![Reactdump example](https://raw.github.com/ragamufin/nodedump/master/images_for_readme/nodedump-user.png "Reactdump of variable 'user'")
 
@@ -17,11 +17,11 @@ Usage
 -----
 Import to your component:
 
-```import Dump from 'react-dump';```
+```import ReactDump from 'react-dump';```
 
 Include within your component's render() method, passing the object and an optional opts argument
 
-```<Dump obj={user} />```
+```<ReactDump obj={user} />```
 
 License
 -------
