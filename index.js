@@ -1,1 +1,1 @@
-module.exports = require('./src/Reactdump.js');
+module.exports = require('./src/components/ReactDump.js');
