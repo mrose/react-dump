@@ -1,1 +1,8 @@
 /src/
+/lib/*.html
+/lib/*.map
+/lib/*.json
+/tests/
+/scripts/
+/public/
+/config/
