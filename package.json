@@ -2,8 +2,9 @@
   "name": "react-dump",
   "version": "0.1.9",
   "description": "A visual debugging component for React",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build": ". scripts/build.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,15 +21,21 @@
     "cfdump",
     "nodedump"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^15.3.2"
-    },
+  },
   "author": "Mitchell M. Rose",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mrose/react-dump/issues"
   },
-  "homepage": "https://github.com/mrose/react-dump#readme"
+  "homepage": "https://github.com/mrose/react-dump#readme",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-plugin-transform-react-jsx": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react-app": "^2.0.1"
+  }
 }
