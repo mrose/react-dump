@@ -1,4 +1,7 @@
 # react-dump
+
+[![NPM](https://nodei.co/npm/react-dump.png?downloads=true)](https://nodei.co/npm/react-dump/)
+
 A visual debugging component for React.
 Outputs any variable in an easy to read format based on ColdFusion's CFDUMP tag.
 
