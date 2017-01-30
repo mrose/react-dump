@@ -24,8 +24,8 @@ export default class String extends React.Component {
       )
     }
     return (
-      <Table dataType='String' >
-        <Row dataType='String' >
+      <Table className='reactdump reactdump-String' >
+        <Row className='reactdump-label reactdump-String' >
           [empty]
         </Row>
       </Table>
