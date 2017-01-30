@@ -21,7 +21,7 @@ Import to your component:
 
 ```import ReactDump from 'react-dump';```
 
-Include within your component's render() method, passing the object and an optional opts argument
+Include within your component's render() method, passing the object and optional arguments
 
 ```<ReactDump obj={user} />```
 

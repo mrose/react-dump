@@ -1,6 +1,6 @@
 import React from 'react'
 import DataTyper from './DataTyper'
-import '../reactdump.css'
+import './ReactDump.css'
 
 // assigned to component after component definition, no hoisting within
 const defaultProps = {
