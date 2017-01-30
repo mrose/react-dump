@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import ReactDump from './components/Reactdump'
+import ReactDump from './components/ReactDump'
 
 class App extends React.Component {
   render() {
