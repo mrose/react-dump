@@ -12,7 +12,7 @@ table.reactdump .reactdump-label { cursor:pointer; }
 --table.reactdump th { text-align: left; color: white; padding: 5px; background-color: #cccccc; }
 --table.reactdump td { vertical-align : top; padding: 3px; background-color: #eeeeee; }
 table.reactdump { background-color: #707000; }
-table.reactdump th { text-align: left; color: white; padding: 5px; background-color: #ADAD00; }
+table.reactdump th { cursor:pointer; text-align: left; color: white; padding: 5px; background-color: #ADAD00; }
 table.reactdump td { vertical-align : top; padding: 3px; background-color: #FFFF9E; }
 
 table.reactdump td.reactdump-data { background-color: #ffffff; }

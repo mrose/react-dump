@@ -2,7 +2,6 @@ import React from 'react'
 import DataTyper from './DataTyper'
 import Table from './Table'
 import Row from './Row'
-import RowHeader from './RowHeader'
 import CircularReference from './CircularReference'
 import getPathToCircularRef from './getPathToCircularRef'
 
@@ -37,7 +36,7 @@ export default class Obj extends React.Component {
     }
     let c = 0
 
-    // if a circular ref, write it and be done
+    // handle circular refs
     const circPath = getPathToCircularRef(obj, cache, currentPath)
     if (circPath.length > 0) {
       return <CircularReference expand={this.props.opts.expand} circPath={circPath} />
@@ -49,12 +48,12 @@ export default class Obj extends React.Component {
       let element = obj[i]
       let subPath = [...currentPath]
       subPath.push(i)
+
       rows.push(<Row key={c} className='reactdump-label reactdump-Object' label={i} title={i} expand={this.props.opts.expand} ><DataTyper obj={element} opts={{expand:this.props.opts.expand}} cache={cache} currentPath={subPath}/></Row>)
       c++
     }
     return (
-      <Table className='reactdump reactdump-Object' >
-        <RowHeader className='reactdump-label reactdump-Object' label={label} expand={this.props.opts.expand} />
+      <Table className='reactdump reactdump-Object' label={label}>
         {rows}
       </Table>
     )

@@ -2,7 +2,6 @@ import React from 'react'
 import DataTyper from './DataTyper'
 import Table from './Table'
 import Row from './Row'
-import RowHeader from './RowHeader'
 import CircularReference from './CircularReference'
 import getPathToCircularRef from './getPathToCircularRef'
 
@@ -52,8 +51,7 @@ export default class Arr extends React.Component {
     }
 
     return (
-      <Table className='reactdump reactdump-Array' >
-        <RowHeader className='reactdump-label reactdump-Array' label={label} expand={this.props.opts.expand} />
+      <Table className='reactdump reactdump-Array' label={label}>
         {rows}
       </Table>
     )
