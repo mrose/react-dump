@@ -13,20 +13,32 @@ const defaultProps = {
 
 export default class String extends React.Component {
   //var val = '<pre><code class="lang-html">' + hljs.highlight('xml', obj).value + '</code></pre>';
-  render() {
-    if (this.props.obj.length !== 0) {
-      return (
-        <Table className='reactdump reactdump-String' >
-          <Row className='reactdump-label reactdump-String' label={this.props.opts.label} expand={this.props.opts.expand} expandCell={this.props.opts.expand}>
-            {escapeHtml(this.props.obj)}
-          </Row>
-        </Table>
-      )
+
+  getRowProps = () => {
+    let props = {
+      className:'reactdump-label reactdump-String'
     }
+    if (this.props.obj.length !== 0) {
+      props.label = this.props.opts.label
+      props.expand = this.props.opts.expand
+    }
+    return props
+  }
+
+  getTxt = (obj) => {
+    let txt = '[empty]'
+    if (obj.length !== 0) {
+      txt = escapeHtml(obj)
+    }
+    return txt
+  }
+
+
+  render() {
     return (
       <Table className='reactdump reactdump-String' >
-        <Row className='reactdump-label reactdump-String' >
-          [empty]
+        <Row {...this.getRowProps()} >
+          {this.getTxt(this.props.obj)}
         </Row>
       </Table>
     )

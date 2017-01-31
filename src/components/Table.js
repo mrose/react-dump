@@ -12,7 +12,7 @@ export default class Table extends React.Component {
 
   handleClick = () => {
 
-    alert( 'clicked')
+//    alert( 'clicked')
 //    this.setState( previousState => ({
 //      expand: !previousState.expand
 //    }))

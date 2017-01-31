@@ -32,8 +32,8 @@ export default class Row extends React.Component {
   }
 
   handleClick = () => {
-console.log( 'expand is: ' + this.state.expand )
-console.log( 'cols: ' + this.props.cols )
+//console.log( 'expand is: ' + this.state.expand )
+//console.log( 'cols: ' + this.props.cols )
 
     this.setState( previousState => ({
       expand: !previousState.expand
