@@ -27,8 +27,8 @@ table.reactdump-Boolean { background-color : #eebb00; }
 table.reactdump-Boolean td.reactdump-Boolean { background-color: #FFDA75; }
 table.reactdump-Boolean td.reactdump-data span.reactdump-no { color: #aa0000; }
 table.reactdump-Boolean td.reactdump-data span.reactdump-yes { color: #008800; }
-table.reactdump-Date { background-color: #CE8D98; }
-table.reactdump-Date td.reactdump-Date { background-color: #ffcbd4; }
+table.reactdump-Date { background-color: #9252C7; }
+table.reactdump-Date td.reactdump-Date { background-color: #C78EF5; }
 table.reactdump-Math td.reactdump-data { color: white; font-weight: bold; background-color: #ADAD00; }
 table.reactdump-Null, table.reactdump-Undefined { background-color: #333333; }
 table.reactdump-Null td.reactdump-data, table.reactdump-Undefined td.reactdump-data { color:#ffffff; background-color: #333333; }
