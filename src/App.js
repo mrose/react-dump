@@ -14,22 +14,36 @@ class App extends React.Component {
       this.signedIn = true
       return true
     }
+    let spectra = {
+                      name: 'Allaire Spectra'
+                      , status: 'Horrible death'
+                  }
+
+    let projects= [
+                spectra
+                ,{
+                    name: 'ColdFusion 4.5'
+                    ,status: 'Been there done that'
+                }
+            ]
+
     let user = {
         firstName: 'Charles'
         ,lastName: 'Teague'
         ,age: 21
+        ,birthday: new Date('Nov. 22, 1958')
         ,signedIn: false
         ,signIn: signIn
-        ,projects: [
-            {
-                name: 'Allaire Spectra'
-                , status: 'Horrible death'
-            }
-            ,{
-                name: 'ColdFusion 4.5'
-                ,status: 'Been there done that'
-            }
-        ]
+        ,projects: projects
+        ,someProjects: [
+          {
+            name: 'someOtherProject'
+            , status: 'defunct'
+          }
+          ,{ projects: projects }
+          , spectra
+          ]
+        , emptyArray: []
     }
 
 // <Dump obj={user} label="top-one" />

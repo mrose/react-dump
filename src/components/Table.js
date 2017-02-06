@@ -1,30 +1,37 @@
 import React from 'react'
 
-
-// assigned to component after component definition, no hoisting within
 const defaultProps = {
-    className: null
+    className: 'reactDump'
   , label: ''
   , cols: '2'
+  , expand: true
 }
 
 export default class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state =  { expand: props.expand }
+  }
+
 
   handleClick = () => {
+    this.setState( previousState => ({
+      expand: !previousState.expand
+    }))
+  }
 
-//    alert( 'clicked')
-//    this.setState( previousState => ({
-//      expand: !previousState.expand
-//    }))
-
-//    this.toggleTarget(target, this.toggleSource(src))
+  getTbodyProps = () => {
+    if (!this.state.expand) {
+      let props = { }
+      props.style = {display:'none'}
+      return props
+    }
   }
 
   header = () => {
     if (!this.props.label.length) {
       return
     }
-
     return (
       <thead>
         <tr>
@@ -40,7 +47,7 @@ export default class Table extends React.Component {
     return (
       <table className={this.props.className}>
         {this.header()}
-        <tbody>{this.props.children}</tbody>
+        <tbody {...this.getTbodyProps()}>{this.props.children}</tbody>
       </table>
     )
   }

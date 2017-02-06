@@ -15,7 +15,7 @@ const defaultProps = {
 export default class Function extends React.Component {
   render() {
     return (
-      <Table className='reactdump reactdump-Function' label='Function' cols='1'>
+      <Table className='reactdump reactdump-Function' label='Function' cols='1' expand={this.props.opts.expand}>
         <Row className='reactdump-label reactdump-Function' label={this.props.opts.label} expand={this.props.opts.expand} cols="1">
           <pre>
           <code className="lang-javascript">

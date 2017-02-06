@@ -14,7 +14,7 @@ const defaultProps = {
 export default class Boolean extends React.Component {
   render() {
     return (
-      <Table className='reactdump reactdump-Boolean' >
+      <Table className='reactdump reactdump-Boolean' expand={this.props.opts.expand}>
         <Row className='reactdump-label reactdump-Boolean' label={this.props.opts.label} expand={this.props.opts.expand} expandCell={this.props.opts.expand}>
           <span className={this.props.obj ? 'reactdump-yes' : 'reactdump-no'}>{this.props.obj.toString()}</span>
         </Row>

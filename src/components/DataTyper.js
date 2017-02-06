@@ -1,17 +1,17 @@
 import React from 'react'
-import getObjectClassName from './getObjectClassName'
+import Arr from './Arr'
 import Boolean from './Boolean'
-import String from './String'
-import Math from './Math'
-import Undefined from './Undefined'
-import Null from './Null'
 import Date from './Date'
-import Number from './Number'
-import RegExp from './RegExp'
 import Error from './Error'
 import Function from './Function'
-import Arr from './Arr'
+import getObjectClassName from './getObjectClassName'
+import Math from './Math'
+import Null from './Null'
+import Number from './Number'
 import Obj from './Obj'
+import RegExp from './RegExp'
+import String from './String'
+import Undefined from './Undefined'
 
 
 // assigned to component after component definition, no hoisting within
@@ -47,12 +47,14 @@ export default class DataTyper extends React.Component {
     let objectClassName = getObjectClassName(this.props.obj)
     let opts = {...this.props.opts}
     opts.label = objectClassName
+    let currentPath = this.props.currentPath
     if ( this.props.currentPath.length === 1 ) {
       opts.label = this.props.opts.label + ' - ' + objectClassName
+      currentPath=[this.props.opts.label]
     }
 
     let classes = {
-        Array: <Arr obj={this.props.obj} opts={opts} cache={this.props.cache} currentPath={this.props.currentPath} />
+        Array: <Arr obj={this.props.obj} opts={opts} cache={this.props.cache} currentPath={currentPath} />
       , Boolean: <Boolean obj={this.props.obj} opts={opts} />
       , Date: <Date obj={this.props.obj} opts={opts} />
       , Error: <Error obj={this.props.obj} opts={opts} />
@@ -60,7 +62,7 @@ export default class DataTyper extends React.Component {
       , Math: <Math obj={this.props.obj} opts={opts} />
       , Null: <Null obj={this.props.obj} opts={opts} />
       , Number: <Number obj={this.props.obj} opts={opts} />
-      , Object: <Obj obj={this.props.obj} opts={opts} cache={this.props.cache} currentPath={this.props.currentPath} />
+      , Object: <Obj obj={this.props.obj} opts={opts} cache={this.props.cache} currentPath={currentPath} />
       , RegExp: <RegExp obj={this.props.obj} opts={opts} />
       , String: <String obj={this.props.obj} opts={opts} />
       , Undefined: <Undefined obj={this.props.obj} opts={opts} />
@@ -70,7 +72,7 @@ export default class DataTyper extends React.Component {
     if ( Object.keys(classes).indexOf(objectClassName) >= 0 ) {
       return classes[objectClassName]
     }
-    return <Error obj={this.props.obj} opts={{label:'Unknown Class', expand:opts.expand}} />
+    return <Error obj={this.props.obj} opts={{label:'Unknown Class', expand:this.props.opts.expand}} />
 
   }
 

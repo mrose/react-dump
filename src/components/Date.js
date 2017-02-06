@@ -14,7 +14,7 @@ const defaultProps = {
 export default class Date extends React.Component {
   render() {
     return (
-      <Table className='reactdump reactdump-Date' >
+      <Table className='reactdump reactdump-Date' expand={this.props.opts.expand}>
         <Row className='reactdump-label reactdump-Date' label={this.props.opts.label} expand={this.props.opts.expand} expandCells={this.props.opts.expand}>
         {this.props.obj.toString()}
         </Row>

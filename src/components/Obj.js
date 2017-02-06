@@ -8,9 +8,9 @@ import getPathToCircularRef from './getPathToCircularRef'
 
 // assigned to component after component definition, no hoisting within
 const defaultProps = {
-    obj: null
+    obj: {}
   , opts: {
-        label: '' // string header for top level header dump output
+        label: 'Object' // string header for top level header dump output
                      // in previous versions, expand could be an array of dataTypes to expand
       , expand: true // expands views
     }
@@ -23,6 +23,7 @@ const defaultProps = {
   , currentPath: []
 }
 
+
 export default class Obj extends React.Component {
   render() {
     const obj = this.props.obj
@@ -31,6 +32,7 @@ export default class Obj extends React.Component {
     let cache = this.props.cache
     let currentPath = this.props.currentPath
     let rows = '[empty]'
+// TODO fix above
     if ( sparseKeys.length ) {
       rows = []
     }
@@ -48,12 +50,11 @@ export default class Obj extends React.Component {
       let element = obj[i]
       let subPath = [...currentPath]
       subPath.push(i)
-
       rows.push(<Row key={c} className='reactdump-label reactdump-Object' label={i} title={i} expand={this.props.opts.expand} ><DataTyper obj={element} opts={{expand:this.props.opts.expand}} cache={cache} currentPath={subPath}/></Row>)
       c++
     }
     return (
-      <Table className='reactdump reactdump-Object' label={label}>
+      <Table className='reactdump reactdump-Object' label={label} expand={this.props.opts.expand}>
         {rows}
       </Table>
     )

@@ -7,14 +7,13 @@ const defaultProps = {
   , circPath: []
 }
 
-const CIRCULARREFERENCE = 'Circular-Reference'
-
 export default class CircularReference extends React.Component {
   render() {
+    const p = this.props.circPath.join( '>>' )
     return (
-      <Table className='reactdump reactdump-Circular-Reference'>
-        <Row dataType={CIRCULARREFERENCE} label={CIRCULARREFERENCE} expand={this.props.expand} cols='1'>
-          {this.props.circPath.join(' &raquo; ')}
+      <Table className='reactdump reactdump-Circular-Reference' expand={this.props.expand}>
+        <Row className='reactdump-label reactdump-Circular-Reference' label='Circular-Reference' expand={this.props.expand} cols='2'>
+          {p}
         </Row>
       </Table>
     )

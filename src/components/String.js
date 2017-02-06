@@ -36,7 +36,7 @@ export default class String extends React.Component {
 
   render() {
     return (
-      <Table className='reactdump reactdump-String' >
+      <Table className='reactdump reactdump-String' expand={this.props.opts.expand}>
         <Row {...this.getRowProps()} >
           {this.getTxt(this.props.obj)}
         </Row>

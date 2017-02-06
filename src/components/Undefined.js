@@ -13,7 +13,7 @@ const defaultProps = {
 export default class Undefined extends React.Component {
   render() {
     return (
-      <Table className='reactdump reactdump-Undefined'>
+      <Table className='reactdump reactdump-Undefined' expand={this.props.opts.expand}>
         <Row className='reactdump-label reactdump-Undefined' label={this.props.opts.label} expand={this.props.opts.expand} cols='1'>
           {this.props.obj}
         </Row>

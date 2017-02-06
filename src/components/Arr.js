@@ -27,15 +27,16 @@ export default class Arr extends React.Component {
   render() {
     const obj = this.props.obj
     const sparseKeys = Object.keys(obj)
+    const label = `${this.props.opts.label} - (${sparseKeys.length})`
     let cache = this.props.cache
     let currentPath = this.props.currentPath
-    let rows = '[empty]' // assume empty
+    let rows = [<Row key='0' className='reactdump-label reactdump-Array' expand={this.props.opts.expand} cols='1'>[EMPTY]</Row>]
     if (sparseKeys.length) {
       rows = []
     }
-    const label = `${this.props.opts.label} - (${sparseKeys.length})`
+    let c = 0
 
-    // if a circular ref, write it and be done
+    // handle circular refs
     const circPath = getPathToCircularRef(obj, cache, currentPath)
     if (circPath.length > 0) {
       return <CircularReference expand={this.props.opts.expand} circPath={circPath} />
@@ -47,11 +48,12 @@ export default class Arr extends React.Component {
       let element = obj[i]
       let subPath = [...currentPath]
       subPath.push(i)
-      rows.push(<Row key={i} className='reactdump-label reactdump-Array' label={i} expand={this.props.opts.expand} ><DataTyper obj={element} opts={this.props.opts} cache={cache} currentPath={subPath}/></Row>)
+      rows.push(<Row key={c} className='reactdump-label reactdump-Array' label={i} title={i} expand={this.props.opts.expand} ><DataTyper obj={element} opts={{expand:this.props.opts.expand}} cache={cache} currentPath={subPath}/></Row>)
+      c++
     }
 
     return (
-      <Table className='reactdump reactdump-Array' label={label}>
+      <Table className='reactdump reactdump-Array' label={label} expand={this.props.opts.expand}>
         {rows}
       </Table>
     )

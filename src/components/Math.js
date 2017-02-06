@@ -13,7 +13,7 @@ const defaultProps = {
 export default class Math extends React.Component {
   render() {
     return (
-      <Table className='reactdump reactdump-Math'>
+      <Table className='reactdump reactdump-Math' expand={this.props.opts.expand}>
         <Row className='reactdump-label reactdump-Math' label={this.props.opts.label} expand={this.props.opts.expand} cols='1'>
           {this.props.obj}
         </Row>
