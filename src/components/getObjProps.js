@@ -6,8 +6,9 @@ import getPathToCircularRef from './getPathToCircularRef'
 const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
 
   obj = obj || new Error('No object provided') // Error when no object provided
-  opts.label = opts.label || '' // string label for object
   opts.expand = opts.expand || true // boolean, expands/collapses cells
+  opts.format = opts.format || 'html'
+  opts.label = opts.label || '' // string label for object
   cache = cache ||  { bFilteredLevel: false
                     , level: 0
                     , index: -1
@@ -24,7 +25,7 @@ const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
   if ( ['Object','Array'].indexOf(objectClassName) !== -1 ) {
     const pathToCircularReference = getPathToCircularRef( obj, cache.objects, cache.paths )
     if ( pathToCircularReference.length ) {
-      let objProps = mapObjProps( objName, cache.index, 'CircularReference', opts, [ ], pathToCircularReference )
+      let objProps = mapObjProps( 'CircularReference', obj, opts, objName, cache.index, [ ], pathToCircularReference )
       return { cache, objProps }
     }
   }
@@ -37,7 +38,7 @@ const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
   // add to cache
   cache.objects.push( obj )
   cache.paths.push( currentPath )
-  let objProps = mapObjProps( objName, cache.index, objectClassName, opts, [ ], currentPath )
+  let objProps = mapObjProps( objectClassName, obj, opts, objName, cache.index, [ ], currentPath )
 
   // recurse through complex objects
   if ( ['Object','Array'].indexOf(objectClassName) !== -1 ) {
@@ -84,8 +85,8 @@ const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
   }
 
 
-  function mapObjProps( name, index, objectClassName, opts, children, path ) {
-    return {name, index, objectClassName, opts, children, path }
+  function mapObjProps( objectClassName, obj, opts, name, index, children, path ) {
+    return { objectClassName, obj, opts, name, index, children, path }
   }
 
 }

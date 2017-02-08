@@ -28,7 +28,7 @@ export default class Row extends React.Component {
   }
 
   handleClick = () => {
-console.log( this.state.children.props || 'no props')
+//console.log( this.state.children.props || 'no props')
     // sometimes children is a text node, so
     if ( this.state.children.props  && this.state.children.props.cache ) {
       const cp = this.state.children.props.currentPath
@@ -36,7 +36,7 @@ console.log( this.state.children.props || 'no props')
       let paths = this.state.children.props.cache.paths
       const depth = cp.length
       for (let i in paths) {
-console.log( paths[i] )
+//console.log( paths[i] )
 
       }
 //      const ncp = this.state.children.props.cache.paths.forEach( this.shouldCopy )

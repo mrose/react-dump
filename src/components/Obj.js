@@ -39,10 +39,13 @@ export default class Obj extends React.Component {
     let c = 0
 
     // handle circular refs
-    const circPath = getPathToCircularRef(obj, cache, currentPath)
+    const circPath = getPathToCircularRef(obj, cache.objects, cache.paths)
     if (circPath.length > 0) {
       return <CircularReference expand={this.props.opts.expand} circPath={circPath} />
     }
+    // add to cache
+    cache.objects.push( obj )
+    cache.paths.push( currentPath )
 
     cache.level++
 
