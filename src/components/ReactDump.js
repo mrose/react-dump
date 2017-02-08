@@ -1,7 +1,7 @@
 import React from 'react'
-import DataTyper from './DataTyper'
 import './ReactDump.css'
 import getObjProps from './getObjProps'
+import sortingHat from './sortingHat'
 
 // assigned to component after component definition, no hoisting within
 const defaultProps =  {
@@ -35,18 +35,29 @@ export default class ReactDump extends React.Component {
     let { cache:newCache, objProps:root } = getObjProps( obj, { expand, format, label } )
 //console.log( newCache )
 //console.log( root )
+    this.root = root
 
   }
 
 
   componentWillMount() {
-//console.log( 'componentWillMount')
+// TODO 
+    let { objectClassName, obj, opts, name, index, children, path } = this.root
+    this.j = sortingHat( objectClassName, obj, opts, name, index, children, path )
   }
 
+
   render() {
-    return (
-      <DataTyper obj={this.obj} opts={this.opts} cache={this.cache} currentPath={['[TOP]']} />
-    )
+//return null
+/*
+    if ( this.opts.output !== 'browser' ) {
+      return null
+    }
+*/
+return ( this.j )
+//    return (
+//      <DataTyper obj={this.obj} opts={this.opts} cache={this.cache} currentPath={['[TOP]']} />
+//    )
   }
 }
 

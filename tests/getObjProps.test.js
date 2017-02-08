@@ -1,4 +1,4 @@
-import getCacheForObj from '../src/components/getCacheForObj'
+import getObjProps from '../src/components/getObjProps'
 
 describe('creates a cache for rendering', () => {
 
@@ -11,7 +11,7 @@ describe('creates a cache for rendering', () => {
       , paths: [["Error"]]
       , opts: [{"expand": true, "label": "Error"}]
     }
-    expect(getCacheForObj()).toEqual(cache)
+    expect(getObjProps()).toEqual(cache)
   })
 
   it('creates a default cache when an object is provided', () => {
@@ -23,7 +23,7 @@ describe('creates a cache for rendering', () => {
       , paths: [["String"]]
       , opts: [{"expand": true, "label": "String"}]
     }
-    expect(getCacheForObj(obj)).toEqual(cache)
+    expect(getObjProps(obj)).toEqual(cache)
   })
 
   it('creates the object class name as the default cache options label when no top label is provided', () => {
@@ -35,7 +35,7 @@ describe('creates a cache for rendering', () => {
       , paths: [["String"]]
       , opts: [{"expand": true, "label": "String"}]
     }
-    expect(getCacheForObj(obj)).toEqual(cache)
+    expect(getObjProps(obj)).toEqual(cache)
   })
 
   it('appends the object class name to the default cache options label when a top label is provided', () => {
@@ -48,7 +48,7 @@ describe('creates a cache for rendering', () => {
       , paths: [['Toppy - String']]
       , opts: [{"expand": true, "label": "Toppy - String"}]
     }
-    expect(getCacheForObj(obj, opts)).toEqual(cache)
+    expect(getObjProps(obj, opts)).toEqual(cache)
   })
 
   it('can recurse if the provided object is Array', () => {
@@ -60,7 +60,7 @@ describe('creates a cache for rendering', () => {
       , paths: [['Array'], ['Array','String'], ['Array','String']]
       , opts: [{'expand': true, 'label': 'Array (2)'}, {'expand': true, 'label': 'String'}, {'expand': true, 'label': 'String'}]
     }
-    expect(getCacheForObj(obj)).toEqual(cache)
+    expect(getObjProps(obj)).toEqual(cache)
   })
 
 
