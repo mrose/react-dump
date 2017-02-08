@@ -1,59 +1,54 @@
-// returns tree cache of elements
+// returns cache of elements & root props for later rendering
 import getObjectClassName from './getObjectClassName'
-import uuid from 'uuid'
+import getPathToCircularRef from './getPathToCircularRef'
 
 
-const getCacheForObj = (obj, opts={}, cache, currentPath, objName ) => {
-//  const id = uuid.v4()
+const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
 
   obj = obj || new Error('No object provided') // Error when no object provided
   opts.label = opts.label || '' // string label for object
   opts.expand = opts.expand || true // boolean, expands/collapses cells
-  opts.id = uuid.v4()
-  cache = cache || {
-                        bFilteredLevel: false
-                      , level: 0
-                      , index: -1
-                      , objects: [ ]
-                      , paths: [ ]
-                      , children: [ ]
+  cache = cache ||  { bFilteredLevel: false
+                    , level: 0
+                    , index: -1
+                    , objects: [ ]
+                    , paths: [ ]
                     }
   currentPath = currentPath || [ ]
-  objName = objName || ''
+  objName = objName || opts.label
+
+  opts.id = 'reactdump' + ++cache.index
+  const objectClassName = getObjectClassName( obj )
+
+  // if a complex object exists in cache, return a circular reference
+  if ( ['Object','Array'].indexOf(objectClassName) !== -1 ) {
+    const pathToCircularReference = getPathToCircularRef( obj, cache.objects, cache.paths )
+    if ( pathToCircularReference.length ) {
+      let objProps = mapObjProps( objName, cache.index, 'CircularReference', opts, [ ], pathToCircularReference )
+      return { cache, objProps }
+    }
+  }
 
   // create a label for the current object and apply it
-  const objectClassName = getObjectClassName( obj )
   currentPath.push( createLabel( opts.label, objectClassName, currentPath.length ) )
   let { updatedLabel, sparseKeys } = appendElementsLengthToLabel( obj, objectClassName, currentPath.slice(-1)[0] )
   opts.label = updatedLabel
 
-  // push
-  cache.index++
+  // add to cache
   cache.objects.push( obj )
   cache.paths.push( currentPath )
+  let objProps = mapObjProps( objName, cache.index, objectClassName, opts, [ ], currentPath )
 
-  let thisObj =  { name:objName
-                 , index:cache.index
-//                 , obj:obj
-                 , objectClassName:objectClassName
-                 , opts:opts
-                 , children:[ ]
-                 , currentPath:currentPath
-               }
-
-console.log( thisObj )
-   cache.children.push( thisObj )
-//   cache.children = thisObj.children
-
-  // recurse
+  // recurse through complex objects
   if ( ['Object','Array'].indexOf(objectClassName) !== -1 ) {
-    cache.level++
+    cache.level++  // for level throttling later
     for ( let i of sparseKeys ) {
-      cache = getCacheForObj(obj[i], opts={expand:opts.expand}, cache, [...currentPath], i )
+      let { objProps:child } = getObjProps( obj[i], opts={expand:opts.expand}, cache, [...currentPath], i )
+      objProps.children.push(child)
     }
   }
 
-  return cache
+  return { cache, objProps }
 
 
    // top label only can be passed in for convenience
@@ -67,6 +62,7 @@ console.log( thisObj )
     }
     return label + ' - ' + nl
   }
+
 
   function appendElementsLengthToLabel( obj, objectClassname, label ) {
     let sparseKeys = [ ]
@@ -88,7 +84,10 @@ console.log( thisObj )
   }
 
 
+  function mapObjProps( name, index, objectClassName, opts, children, path ) {
+    return {name, index, objectClassName, opts, children, path }
+  }
 
 }
 
-export default getCacheForObj
+export default getObjProps

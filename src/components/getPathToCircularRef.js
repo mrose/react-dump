@@ -2,34 +2,25 @@
  * Returns a path to the original variable if the current one is a circular reference
  *
  * @param {any} obj
- * @param {object} cache
- * @param {array} currentPath
+ * @param {array} cacheObjects
+ * @param {array} cachePaths
  * @returns {Array}
  *
- * cache = {
- *   bFilteredLevel: false
- *   , level:0
- *   , objects: []
- *   , paths: []
- *   }
  */
-
-const getPathToCircularRef = (obj, cache, currentPath) => {
-    let circPath = []
+const getPathToCircularRef = (obj, cacheObjects, cachePaths) => {
+    let pathToCircularReference = []
 
     if (typeof obj !== 'object') {
-      return circPath
+      return pathToCircularReference
     }
 
-    let pos = cache.objects.indexOf(obj)
+    let pos = cacheObjects.indexOf(obj)
     if (pos !== -1) {
-      circPath = cache.paths[pos]
-      return circPath
+      pathToCircularReference = cachePaths[pos]
+      return pathToCircularReference
     }
 
-    cache.objects.push(obj)
-    cache.paths.push(currentPath)
-
-    return circPath
+    return pathToCircularReference
   }
+
 export default getPathToCircularRef
