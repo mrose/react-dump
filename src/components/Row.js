@@ -4,7 +4,7 @@ import uuid from 'uuid'
 // assigned to component after component definition, no hoisting within
 const defaultProps = {
     className: ''
-  , label: 'row need default label pls'
+  , label: ''
   , expand: true
   , title: ''
   , cols: '2'
@@ -12,7 +12,7 @@ const defaultProps = {
 
 export default class Row extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
         expand: props.expand
       , children: props.children
@@ -28,39 +28,9 @@ export default class Row extends React.Component {
   }
 
   handleClick = () => {
-//console.log( this.state.children.props || 'no props')
-    // sometimes children is a text node, so
-    if ( this.state.children.props  && this.state.children.props.cache ) {
-      const cp = this.state.children.props.currentPath
-      let nc = this.state.children.props.cache // dataTyper cache, full bcuz it's by reference
-      let paths = this.state.children.props.cache.paths
-      const depth = cp.length
-      for (let i in paths) {
-//console.log( paths[i] )
-
-      }
-//      const ncp = this.state.children.props.cache.paths.forEach( this.shouldCopy )
-//      console.log( ncp )
-/*
-      const ncp = this.state.children.props.cache.paths.map( (val, i, src ) => {
-        if ( val.length < cp.length ) {
-
-          console.log( depth )
-          console.log( val )
-        }
-
-      } )
-      console.log( ncp )
-*/
-      //console.log( this.state.children.props.currentPath)
-      //console.log( this.state.children.props.cache)
-
-    }
-
     this.setState( previousState => ({
       expand: !previousState.expand
     }))
-
   }
 
   getRowProps = () => {
