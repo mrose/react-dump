@@ -23,27 +23,15 @@ export default class ReactDump extends React.Component {
   constructor(props) {
     super(props)
     const {obj, ...opts} = this.props
-    this.cache = {
-        bFilteredLevel: false
-      , level:0
-      , objects: []
-      , paths: []
-      }
+    const { objProps } = getObjProps( obj, opts )
     this.obj = obj
     this.opts = opts
-    const { expand, format, label } = opts
-    let { cache:newCache, objProps:root } = getObjProps( obj, { expand, format, label } )
-//console.log( newCache )
-//console.log( root )
-    this.root = root
-
+    this.rootObjProps = objProps
   }
 
 
   componentWillMount() {
-// TODO 
-    let { objectClassName, obj, opts, name, index, children, path } = this.root
-    this.j = sortingHat( objectClassName, obj, opts, name, index, children, path )
+    this.output = sortingHat( this.rootObjProps )
   }
 
 
@@ -54,7 +42,7 @@ export default class ReactDump extends React.Component {
       return null
     }
 */
-return ( this.j )
+return ( this.output )
 //    return (
 //      <DataTyper obj={this.obj} opts={this.opts} cache={this.cache} currentPath={['[TOP]']} />
 //    )

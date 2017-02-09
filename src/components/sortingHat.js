@@ -13,17 +13,35 @@ import RegExp from './RegExp'
 import String from './String'
 import Undefined from './Undefined'
 
-const sortingHat = ( objectClassName, obj, opts={}, name, index, children, path ) => {
-  objectClassName = objectClassName || 'Error'
-  obj = obj || new Error('No object provided')
-  opts.expand = opts.expand || true
-  opts.format = opts.format || 'html'
-  opts.id = opts.id || 'reactdump999999'
-  opts.label = opts.label || ''
-  index = index || 0
-  children = children || [ ]
-  path = path || [ ]
-
+const sortingHat = ( objProps={ } ) => {
+  objProps.objectClassName = objProps.objectClassName || 'Error'
+  objProps.obj = objProps.obj || new Error('No object provided')
+  objProps.opts = objProps.opts || { }
+  objProps.opts.expand = objProps.opts.expand || true
+  objProps.opts.format = objProps.opts.format || 'html'
+  objProps.opts.id = objProps.opts.id || 'reactdump999999'
+  objProps.opts.label = objProps.opts.label || ''
+  objProps.index = objProps.index || 0
+  objProps.children = objProps.children || [ ]
+  objProps.path = objProps.path || [ ]
+  const { objectClassName, obj, opts={}, name, index, children, path } = objProps
+/*
+  const classNames =  [ 'Array'
+                      , 'Boolean'
+                      , 'CircularReference'
+                      , 'Date'
+                      , 'Error'
+                      , 'Functions'
+                      , 'Math'
+                      , 'Null'
+                      , 'Number'
+                      , 'Object'
+                      , 'RegExp'
+                      , 'String'
+                      , 'Undefined'
+                      ]
+  let c
+*/
   let classes = {
       Array: <Arr key={opts.id} obj={obj} opts={opts} children={children} />
     , Boolean: <Boolean key={opts.id} obj={obj} opts={opts} />
