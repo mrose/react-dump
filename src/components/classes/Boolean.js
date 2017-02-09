@@ -11,9 +11,10 @@ function Boolean( props ) {
                               }
   const children = props.children || []
 
+  let { label, expand } = opts
   return (
-    <Table className='reactdump reactdump-Boolean' expand={opts.expand}>
-      <Row className='reactdump-label reactdump-Boolean' label={opts.label} expand={opts.expand} expandCell={opts.expand}>
+    <Table className='reactdump reactdump-Boolean' expand={expand}>
+      <Row className='reactdump-label reactdump-Boolean' label={label} expand={expand} expandCell={expand}>
         <span className={obj ? 'reactdump-yes' : 'reactdump-no'}>{obj.toString()}</span>
       </Row>
     </Table>

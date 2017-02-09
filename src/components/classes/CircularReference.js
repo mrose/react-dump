@@ -9,15 +9,17 @@ function CircularReference( props ) {
                               , id:'reactdump999999'
                               , label:'Circular Reference'
                               }
-  const children = props.children || []
-  const path = props.path || {
+  const children = props.children || [ ]
+  const path = props.path || [ ]
+/*  {
                                   // some more stuff here
                               }
-  const p = path.join( '>>' )
+*/
+  let { label, expand } = opts
   return (
-    <Table className='reactdump reactdump-Circular-Reference' expand={opts.expand}>
-      <Row className='reactdump-label reactdump-Circular-Reference' label={opts.label} expand={opts.expand} cols='2'>
-        {p}
+    <Table className='reactdump reactdump-Circular-Reference' expand={expand}>
+      <Row className='reactdump-label reactdump-Circular-Reference' label={label} expand={expand} cols='2'>
+        {path.join( '>>' )}
       </Row>
     </Table>
   )

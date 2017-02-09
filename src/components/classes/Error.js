@@ -14,9 +14,9 @@ function Error( props ) {
                                   // some more stuff here
                               }
 
+  let { label, expand } = opts
   return (
-    const { label, expand } = opts
-    <Table className='reactdump reactdump-Error' label={label} cols='1' expand={expand}>
+    <Table className='reactdump reactdump-Error' label='Error' cols='1' expand={expand}>
       <Row className='reactdump-label reactdump-Error' label={label} expand={expand} expandCells={expand}>
         {obj.toString()}
       </Row>
