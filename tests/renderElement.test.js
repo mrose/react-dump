@@ -1,7 +1,7 @@
-import sortingHat from '../src/components/sortingHat'
+import renderElement from '../src/components/renderElement'
 import React from 'react'
 
-describe('sorts props into jsx', () => {
+describe('renders element props to jsx', () => {
 
   it('returns a default tag when no object is provided', () => {
     const objectClassName = 'Error'
@@ -12,7 +12,7 @@ describe('sorts props into jsx', () => {
                   , label:''
                   }
     const e = <Error objectClassName={objectClassName} obj={obj} opts={opts} />
-    expect(sortingHat()).toEqual(e)
+    expect(renderElement()).toEqual(e)
   })
 
 

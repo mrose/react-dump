@@ -1,5 +1,5 @@
 import React from 'react'
-import sortingHat from '../sortingHat'
+import renderElement from '../renderElement'
 import Table from '../Table'
 import Row from '../Row'
 
@@ -15,7 +15,7 @@ function Obj( props ) {
   let rows = []
   for ( let element of children ) {
     let { objectClassName, obj, opts, name, index, children, path } = element
-    let child = sortingHat( element )
+    let child = renderElement( element )
     rows.push(
         <Row key={opts.id} className='reactdump-label reactdump-Object' label={name} title={name} expand={opts.expand} >
           {child}

@@ -14,7 +14,7 @@ import String from './classes/String'
 import Undefined from './classes/Undefined'
 
 
-const sortingHat = ( objProps={ } ) => {
+const renderElement = ( objProps={ } ) => {
   let { objectClassName, obj, opts, index, children, path } = defaults( objProps )
   const classProps = { key:opts.id, obj, opts, children, path }
   const Classes = { Array:Arr
@@ -56,4 +56,4 @@ const sortingHat = ( objProps={ } ) => {
   }
 
 }
-export default sortingHat
+export default renderElement

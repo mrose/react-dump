@@ -1,7 +1,7 @@
 import React from 'react'
 import './ReactDump.css'
-import getObjProps from './getObjProps'
-import sortingHat from './sortingHat'
+import getElementProps from './getElementProps'
+import renderElement from './renderElement'
 
 // assigned to component after component definition, no hoisting within
 const defaultProps =  {
@@ -23,7 +23,7 @@ export default class ReactDump extends React.Component {
   constructor(props) {
     super(props)
     const {obj, ...opts} = this.props
-    const { objProps } = getObjProps( obj, opts )
+    const { objProps } = getElementProps( obj, opts )
     this.obj = obj
     this.opts = opts
     this.rootObjProps = objProps
@@ -31,7 +31,7 @@ export default class ReactDump extends React.Component {
 
 
   componentWillMount() {
-    this.output = sortingHat( this.rootObjProps )
+    this.output = renderElement( this.rootObjProps )
   }
 
 

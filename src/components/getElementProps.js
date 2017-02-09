@@ -3,7 +3,7 @@ import getObjectClassName from './getObjectClassName'
 import getPathToCircularRef from './getPathToCircularRef'
 
 
-const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
+const getElementProps = ( obj, opts={}, cache, currentPath, objName ) => {
 
   obj = obj || new Error('No object provided') // Error when no object provided
   opts.expand = opts.expand || true // boolean, expands/collapses cells
@@ -44,7 +44,7 @@ const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
   if ( ['Object','Array'].indexOf(objectClassName) !== -1 ) {
     cache.level++  // for level throttling later
     for ( let i of sparseKeys ) {
-      let { objProps:child } = getObjProps( obj[i], opts={expand:opts.expand}, cache, [...currentPath], i )
+      let { objProps:child } = getElementProps( obj[i], opts={expand:opts.expand}, cache, [...currentPath], i )
       objProps.children.push(child)
     }
   }
@@ -91,4 +91,4 @@ const getObjProps = ( obj, opts={}, cache, currentPath, objName ) => {
 
 }
 
-export default getObjProps
+export default getElementProps
