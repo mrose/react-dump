@@ -1,31 +1,36 @@
 // returns cache of elements & root props for later rendering
-
+// this will allow us to do text rendering in a later version
 const getElementProps = ( args={ } ) => {
   // default to sensible params when necessary
-  let { obj, opts, cache, currentPath, objName, dataType } = defaults( args )
+  let { obj, opts, cache, currentPath, objName, dataType, documentFragment } = defaults( args )
+
+  cache.index++
 
   // if the current object is a complex object which exists in cache, return a circular reference
   if ( ['Object','Array'].indexOf(dataType) !== -1 ) {
-    const pathToCircularReference = getPathToCircularRef( obj, cache.objects, cache.paths )
-    if ( pathToCircularReference.length ) {
-      let elementProps = mapElementProps( 'CircularReference', obj, opts, objName, cache.index, [ ], pathToCircularReference )
+    const circularReference = getCircularRef( obj, cache.objects, cache.paths )
+    if ( circularReference.currentPath ) {
+      let elementProps = mapElementProps( 'CircularReference', obj, opts, objName, cache.index, [ ], circularReference.currentPath, circularReference.documentFragment )
       return { cache, elementProps }
     }
   }
 
-  currentPath.push( objName )
   // update the label with the number of elements if a collection
   let { updatedLabel, sparseKeys } = appendElementsLengthToLabel( obj, dataType, opts.label )
   opts.label = updatedLabel
 
-  // add to cache
-  cache.objects.push( obj )
-  cache.paths.push( currentPath )
-  let elementProps = mapElementProps( dataType, obj, opts, objName, cache.index, [ ], currentPath )
+  currentPath.push( objName )
+  let elementProps = mapElementProps( dataType, obj, opts, objName, cache.index, [ ], currentPath, '' )
 
-  // recurse through complex objects
+  // cache
   if ( ['Object','Array'].indexOf(dataType) !== -1 ) {
-    cache.level++  // for level throttling later
+    cache.objects.push( obj )
+    cache.paths.push( { currentPath, documentFragment:'#reactdump' + cache.index } )
+  }
+
+  // recurse through complex objects which have children
+  if ( sparseKeys.length ) {
+    cache.depth++  // for level throttling later
     for ( let i of sparseKeys ) {
       let elementArgs = { obj:obj[i]
                         , opts:opts={expand:opts.expand}
@@ -33,6 +38,7 @@ const getElementProps = ( args={ } ) => {
                         , currentPath:[...currentPath]
                         , objName:i
                         }
+      // disambiguation alias advisory
       let { elementProps:child } = getElementProps( elementArgs )
       elementProps.children.push(child)
     }
@@ -41,26 +47,25 @@ const getElementProps = ( args={ } ) => {
   return { cache, elementProps }
 
 
-
   function defaults( args={ } ) {
-    const obj = args.obj || new Error('No object provided') // Error when no object provided
+    const obj = args.obj
     const dataType = getDataType( obj )
-    const cache = args.cache || { bFilteredLevel: false
-                                , level: 0
-                                , index: -1
-                                , objects: [ ]
-                                , paths: [ ]
-                                }
+//  || new Error('No object provided') // Error when no object provided
     const opts = args.opts || { }
           opts.expand = opts.expand || true
           opts.format = opts.format || 'html'
-          opts.id = 'reactdump' + ++cache.index
           opts.label = opts.label || ''
           opts.label =  opts.label.length ? opts.label : dataType
+    const cache = args.cache || { bFilteredLevel: false
+                                , depth: 0
+                                , index: 0
+                                , objects: [ ]
+                                , paths: [ ]
+                                }
     const currentPath = args.currentPath || [ ]
+    const documentFragment = args.documentFragment || ''
     const objName = args.objName || opts.label
-
-    return { obj, opts, cache, currentPath, objName, dataType }
+    return { obj, opts, cache, currentPath, objName, dataType, documentFragment }
   }
 
 
@@ -73,20 +78,19 @@ const getElementProps = ( args={ } ) => {
   }
 
 
-  function getPathToCircularRef( obj, objectsCache, pathsCache ) {
-    let pathToCircularReference = []
+  function getCircularRef( obj, objectsCache, pathsCache ) {
+    let circularReference = { }
 
     if ( typeof obj !== 'object' ) {
-      return pathToCircularReference
+      return circularReference
     }
 
     let pos = objectsCache.indexOf( obj )
     if (pos !== -1) {
-      pathToCircularReference = pathsCache[pos]
-      return pathToCircularReference
+      circularReference = pathsCache[pos]
     }
 
-    return pathToCircularReference
+    return circularReference
   }
 
 
@@ -99,7 +103,7 @@ const getElementProps = ( args={ } ) => {
       return { updatedLabel, sparseKeys }
     }
 
-    // label should show number of elements for complex objects, not in currentPath
+    // label should show number of elements for complex objects
     if ( dataType === 'Object' ) {
       sparseKeys = Object.keys(obj).sort()
     } else {
@@ -110,8 +114,8 @@ const getElementProps = ( args={ } ) => {
   }
 
 
-  function mapElementProps( dataType, obj, opts, name, index, children, path ) {
-    return { dataType, obj, opts, name, index, children, path }
+  function mapElementProps( dataType, obj, opts, name, index, children, path, documentFragment ) {
+    return { dataType, obj, opts, name, index, children, path, documentFragment }
   }
 
 }

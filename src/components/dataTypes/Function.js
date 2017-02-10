@@ -1,18 +1,13 @@
 import React from 'react'
 import Table from '../Table'
 import Row from '../Row'
-import escapeHtml from '../escapeHtml'
+import escapeHtml from './escapeHtml'
 
 function Function( props ) {
   const obj = props.obj || null
   const opts = props.opts ||  { expand:true
                               , format:'html'
-                              , id:'reactdump999999'
                               , label:'Function'
-                              }
-  const children = props.children || []
-  const path = props.path || {
-                                  // some more stuff here
                               }
 
   let { label, expand } = opts

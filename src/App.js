@@ -49,9 +49,6 @@ class App extends React.Component {
 // <Dump obj={user} label="top-one" />
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
         <ReactDump obj={user} label="top-one" expand="true" />
       </div>
     )

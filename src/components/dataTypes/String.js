@@ -1,18 +1,13 @@
 import React from 'react'
 import Table from '../Table'
 import Row from '../Row'
-import escapeHtml from '../escapeHtml'
+import escapeHtml from './escapeHtml'
 
 function String( props ) {
   const obj = props.obj || null
   const opts = props.opts ||  { expand:true
                               , format:'html'
-                              , id:'reactdump999999'
                               , label:'String'
-                              }
-  const children = props.children || []
-  const path = props.path || {
-                                  // some more stuff here
                               }
 
   function getRowProps( len, label, expand ) {
@@ -37,7 +32,7 @@ function String( props ) {
   }
 
 
-  //var val = '<pre><code class="lang-html">' + hljs.highlight('xml', obj).value + '</code></pre>';
+  // TODO var val = '<pre><code class="lang-html">' + hljs.highlight('xml', obj).value + '</code></pre>';
   let { label, expand } = opts
   return (
     <Table className='reactdump reactdump-String' expand={expand}>

@@ -7,18 +7,16 @@ function Obj( props ) {
   const obj = props.obj || { }
   const opts = props.opts ||  { expand:true
                               , format:'html'
-                              , id:'reactdump999999'
                               , label:'Object'
                               }
   const children = props.children || []
 
   let rows = []
   for ( let element of children ) {
-    let { objectClassName, obj, opts, name, index, children, path } = element
-    let child = renderElement( element )
+    let { opts, name, index } = element
     rows.push(
-        <Row key={opts.id} className='reactdump-label reactdump-Object' label={name} title={name} expand={opts.expand} >
-          {child}
+        <Row key={index} id={'reactdump' + index} className='reactdump-label reactdump-Object' label={name} title={name} expand={opts.expand} >
+          {renderElement( element )}
         </Row>)
   }
 

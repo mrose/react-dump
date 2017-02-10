@@ -3,15 +3,10 @@ import Table from '../Table'
 import Row from '../Row'
 
 function Error( props ) {
-  const obj = props.obj || null
+  const obj = props.obj || 'whoops! :)'
   const opts = props.opts ||  { expand:true
                               , format:'html'
-                              , id:'reactdump999999'
                               , label:'Error'
-                              }
-  const children = props.children || []
-  const path = props.path || {
-                                  // some more stuff here
                               }
 
   let { label, expand } = opts

@@ -6,12 +6,7 @@ function RegExp( props ) {
   const obj = props.obj || null
   const opts = props.opts ||  { expand:true
                               , format:'html'
-                              , id:'reactdump999999'
                               , label:'RegExp'
-                              }
-  const children = props.children || []
-  const path = props.path || {
-                                  // some more stuff here
                               }
 
   let { label, expand } = opts

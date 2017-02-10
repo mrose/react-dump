@@ -15,22 +15,22 @@ import Undefined from './dataTypes/Undefined'
 
 
 const renderElement = ( elementProps={ } ) => {
-  let { dataType, obj, opts, index, children, path } = defaults( elementProps )
-  const classProps = { key:opts.id, obj, opts, children, path }
+  let { dataType, obj, opts, index, children, path, documentFragment } = defaults( elementProps )
+  const classProps = { key:opts.id, obj, opts, children, path, documentFragment }
   const DataTypes = { Array:Arr
-                  , Boolean
-                  , CircularReference
-                  , Date
-                  , Error
-                  , Function
-                  , Math
-                  , Null
-                  , Number
-                  , Object:Obj
-                  , RegExp
-                  , String
-                  , Undefined
-                  }
+                    , Boolean
+                    , CircularReference
+                    , Date
+                    , Error
+                    , Function
+                    , Math
+                    , Null
+                    , Number
+                    , Object:Obj
+                    , RegExp
+                    , String
+                    , Undefined
+                    }
 
   if ( Object.keys(DataTypes).indexOf(dataType) !== -1 ) {
     const Tag = DataTypes[dataType]
@@ -43,16 +43,16 @@ const renderElement = ( elementProps={ } ) => {
 
   function defaults( elementProps ) {
     const dataType = elementProps.dataType || 'Error'
-    const obj = elementProps.obj || new Error('No object provided')
+    const obj = elementProps.obj
     let opts = elementProps.opts || { }
         opts.expand = opts.expand || true
         opts.format = opts.format || 'html'
-        opts.id = opts.id || 'reactdump999999'
         opts.label = opts.label || ''
     const index = elementProps.index || 0
     const children = elementProps.children || [ ]
     const path = elementProps.path || [ ]
-    return { dataType, obj, opts, index, children, path }
+    const documentFragment = elementProps.documentFragment || ''
+    return { dataType, obj, opts, index, children, path, documentFragment }
   }
 
 }

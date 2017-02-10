@@ -23,11 +23,10 @@ export default class ReactDump extends React.Component {
   constructor( props ) {
     super( props )
     const { obj, ...opts } = this.props
+    // TODO test and set a reasonable default if no props are provided
     let { cache, elementProps } = getElementProps( { obj, opts } )
-    // kill cache to clear some memory
-    cache = { }
+    cache = { } // clear some memory
     this.rootElement = elementProps
-console.log( elementProps )
   }
 
 
@@ -37,16 +36,12 @@ console.log( elementProps )
 
 
   render() {
-//return null
-/*
-    if ( this.opts.output !== 'browser' ) {
-      return null
-    }
-*/
-return ( this.output )
-//    return (
-//      <DataTyper obj={this.obj} opts={this.opts} cache={this.cache} currentPath={['[TOP]']} />
-//    )
+    /*
+        if ( this.opts.output !== 'browser' ) {
+          return null
+        }
+    */
+    return ( this.output )
   }
 }
 

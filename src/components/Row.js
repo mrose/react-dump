@@ -11,20 +11,15 @@ const defaultProps = {
 }
 
 export default class Row extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor( props ) {
+    super( props )
     this.state = {
         expand: props.expand
-      , children: props.children
     }
   }
 
   componentWillMount() {
     this.uuid = uuid.v4()
-  }
-
-  shouldCopy = (element, index, array) => {
-    return element === 'top-one'
   }
 
   handleClick = () => {
@@ -33,20 +28,20 @@ export default class Row extends React.Component {
     }))
   }
 
-  getRowProps = () => {
-    let props = {
-      key:this.uuid
+  getRowProps = (props) => {
+    let rowProps = { key:this.uuid }
+    if ( props.id ) {
+      rowProps.id = props.id
     }
-    return props
+    return rowProps
   }
 
   getLabelCellProps = () => {
-    let props = {
-        className: this.props.className
-      , key: uuid.v4()
-      , title: this.props.title
-      , onClick: this.handleClick
-    }
+    let props = { className: this.props.className
+                , key: uuid.v4()
+                , title: this.props.title
+                , onClick: this.handleClick
+                }
     if (!this.state.expand) {
       props.style = {fontStyle:'italic'}
     }
@@ -69,13 +64,14 @@ export default class Row extends React.Component {
     if (this.props.cols === '2') {
       arrCols.push(<td {...this.getLabelCellProps()}>{this.props.label}</td>)
     }
-    arrCols.push(<td {...this.getDataCellProps()}>{this.state.children}</td>)
+    arrCols.push(<td {...this.getDataCellProps()}>{this.props.children}</td>)
     return arrCols
   }
 
   render() {
+    const rowProps = this.getRowProps(this.props)
     return (
-      <tr {...this.getRowProps()}>
+      <tr {...rowProps}>
         {this.getCells()}
       </tr>
     )
