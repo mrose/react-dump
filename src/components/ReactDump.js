@@ -20,18 +20,19 @@ const defaultProps =  {
 */
 
 export default class ReactDump extends React.Component {
-  constructor(props) {
-    super(props)
-    const {obj, ...opts} = this.props
-    const { objProps } = getElementProps( obj, opts )
-    this.obj = obj
-    this.opts = opts
-    this.rootObjProps = objProps
+  constructor( props ) {
+    super( props )
+    const { obj, ...opts } = this.props
+    let { cache, elementProps } = getElementProps( { obj, opts } )
+    // kill cache to clear some memory
+    cache = { }
+    this.rootElement = elementProps
+console.log( elementProps )
   }
 
 
   componentWillMount() {
-    this.output = renderElement( this.rootObjProps )
+    this.output = renderElement( this.rootElement )
   }
 
 
