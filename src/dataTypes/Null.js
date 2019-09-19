@@ -1,8 +1,8 @@
-import React from 'react'
-import Table from '../Table'
-import Row from '../Row'
+import React from 'react';
+import { Row, Table } from '../format';
 
-function Null( props ) {
+
+export const Null = ( props ) => {
   const obj = props.obj || null
   const opts = props.opts ||  { expand:true
                               , format:'html'
@@ -18,5 +18,4 @@ function Null( props ) {
     </Table>
   )
 
-}
-export default Null
+};

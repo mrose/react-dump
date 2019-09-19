@@ -1,9 +1,9 @@
-import React from 'react'
-import Table from '../Table'
-import Row from '../Row'
-import escapeHtml from './escapeHtml'
+import React from 'react';
+import { Row, Table } from '../format';
+import escapeHtml from './escapeHtml';
 
-function Function( props ) {
+
+export const Function = ( props ) => {
   const obj = props.obj || null
   const opts = props.opts ||  { expand:true
                               , format:'html'
@@ -23,5 +23,4 @@ function Function( props ) {
     </Table>
   )
 
-}
-export default Function
+};

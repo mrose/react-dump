@@ -5,5 +5,5 @@ const escapeHtml = (html) => {
    .replace(/</g, '&lt;')
    .replace(/>/g, '&gt;')
    .replace(/"/g, '&quot;')
-}
-export default escapeHtml
+};
+export default escapeHtml;
