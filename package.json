@@ -1,16 +1,7 @@
 {
   "author": "Mitchell M. Rose",
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/mrose/react-dump/issues"
-  },
-  "dependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
   },
   "description": "A visual debugging component for React",
   "devDependencies": {
@@ -24,14 +15,16 @@
     "@storybook/react": "^5.2.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
+    "core-js": "^3.2.1",
     "eslint": "^6.4.0",
-    "lodash": "^4.17.15",
     "rollup": "^1.21.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-embed-css": "^1.0.5",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.2"
   },
+  "files": ["dist"],
   "homepage": "https://github.com/mrose/react-dump#readme",
   "keywords": [
     "debug",
@@ -44,12 +37,15 @@
     "nodedump"
   ],
   "license": "MIT",
-  "main": "lib/components/ReactDump.js",
+  "main": "reactDump",
   "name": "react-dump",
   "peerDependencies": {
-    "lodash": "^4.17.15"
+    "lodash-es": "^4.17.11",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "scripts": {
+    "build": "rollup --config",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom",
     "storybook": "start-storybook"

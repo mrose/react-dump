@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import _indexOf from "lodash/indexOf";
-import _keys from "lodash/keys";
-import _uniqueId from 'lodash/uniqueId';
+import React, { useState } from 'react';
+import _indexOf from "lodash-es/indexOf";
+import _keys from "lodash-es/keys";
+import _uniqueId from 'lodash-es/uniqueId';
 import { dataTypes } from "./dataTypes/index";
 
 
@@ -62,7 +62,7 @@ const Row = (props) => {
 
 };
 
-export const renderElement = (props) => {
+const renderElement = (props) => {
     const {
         dataType = "Error",
         obj,

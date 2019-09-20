@@ -10,7 +10,7 @@ import { renderElement } from "./format";
 , top: null // The number of rows to display. For a structure, this is the number of nested levels to display (useful for large stuctures)
 */
 
-export const Dump = props => {
+export const reactDump = (props) => {
     const {
         obj = null, // the variable to be dumped
         expand = true, // boolean, expands views
