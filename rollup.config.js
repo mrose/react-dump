@@ -8,7 +8,7 @@ export default [
     {
         input: 'src/index.js',
         output: {
-            file: 'dist/esm.js',
+            file: 'dist/react-dump.js',
             format: 'esm'
         },
         plugins: [
@@ -19,7 +19,9 @@ export default [
             }),
         ],
         external: [
+            'lodash-es/includes',
             'lodash-es/indexOf',
+            'lodash-es/forEach',
             'lodash-es/keys',
             'lodash-es/uniqueId',
             'react',

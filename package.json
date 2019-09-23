@@ -24,7 +24,9 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/mrose/react-dump#readme",
   "keywords": [
     "debug",
@@ -37,7 +39,7 @@
     "nodedump"
   ],
   "license": "MIT",
-  "main": "reactDump",
+  "main": "Dump",
   "name": "react-dump",
   "peerDependencies": {
     "lodash-es": "^4.17.11",
@@ -54,5 +56,10 @@
     "type": "git",
     "url": "git+https://github.com/mrose/react-dump.git"
   },
-  "version": "0.4.0"
+  "version": "0.4.0",
+  "dependencies": {
+    "lodash-es": "^4.17.15",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  }
 }
