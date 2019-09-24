@@ -2,20 +2,19 @@ import React from 'react';
 import { Row, Table } from '../format';
 
 
-export const RegExp = ( props ) => {
-  const obj = props.obj || null
-  const opts = props.opts ||  { expand:true
-                              , format:'html'
-                              , label:'RegExp'
-                              }
+export const RegExp = ( { obj, opts } ) => {
+    const {
+        expand = true,
+        label = 'RegExp'
+    } = opts;
+    const className = 'reactdump reactdump-RegExp';
+    const rowClassName = 'reactdump-label reactdump-RegExp';
 
-  let { label, expand } = opts
-  return (
-    <Table className='reactdump reactdump-RegExp' label={label} cols='1' expand={expand}>
-      <Row className='reactdump-label reactdump-RegExp' label={label} expand={expand} expandCells={expand}>
-      {obj.toString()}
+  return <Table {...{ className, label, cols: "1", expand }}>
+      <Row
+        {...{ className: rowClassName, label, expand, expandCells: expand }}
+      >
+        {obj.toString()}
       </Row>
-    </Table>
-  )
-
+    </Table>;
 };

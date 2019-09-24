@@ -21,11 +21,7 @@ import _keys from "lodash-es/keys";
  * expand  boolean, expands views
  * label   string, header for the dump output
  */
-export const Dump = ( {obj, opts={}} ) => {
-    const {
-        expand = true,
-        label = '',
-    } = opts;
+export const Dump = ( {obj, expand=true, label='' } ) => {
     const { cache, elementProps } = getElementProps( { obj, opts: { expand, label } } );
     return renderElement( elementProps );
 };
@@ -64,8 +60,8 @@ const getElementProps = ( args ) => {
     cache.index++;
     const isComplexObject = _includes( ['Object','Array'], dataType );
 
-    // if the current object is a complex object which exists in cache, return a circular reference
     if ( isComplexObject ) {
+        // if the current object is a complex object which exists in cache, return a circular reference
         const circularReference = getCircularRef( obj, cache );
         if ( circularReference.currentPath ) {
             let elementProps = mapElementProps( 'CircularReference', obj, opts, objName, cache.index, [ ], circularReference.currentPath, circularReference.documentFragment );
@@ -115,13 +111,11 @@ const getElementProps = ( args ) => {
     function getCircularRef( obj, { objects, paths } ) {
         let circularReference = { };
 
-        if ( typeof obj !== 'object' ) {
-            return circularReference;
-        }
-
-        let pos = objects.indexOf( obj );
-        if (pos !== -1) {
-            circularReference = paths[pos];
+        if ( typeof obj === 'object' ) {
+            let i = objects.indexOf( obj );
+            if (i !== -1) {
+                circularReference = paths[i];
+            }
         }
 
         return circularReference;

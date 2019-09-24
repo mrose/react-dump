@@ -1,21 +1,15 @@
-import React from 'react';
-import { Row, Table } from '../format';
+import React from "react";
+import { Row, Table } from "../format";
 
-
-export const Error = ( props ) => {
-  const obj = props.obj || 'whoops! :)'
-  const opts = props.opts ||  { expand:true
-                              , format:'html'
-                              , label:'Error'
-                              }
-
-  let { label, expand } = opts
+export const Error = ({ obj = "whoops! :)", opts }) => {
+  const { expand = true, label = "Error" } = opts;
+  const className = "reactdump reactdump-Error";
+  const rowClassName = "reactdump-label reactdump-Error";
   return (
-    <Table className='reactdump reactdump-Error' label='Error' cols='1' expand={expand}>
-      <Row className='reactdump-label reactdump-Error' label={label} expand={expand} expandCells={expand}>
+    <Table {...{ className, expand }}>
+      <Row {...{ className: rowClassName, label, expand, expandCells: expand }}>
         {obj.toString()}
       </Row>
     </Table>
-  )
-
+  );
 };

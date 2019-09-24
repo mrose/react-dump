@@ -2,20 +2,19 @@ import React from 'react';
 import { Row, Table } from '../format';
 
 
-export const Date = ( props ) => {
-  const obj = props.obj || null
-  const opts = props.opts ||  { expand:true
-                              , format:'html'
-                              , label:'Date'
-                              }
+export const Date = ( { obj, opts } ) => {
+    const {
+        expand = true,
+        label = 'Date'
+    } = opts;
+    const className = 'reactdump reactdump-Date';
+    const rowClassName = 'reactdump-label reactdump-Date';
 
-  let { label, expand } = opts
-  return (
-    <Table className='reactdump reactdump-Date' expand={expand}>
-      <Row className='reactdump-label reactdump-Date' label={label} expand={expand} expandCells={expand}>
-      {obj.toString()}
+  return <Table {...{ className, expand }}>
+      <Row
+        {...{ className: rowClassName, label, expand, expandCells: expand }}
+      >
+        {obj.toString()}
       </Row>
-    </Table>
-  )
-
+    </Table>;
 };

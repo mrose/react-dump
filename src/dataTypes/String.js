@@ -3,43 +3,17 @@ import { Row, Table } from '../format';
 import escapeHtml from './escapeHtml';
 
 
-export const String = ( props ) => {
-  const obj = props.obj || null
-  const opts = props.opts ||  { expand:true
-                              , format:'html'
-                              , label:'String'
-                              }
+export const String = ({ obj, opts }) => {
+         const { expand = true, label = "String" } = opts;
+         const className = "reactdump reactdump-String";
+         const rowClassName = "reactdump-label reactdump-String";
 
-  function getRowProps( len, label, expand ) {
-    let rowProps =  { className:'reactdump-label reactdump-String'
-                    }
+         let row = obj.len ? { className: rowClassName, label, expand } : { className: rowClassName };
 
-    if (len !== 0) {
-      rowProps.label = label
-      rowProps.expand = expand
-    }
-
-    return rowProps
-  }
-
-
-  function getTxt(obj) {
-    let txt = '[empty]'
-    if (obj.length !== 0) {
-      txt = escapeHtml(obj)
-    }
-    return txt
-  }
-
-
-  // TODO var val = '<pre><code class="lang-html">' + hljs.highlight('xml', obj).value + '</code></pre>';
-  let { label, expand } = opts
-  return (
-    <Table className='reactdump reactdump-String' expand={expand}>
-      <Row {...getRowProps( obj.length, label, expand )} >
-        {getTxt(obj)}
-      </Row>
-    </Table>
-  )
-
-};
+         // TODO var val = '<pre><code class="lang-html">' + hljs.highlight('xml', obj).value + '</code></pre>';
+         return <Table {...{ className, expand }}>
+             <Row {...row}>
+               {obj.length ? escapeHtml(obj) : "[empty]"}
+             </Row>
+           </Table>;
+       };

@@ -73,7 +73,6 @@ const renderElement = (props) => {
         documentFragment = "",
     } = props;
     opts.expand = opts.expand || true;
-    opts.format = opts.format || 'html';
     opts.label = opts.label || '';
 
     if ( _indexOf(_keys(dataTypes), dataType) !== -1 ) {

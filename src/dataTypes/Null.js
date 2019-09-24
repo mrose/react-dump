@@ -1,21 +1,16 @@
-import React from 'react';
-import { Row, Table } from '../format';
+import React from "react";
+import { Row, Table } from "../format";
 
+export const Null = ({ obj, opts }) => {
+  const { expand = true, label = "Null" } = opts;
+  const className = "reactdump reactdump-Null";
+  const rowClassName = "reactdump-label reactdump-Null";
 
-export const Null = ( props ) => {
-  const obj = props.obj || null
-  const opts = props.opts ||  { expand:true
-                              , format:'html'
-                              , label:'Null'
-                              }
-
-  let { label, expand } = opts
   return (
-    <Table className='reactdump reactdump-Null' expand={expand}>
-      <Row className='reactdump-label reactdump-Null' label={label} expand={expand} cols='1'>
+    <Table {...{ className, expand }}>
+      <Row {...{ className: rowClassName, label, expand, cols: "1" }}>
         {obj}
       </Row>
     </Table>
-  )
-
+  );
 };
