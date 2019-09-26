@@ -18,20 +18,25 @@ const Table = (props) => {
 
     return (
         <table {...{className}}>
-            { label.length &&
-                <thead>
-                    <tr>
-                        <th {...{className, colSpan:cols, onClick:handleClick }}>
-                            {label}
-                        </th>
-                    </tr>
-                </thead>
-            }
+            <Thead  {...{className, colSpan:cols, label, onClick:handleClick }} />
             <tbody {...{ style: !expand ? {display:"none"} : {} }}>
                 {props.children}
             </tbody>
         </table>
     )
+};
+
+const Thead = ({className, colSpan, label, onClick}) => {
+    if (!label.length) { return null; }
+    return (
+        <thead>
+        <tr>
+            <th {...{className, colSpan, onClick}}>
+                {label}
+            </th>
+        </tr>
+        </thead>
+    );
 };
 
 const Row = (props) => {

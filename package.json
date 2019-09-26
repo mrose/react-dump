@@ -17,6 +17,8 @@
     "babel-loader": "^8.0.6",
     "core-js": "^3.2.1",
     "eslint": "^6.4.0",
+    "jest": "^24.9.0",
+    "react-jss": "^10.0.0",
     "rollup": "^1.21.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
