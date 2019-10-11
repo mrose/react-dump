@@ -18,6 +18,7 @@
     "core-js": "^3.2.1",
     "eslint": "^6.4.0",
     "jest": "^24.9.0",
+    "lodash-es": "^4.17.15",
     "react-jss": "^10.0.0",
     "rollup": "^1.21.4",
     "rollup-plugin-babel": "^4.3.3",
@@ -44,7 +45,6 @@
   "main": "Dump",
   "name": "react-dump",
   "peerDependencies": {
-    "lodash-es": "^4.17.11",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
@@ -60,7 +60,6 @@
   },
   "version": "0.4.0",
   "dependencies": {
-    "lodash-es": "^4.17.15",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   }

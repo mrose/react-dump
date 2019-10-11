@@ -79,14 +79,18 @@ const renderElement = (props) => {
     } = props;
     opts.expand = opts.expand || true;
     opts.label = opts.label || '';
+    opts.id = opts.id || _uniqueId();
+    const key = opts.id;
+    let Element;
 
     if ( _indexOf(_keys(dataTypes), dataType) !== -1 ) {
-        const Tag = dataTypes[dataType];
-        return <Tag {...{ key:opts.id, obj, opts, children, path, documentFragment }} />;
+        Element = dataTypes[dataType];
+        return <Element {...{ key, obj, opts, children, path, documentFragment }} />;
     }
 
     opts.label = 'Unknown DataType';
-    return <DataTypes.Error {...{ key:opts.id, obj, opts, children, path, documentFragment }} />
+    Element = dataTypes('error');
+    return <Element {...{ key, obj, opts, children, path, documentFragment }} />
 };
 
 export { renderElement, Row, Table };
