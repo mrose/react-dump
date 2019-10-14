@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Table } from "../format";
-import escapeHtml from "./escapeHtml";
+import escapeHtml from "escape-html";
+
 
 export const Function = ({ obj, opts }) => {
   const { expand = true, label = "Function" } = opts;

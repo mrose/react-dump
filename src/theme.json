@@ -1,0 +1,64 @@
+{
+  "borderColor": "#000000",
+  "borderSpacing": 2,
+  "fontFamily": "verdana, arial, helvetica, sans-serif",
+  "fontSize": "x-small",
+  "padding": 3,
+
+  "simpleContainer": {
+    "display": "grid",
+    "grid-template-columns": "auto auto",
+    "grid-template-rows": "auto auto",
+    "justify-items": "start",
+    "align-items": "start",
+    "justify-content": "start",
+    "align-content": "start"
+  },
+  "item": {
+
+  },
+  "label": {
+    "cursor": "pointer"
+  },
+  "pre": {
+    "textAlign": "left",
+    "lineHeight": "normal",
+    "backgroundColor": "#ffffff",
+    "border": 0,
+    "padding": 0
+  },
+  "code": {
+    "fontSize": "small",
+    "fontFamily": "Consolas, Menlo, Monaco, Lucida Console, monospace, Courier New, monospace, serif"
+  },
+
+
+  "object": {
+    "backgroundColor": "#0000cc",
+    "borderColor": "#0000cc"
+  },
+
+  "number": {
+    "borderColor": "#ff8833",
+    "data": {
+      "backgroundColor": "#ffffff",
+      "color": "#222222"
+    },
+    "label": {
+      "backgroundColor": "#ffb885",
+      "color": "#222222"
+    }
+  },
+
+  "string": {
+    "borderColor": "#888888",
+    "data": {
+      "backgroundColor": "#ffffff",
+      "color": "#222222"
+    },
+    "label": {
+      "backgroundColor": "#dddddd",
+      "color": "#222222"
+    }
+  }
+}

@@ -16,6 +16,7 @@
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "core-js": "^3.2.1",
+    "escape-html": "^1.0.3",
     "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "lodash-es": "^4.17.15",

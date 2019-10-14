@@ -1,5 +1,7 @@
 import React from "react";
 import "./dump.css";
+import {createUseStyles, useTheme, ThemeProvider} from 'react-jss';
+import theme from "./theme";
 import { renderElement } from "./format";
 
 import _forEach from "lodash-es/forEach";
@@ -24,7 +26,11 @@ import _keys from "lodash-es/keys";
  */
 export const Dump = ( {obj, expand=true, format='htmlTable', label='' } ) => {
     const { cache, elementProps } = getElementProps( { obj, opts: { expand, format, label } } );
-    return renderElement( elementProps );
+        return (
+            <ThemeProvider {...{theme}}>
+                { renderElement( elementProps ) }
+            </ThemeProvider>
+        );
 };
 
 // returns cache of elements & root props for later rendering
