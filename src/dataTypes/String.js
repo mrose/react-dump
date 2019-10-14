@@ -3,13 +3,13 @@ import { Row, Table } from "../format";
 import escapeHtml from "./escapeHtml";
 
 export const String = ({ obj, opts }) => {
-  const { expand = true, label = "String" } = opts;
+  const { expand = true, format, label = "String" } = opts;
   const className = "reactdump reactdump-String";
   const rowClassName = "reactdump-label reactdump-String";
 
   let row = obj.length
     ? { className: rowClassName, label, expand }
-    : { className: rowClassName };
+    : { className: rowClassName, label };
 
   // TODO var val = '<pre><code class="lang-html">' + hljs.highlight('xml', obj).value + '</code></pre>';
   return (

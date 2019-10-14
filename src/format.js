@@ -51,15 +51,15 @@ const Row = (props) => {
     const [expand, setExpand] = useState(exp);
 
     const handleClick = () => setExpand(!expand);
-
+    const key = _uniqueId('reactdump');
     return (
-        <tr id={id} key={_uniqueId()}>
+        <tr {...{id, key}}>
             { cols === 2 &&
-                <td {...{ className, key:_uniqueId(), onClick:handleClick, style: !expand ? {fontStyle:'italic'} : {}, title }}>
+                <td {...{ className, key:_uniqueId('reactdump'), onClick:handleClick, style: !expand ? {fontStyle:'italic'} : {}, title }}>
                     {label}
                 </td>
             }
-            <td {...{ className:'reactdump-data', key:_uniqueId(), style: !expand ? {display:"none"} : {} }}>
+            <td {...{ className:'reactdump-data', key:_uniqueId('reactdump'), style: !expand ? {display:"none"} : {} }}>
                 {props.children}
             </td>
         </tr>
@@ -69,28 +69,24 @@ const Row = (props) => {
 
 const renderElement = (props) => {
     const {
+        children = [],
         dataType = "Error",
+        documentFragment = "",
+        index = 0,
         obj,
         opts = {},
-        index = 0,
-        children = [],
         path = [],
-        documentFragment = "",
     } = props;
+
+    const isKnownElement =  _indexOf(_keys(dataTypes), dataType) !== -1;
+
     opts.expand = opts.expand || true;
-    opts.label = opts.label || '';
-    opts.id = opts.id || _uniqueId();
-    const key = opts.id;
-    let Element;
+    opts.format = opts.format || 'htmlTable';
+    opts.id = opts.id || _uniqueId('reactdump');
+    opts.label = isKnownElement ? opts.label || '' : 'Unknown DataType';
 
-    if ( _indexOf(_keys(dataTypes), dataType) !== -1 ) {
-        Element = dataTypes[dataType];
-        return <Element {...{ key, obj, opts, children, path, documentFragment }} />;
-    }
-
-    opts.label = 'Unknown DataType';
-    Element = dataTypes('error');
-    return <Element {...{ key, obj, opts, children, path, documentFragment }} />
+    const Element = isKnownElement ? dataTypes[dataType] : dataTypes('error');
+    return <Element {...{ key:opts.id, obj, opts, children, path, documentFragment }} />;
 };
 
 export { renderElement, Row, Table };

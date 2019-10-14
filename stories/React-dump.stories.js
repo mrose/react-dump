@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dump } from '../src/index';
-import geojson from './geojson';
+import geojson from './data/geojson';
 
 
 // CSF format:
@@ -14,6 +14,11 @@ export default {
 export const withText = () => <Dump obj="aaaaaaa" />;
 withText.story = {
     name: 'with text',
+};
+
+export const withEmptyString = () => <Dump obj="" />;
+withEmptyString.story = {
+    name: 'with empty text',
 };
 
 export const withEmoji = () => <Dump obj="😀 😎 👍 💯" />;

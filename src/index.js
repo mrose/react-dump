@@ -9,7 +9,7 @@ import _keys from "lodash-es/keys";
 /* unimplemented options retained here by lazy developer
  * in previous versions, opts.expand could be an array of object class names to expand
  * output  string, where to send results, 'browser' | 'console' | ?'file'
- * format  string, , 'html' | 'text'
+ * format  string, how to format, 'text'
  * hide: null // hide column or keys
  * keys: null // For a structure, number of keys to display
  * show: null // show column or keys
@@ -20,9 +20,10 @@ import _keys from "lodash-es/keys";
  * obj     variable to be dumped
  * expand  boolean, expands views
  * label   string, header for the dump output
+ * format  string, 'htmlTable' | 'htmlGrid'
  */
-export const Dump = ( {obj, expand=true, label='' } ) => {
-    const { cache, elementProps } = getElementProps( { obj, opts: { expand, label } } );
+export const Dump = ( {obj, expand=true, format='htmlTable', label='' } ) => {
+    const { cache, elementProps } = getElementProps( { obj, opts: { expand, format, label } } );
     return renderElement( elementProps );
 };
 
@@ -39,7 +40,7 @@ const getElementProps = ( args ) => {
 
     let {
         obj,
-        opts = {expand:true, label:''},
+        opts = {expand:true, format:'htmlTable', label:''},
         cache = defaultCache,
         currentPath = [],
         objName = '',
