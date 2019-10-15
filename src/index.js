@@ -1,6 +1,6 @@
 import React from "react";
 import "./dump.css";
-import {createUseStyles, useTheme, ThemeProvider} from 'react-jss';
+import {createUseStyles, useTheme, ThemeProvider, JssProvider} from 'react-jss';
 import theme from "./theme";
 import { renderElement } from "./format";
 
@@ -22,14 +22,16 @@ import _keys from "lodash-es/keys";
  * obj     variable to be dumped
  * expand  boolean, expands views
  * label   string, header for the dump output
- * format  string, 'htmlTable' | 'htmlGrid'
+ * format  string, 'htmlTable' | 'htmlFlex'
  */
 export const Dump = ( {obj, expand=true, format='htmlTable', label='' } ) => {
     const { cache, elementProps } = getElementProps( { obj, opts: { expand, format, label } } );
         return (
-            <ThemeProvider {...{theme}}>
-                { renderElement( elementProps ) }
-            </ThemeProvider>
+            <JssProvider classNamePrefix='react-dump-'>
+                <ThemeProvider {...{theme}}>
+                    { renderElement( elementProps ) }
+                </ThemeProvider>
+            </JssProvider>
         );
 };
 

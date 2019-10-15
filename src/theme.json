@@ -1,25 +1,55 @@
 {
-  "borderColor": "#000000",
-  "borderSpacing": 2,
-  "fontFamily": "verdana, arial, helvetica, sans-serif",
-  "fontSize": "x-small",
-  "padding": 3,
-
   "simpleContainer": {
-    "display": "grid",
-    "grid-template-columns": "auto auto",
-    "grid-template-rows": "auto auto",
-    "justify-items": "start",
-    "align-items": "start",
-    "justify-content": "start",
-    "align-content": "start"
+    "display": "flex",
+    "align-items": "center",
+    "align-content": "stretch",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "#ffffff",
+    "fontFamily": "verdana, arial, helvetica, sans-serif",
+    "fontSize": "x-small",
+    "padding": 0,
+    "width": "max-content"
   },
-  "item": {
+
+  "label": {
+    "cursor": "pointer",
+    "width": "85%",
+    "width": "-moz-available",
+    "width": "-webkit-fill-available",
+    "width": "fill-available",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "#ffffff",
+    "padding": 0
+  },
+
+  "content": {
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "#ffffff",
+    "padding": 0
+  },
+  "Boolean": {
+    "container": {
+      "borderColor": "#eebb00"
+    },
+    "label": {
+      "borderColor": "#eebb00",
+      "backgroundColor": "#ffda75",
+      "color": "#222222",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#eebb00",
+      "backgroundColor": "#ffffff",
+      "color": "#222222",
+      "padding": 3
+    }
 
   },
-  "label": {
-    "cursor": "pointer"
-  },
+
+
   "pre": {
     "textAlign": "left",
     "lineHeight": "normal",
@@ -50,15 +80,21 @@
     }
   },
 
-  "string": {
-    "borderColor": "#888888",
-    "data": {
-      "backgroundColor": "#ffffff",
-      "color": "#222222"
+  "String": {
+    "container": {
+      "borderColor": "#888888"
     },
     "label": {
+      "borderColor": "#888888",
       "backgroundColor": "#dddddd",
-      "color": "#222222"
+      "color": "#222222",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#888888",
+      "backgroundColor": "#ffffff",
+      "color": "#222222",
+      "padding": 3
     }
   }
 }

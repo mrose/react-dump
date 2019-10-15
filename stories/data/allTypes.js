@@ -3,7 +3,7 @@ const allTypes = () => {
   const er = new Error("hello, I'm an error");
   const fn = () => "Hello world";
   const re = new RegExp("ab+c");
-  return {
+  const all = {
     array: [
       [-105.00432014465332, 39.74732195489861],
       [-105.00715255737305, 39.7462000683517],
@@ -23,9 +23,11 @@ const allTypes = () => {
       foo: "bar",
       baz: "qux"
     },
-    regexp: re,
+    regexp1: re,
     string: "hello, world",
     undefined: undefined
   };
+  all["circular-ref"] = all.array[2];
+  return all;
 };
-export {allTypes};
+export { allTypes };

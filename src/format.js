@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { createUseStyles, useTheme, ThemeProvider } from "react-jss";
+import escapeHtml from "escape-html";
 import _indexOf from "lodash-es/indexOf";
 import _keys from "lodash-es/keys";
 import _uniqueId from 'lodash-es/uniqueId';
@@ -67,6 +69,26 @@ const Row = (props) => {
 
 };
 
+// simple, complex, + function
+// function = simple with flex-direction: column
+const useStyles = (dataType) => {
+    const theme = useTheme();
+    const dtt = (dataType in theme) ? theme[dataType] : { container:{}, label:{}, content: {} };
+    return createUseStyles((theme) => ({
+        container: {...theme.simpleContainer, ...dtt.container },
+        label: { ...theme.label, ...dtt.label },
+        content: { ...theme.content, ...dtt.content }
+    }))();
+};
+
+const formatDataType = (dataType, obj) => {
+    const t = {
+        "Boolean": obj ? <span style={{color: '#008800'}}>{obj.toString()}</span> : <span style={{color: '#aa0000'}}>{obj.toString()}</span>,
+        "String": obj.length ? escapeHtml(obj) : "[empty]",
+    };
+    return (dataType in t) ? t[dataType] : obj;
+};
+
 const renderElement = (props) => {
     const {
         children = [],
@@ -85,8 +107,31 @@ const renderElement = (props) => {
     opts.id = opts.id || _uniqueId('reactdump');
     opts.label = isKnownElement ? opts.label || '' : 'Unknown DataType';
 
-    const Element = isKnownElement ? dataTypes[dataType] : dataTypes('error');
-    return <Element {...{ key:opts.id, obj, opts, children, path, documentFragment }} />;
+    switch (opts.format) {
+        case 'htmlTable':
+            const Element = isKnownElement ? dataTypes[dataType] : dataTypes('error');
+            return <Element {...{ key:opts.id, obj, opts, children, path, documentFragment }} />;
+            break;
+
+        case 'htmlFlex':
+            return <SimpleElement {...{dataType, obj, label:opts.label}} />;
+            break;
+    }
+
+};
+
+const SimpleElement = ({dataType, obj, label, expanded=true}) => {
+    const classes = useStyles(dataType);
+    const [isExpanded, setIsExpanded] = useState(expanded);
+    const handleClick = () => setIsExpanded(!isExpanded);
+    return (
+        <div className={classes.container}>
+            <div className={classes.label} onClick={handleClick}>{label}</div>
+            <div style={!isExpanded ? {display:"none"} : {}} className={classes.content}>
+                { formatDataType(dataType, obj) }
+            </div>
+        </div>
+    );
 };
 
 export { renderElement, Row, Table };
