@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { createUseStyles, useTheme, ThemeProvider } from "react-jss";
-import escapeHtml from "escape-html";
-import _indexOf from "lodash-es/indexOf";
-import _keys from "lodash-es/keys";
-import _uniqueId from 'lodash-es/uniqueId';
+import { getDataType } from "./index";
 import { dataTypes } from "./dataTypes/index";
+import escapeHtml from "escape-html";
+
+import _uniqueId from 'lodash-es/uniqueId';
 
 
 const Table = (props) => {
     const {
+        children = [],
         className = 'reactDump',
         cols = 2,
         expand:exp = true,
@@ -46,14 +47,14 @@ const Row = (props) => {
         className="",
         cols = 2,
         expand:exp = true,
-        id="",
+        id=_uniqueId('reactdump'),
         label = "",
         title = "",
     } = props;
     const [expand, setExpand] = useState(exp);
 
     const handleClick = () => setExpand(!expand);
-    const key = _uniqueId('reactdump');
+    const key = id;
     return (
         <tr {...{id, key}}>
             { cols === 2 &&
@@ -80,41 +81,51 @@ const useStyles = (dataType) => {
         content: { ...theme.content, ...dtt.content }
     }))();
 };
-
-const formatDataType = (dataType, obj) => {
+/*
+NaN, Infinity, -Infinity, Symbol
+*/
+const formatDataType = (dataType, el) => {
     const t = {
-        "Boolean": obj ? <span style={{color: '#008800'}}>{obj.toString()}</span> : <span style={{color: '#aa0000'}}>{obj.toString()}</span>,
-        "String": obj.length ? escapeHtml(obj) : "[empty]",
+        "Array": () => "array",
+        "Boolean": (elem) => elem ? <span style={{color: '#008800'}}>{elem.toString()}</span> : <span style={{color: '#aa0000'}}>{elem.toString()}</span>,
+        "Circular-ref": () => "<a href={documentFragment}>{path.join('>>')}</a>",
+        "Date": (elem) => elem.toString(),
+        "Error": (elem) => elem.toString(),
+        "Function:": (elem) => escapeHtml(elem.toString().replace(/\t/g, "")),
+        "Math": (elem) => elem,
+        "Null": () => "[null]",
+        "Number": (elem) => elem.toString(),
+        "Object": () => "object",
+        "RegExp": (elem) => elem.toString(),
+        "String": (elem) => elem.length ? escapeHtml(elem) : "[empty]",
+        "Undefined": () => "[?]",
+        "Unknown": () => `[${getDataType(el, false)}]`
     };
-    return (dataType in t) ? t[dataType] : obj;
+    return (dataType in t) ? t[dataType](el) : `${dataType} not found`;
 };
 
-const renderElement = (props) => {
-    const {
+const renderElement = (props={}) => {
+    let {
         children = [],
-        dataType = "Error",
-        documentFragment = "",
+        dataType = 'Unknown',
+        documentFragment = '',
         index = 0,
         obj,
-        opts = {},
+        expand = false,
+        format = 'htmlTable',
+        id = _uniqueId('reactdump'),
+        label = 'Unknown',
         path = [],
     } = props;
 
-    const isKnownElement =  _indexOf(_keys(dataTypes), dataType) !== -1;
-
-    opts.expand = opts.expand || true;
-    opts.format = opts.format || 'htmlTable';
-    opts.id = opts.id || _uniqueId('reactdump');
-    opts.label = isKnownElement ? opts.label || '' : 'Unknown DataType';
-
-    switch (opts.format) {
+    switch (format) {
         case 'htmlTable':
-            const Element = isKnownElement ? dataTypes[dataType] : dataTypes('error');
-            return <Element {...{ key:opts.id, obj, opts, children, path, documentFragment }} />;
+            const Element = dataTypes[dataType];
+            return <Element {...{ key:id, obj, id, expand, label, children, path, documentFragment }} />;
             break;
 
         case 'htmlFlex':
-            return <SimpleElement {...{dataType, obj, label:opts.label}} />;
+            return <SimpleElement {...{dataType, obj, label, expanded:expand}} />;
             break;
     }
 

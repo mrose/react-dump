@@ -1,9 +1,7 @@
-/src/
-/lib/*.html
-/lib/*.map
-/lib/*.json
-/tests/
-/scripts/
-/public/
 /config/
+/dist/
+/scripts/
+/src/
+/stories/
+/test/
 yarn.lock

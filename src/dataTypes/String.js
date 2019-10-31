@@ -3,8 +3,7 @@ import { renderElement, Row, Table } from "../format";
 import escapeHtml from "escape-html";
 
 
-export const String = ({ obj, opts }) => {
-  const { expand = true, format, label = "String" } = opts;
+export const String = ({ obj, expand, label }) => {
   const className = "reactdump reactdump-String";
   const rowClassName = "reactdump-label reactdump-String";
 

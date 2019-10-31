@@ -3,7 +3,6 @@ const allTypes = () => {
   const er = new Error("hello, I'm an error");
   const fn = () => "Hello world";
   const re = new RegExp("ab+c");
-  const mp = new Map();
   const all = {
     array: [
       [-105.00432014465332, 39.74732195489861],
@@ -17,7 +16,6 @@ const allTypes = () => {
     date: dt,
     error: er,
     function: fn,
-    map: mp,
     math: Math.PI,
     null: null,
     number: 42,

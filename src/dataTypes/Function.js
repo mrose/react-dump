@@ -3,8 +3,7 @@ import { Row, Table } from "../format";
 import escapeHtml from "escape-html";
 
 
-export const Function = ({ obj, opts }) => {
-  const { expand = true, label = "Function" } = opts;
+export const Function = ({ obj, expand, label }) => {
   const className = "reactdump reactdump-Function";
   const rowClassName = "reactdump-label reactdump-Function";
 

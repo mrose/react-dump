@@ -11,6 +11,7 @@ import { Obj } from "./Obj";
 import { RegExp } from "./RegExp";
 import { String } from "./String";
 import { Undefined } from "./Undefined";
+import { Unknown } from "./Unknown";
 
-const dataTypes = { Array:Arr, Boolean, CircularReference, Date, Error, Function, Math, Null, Number, Object:Obj, RegExp, String, Undefined };
+const dataTypes = { Array:Arr, Boolean, CircularReference, Date, Error, Function, Math, Null, Number, Object:Obj, RegExp, String, Undefined, Unknown };
 export { dataTypes };

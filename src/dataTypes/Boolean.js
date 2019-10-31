@@ -2,11 +2,7 @@ import React from 'react';
 import { Row, Table } from '../format';
 
 
-export const Boolean = ( { obj, opts } ) => {
-    const {
-      expand = true,
-      label = 'Boolean'
-    } = opts;
+export const Boolean = ({ obj, expand, label }) => {
     const className = 'reactdump reactdump-Boolean';
     const rowClassName = 'reactdump-label reactdump-Boolean';
     return <Table {...{ className, expand }}>

@@ -1,31 +1,40 @@
-import getObjProps from '../src/components/getObjProps'
+import {getElementProps} from '../src/index'
 
-describe('creates a cache for rendering', () => {
+describe('recurses through complex objects and returns a structure used for rendering', () => {
 
-  it('creates a default cache when no object is provided', () => {
-    const e = new Error('No object provided')
-    const cache = {
-        bFilteredLevel: false
-      , level:0
-      , objects: [e]
-      , paths: [["Error"]]
-      , opts: [{"expand": true, "label": "Error"}]
-    }
-    expect(getObjProps()).toEqual(cache)
+  it('returns Undefined when no props are provided', () => {
+    const expected = {
+      children:[],
+      dataType:'Undefined',
+      documentFragment:'',
+      id:'reactdump1',
+      index:1,
+      label:'Undefined',
+      name:'Undefined',
+      obj:undefined,
+      path:['Undefined']
+    };
+    const received = getElementProps();
+    expect(received).toEqual(expected)
   })
 
-  it('creates a default cache when an object is provided', () => {
-    const obj = 'Hello, world'
-    const cache = {
-        bFilteredLevel: false
-      , level:0
-      , objects: [obj]
-      , paths: [["String"]]
-      , opts: [{"expand": true, "label": "String"}]
-    }
-    expect(getObjProps(obj)).toEqual(cache)
+  it('returns a provided label at the top level when no props are provided', () => {
+    const expected = {
+      children:[],
+      dataType:'Undefined',
+      documentFragment:'',
+      id:'reactdump1',
+      index:1,
+      label:'Helloooo',
+      name:'Undefined',
+      obj:undefined,
+      path:['Undefined']
+    };
+    const received = getElementProps({label:expected.label});
+    expect(received).toEqual(expected)
   })
 
+/*
   it('creates the object class name as the default cache options label when no top label is provided', () => {
     const obj = 'Hello, world'
     const cache = {
@@ -35,7 +44,7 @@ describe('creates a cache for rendering', () => {
       , paths: [["String"]]
       , opts: [{"expand": true, "label": "String"}]
     }
-    expect(getObjProps(obj)).toEqual(cache)
+    expect(getElementProps(obj)).toEqual(cache)
   })
 
   it('appends the object class name to the default cache options label when a top label is provided', () => {
@@ -48,7 +57,7 @@ describe('creates a cache for rendering', () => {
       , paths: [['Toppy - String']]
       , opts: [{"expand": true, "label": "Toppy - String"}]
     }
-    expect(getObjProps(obj, opts)).toEqual(cache)
+    expect(getElementProps(obj, opts)).toEqual(cache)
   })
 
   it('can recurse if the provided object is Array', () => {
@@ -60,8 +69,7 @@ describe('creates a cache for rendering', () => {
       , paths: [['Array'], ['Array','String'], ['Array','String']]
       , opts: [{'expand': true, 'label': 'Array (2)'}, {'expand': true, 'label': 'String'}, {'expand': true, 'label': 'String'}]
     }
-    expect(getObjProps(obj)).toEqual(cache)
+    expect(getElementProps(obj)).toEqual(cache)
   })
-
-
+*/
 })

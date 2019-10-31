@@ -6,7 +6,7 @@ import {allTypes} from './data/allTypes';
 
 // CSF format:
 export default {
-    title: "Dump",
+    title: "Dump using tables",
     component: Dump,
     decorators: [],
     parameters: {},
@@ -29,13 +29,3 @@ export const withAllTypes = () => {
     return <Dump obj={t} />;
 };
 withAllTypes.story = { name: 'with all types' };
-
-export const withBooleanFalseFlex = () => <Dump obj={false} format="htmlFlex" />;
-withBooleanFalseFlex.story = { name: 'with boolean false - flex div' };
-
-export const withBooleanTrueFlex = () => <Dump obj={true} format="htmlFlex" />;
-withBooleanTrueFlex.story = { name: 'with boolean true - flex div' };
-
-export const withTextFlex = () => <Dump obj="aaaaaaa" format="htmlFlex" />;
-withTextFlex.story = { name: 'with text - flex div' };
-

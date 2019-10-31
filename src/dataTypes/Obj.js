@@ -1,13 +1,13 @@
 import React from "react";
 import { renderElement, Row, Table } from "../format";
 
-export const Obj = ({ obj, opts, children = [] }) => {
-  const { expand = true, label = "Object" } = opts;
+
+export const Obj = ({ obj, expand, label, children = [] }) => {
   const className = "reactdump reactdump-Object";
 
   let rows = [];
   for (let element of children) {
-    let { opts, name, index } = element;
+    let { expand, name, index } = element;
     rows.push(
       <Row
         key={index}
@@ -15,7 +15,7 @@ export const Obj = ({ obj, opts, children = [] }) => {
         className="reactdump-label reactdump-Object"
         label={name}
         title={name}
-        expand={opts.expand}
+        expand={expand}
       >
         {renderElement(element)}
       </Row>

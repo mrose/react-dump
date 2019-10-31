@@ -1,8 +1,7 @@
 import React from "react";
 import { Row, Table } from "../format";
 
-export const Math = ({ obj, opts }) => {
-  const { expand = true, label = "Math" } = opts;
+export const Math = ({ obj, expand, label }) => {
   const className = "reactdump reactdump-Math";
   const rowClassName = "reactdump-label reactdump-Math";
 

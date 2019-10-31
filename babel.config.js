@@ -1,5 +1,5 @@
-// used for rollup only. rollupjs.org/guide/en/#babel
-{
+// used for jest
+module.exports = {
   "presets": [
     [
       "@babel/preset-env",
@@ -13,4 +13,4 @@
       "@babel/preset-react"
     ],
   ]
-}
+};

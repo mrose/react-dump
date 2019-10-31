@@ -1,5 +1,5 @@
 {
-  "author": "Mitchell M. Rose",
+  "author": "Mitchell Rose",
   "bugs": {
     "url": "https://github.com/mrose/react-dump/issues"
   },
@@ -25,6 +25,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-embed-css": "^1.0.5",
+    "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2"
   },
@@ -46,20 +47,20 @@
   "main": "Dump",
   "name": "react-dump",
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "scripts": {
-    "build": "rollup --config",
-    "start": "node scripts/start.js",
-    "test": "node scripts/test.js --env=jsdom",
-    "storybook": "start-storybook"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mrose/react-dump.git"
   },
-  "version": "0.4.0",
+  "scripts": {
+    "build": "rollup --config",
+    "start": "node scripts/start.js",
+    "test": "jest --config jest.config.js",
+    "storybook": "start-storybook"
+  },
+  "version": "0.9.0",
   "dependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0"

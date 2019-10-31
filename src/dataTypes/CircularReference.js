@@ -3,12 +3,12 @@ import { Row, Table } from "../format";
 
 export const CircularReference = ({
   obj,
-  opts,
+  expand,
+  label,
   children = [],
   path = [],
   documentFragment = ""
 }) => {
-  const { expand = true, label = "Circular Reference" } = opts;
   const className = "reactdump reactdump-Circular-Reference";
   const rowClassName = "reactdump-label reactdump-Circular-Reference";
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { Row, Table } from "../format";
 
-export const Null = ({ obj, expand, label }) => {
-  const className = "reactdump reactdump-Null";
-  const rowClassName = "reactdump-label reactdump-Null";
+export const Unknown = ({ obj, expand, label }) => {
+  const className = "reactdump reactdump-Unknown";
+  const rowClassName = "reactdump-label reactdump-Unknown";
 
   return (
     <Table {...{ className, expand }}>

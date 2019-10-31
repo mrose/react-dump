@@ -2,11 +2,7 @@ import React from 'react';
 import { Row, Table } from '../format';
 
 
-export const RegExp = ( { obj, opts } ) => {
-    const {
-        expand = true,
-        label = 'RegExp'
-    } = opts;
+export const RegExp = ({ obj, expand, label }) => {
     const className = 'reactdump reactdump-RegExp';
     const rowClassName = 'reactdump-label reactdump-RegExp';
 

@@ -1,9 +1,9 @@
 {
   "simpleContainer": {
     "display": "flex",
-    "align-items": "center",
-    "align-content": "stretch",
-    "borderWidth": "1px",
+    "alignItems": "center",
+    "alignContent": "stretch",
+    "borderWidth": 1,
     "borderStyle": "solid",
     "borderColor": "#ffffff",
     "fontFamily": "verdana, arial, helvetica, sans-serif",
@@ -18,7 +18,7 @@
     "width": "-moz-available",
     "width": "-webkit-fill-available",
     "width": "fill-available",
-    "borderWidth": "1px",
+    "borderWidth": 1,
     "borderStyle": "solid",
     "borderColor": "#ffffff",
     "padding": 0
@@ -30,6 +30,20 @@
     "borderColor": "#ffffff",
     "padding": 0
   },
+
+  "code": {
+    "fontSize": "small",
+    "fontFamily": "Consolas, Menlo, Monaco, Lucida Console, monospace, Courier New, monospace, serif"
+  },
+
+  "pre": {
+    "textAlign": "left",
+    "lineHeight": "normal",
+    "backgroundColor": "#ffffff",
+    "border": 0,
+    "padding": 0
+  },
+
   "Boolean": {
     "container": {
       "borderColor": "#eebb00"
@@ -46,38 +60,120 @@
       "color": "#222222",
       "padding": 3
     }
-
   },
 
-
-  "pre": {
-    "textAlign": "left",
-    "lineHeight": "normal",
-    "backgroundColor": "#ffffff",
-    "border": 0,
-    "padding": 0
-  },
-  "code": {
-    "fontSize": "small",
-    "fontFamily": "Consolas, Menlo, Monaco, Lucida Console, monospace, Courier New, monospace, serif"
-  },
-
-
-  "object": {
-    "backgroundColor": "#0000cc",
-    "borderColor": "#0000cc"
-  },
-
-  "number": {
-    "borderColor": "#ff8833",
-    "data": {
-      "backgroundColor": "#ffffff",
-      "color": "#222222"
+  "Date": {
+    "container": {
+      "borderColor": "#9252c7"
     },
     "label": {
-      "backgroundColor": "#ffb885",
-      "color": "#222222"
+      "borderColor": "#9252c7",
+      "backgroundColor": "#c78ef5",
+      "color": "#222222",
+      "padding": 3,
+      "width": "auto"
+    },
+    "content": {
+      "borderColor": "#9252c7",
+      "backgroundColor": "#ffffff",
+      "color": "#222222",
+      "padding": 3
     }
+  },
+
+  "Error": {
+    "container": {
+      "borderColor": "#cc3300"
+    },
+    "label": {
+      "borderColor": "#cc3300",
+      "backgroundColor": "#ffff9e",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#cc3300",
+      "backgroundColor": "#ffffff",
+      "padding": 3,
+      "whiteSpace": "pre"
+    }
+  },
+
+  "Function": {
+    "container": {
+      "borderColor": "#aa4400",
+      "flexDirection": "column"
+    },
+    "label": {
+      "borderColor": "#aa4400",
+      "backgroundColor": "#cc6600",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#aa4400",
+      "backgroundColor": "#ffffff",
+      "padding": 3,
+      "whiteSpace": "pre"
+    }
+  },
+
+  "Null": {
+    "container": {
+      "borderColor": "#333333"
+    },
+    "label": {
+      "borderColor": "#333333",
+      "backgroundColor": "#000000",
+      "color": "#ffffff",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#333333",
+      "backgroundColor": "#000000",
+      "color": "#ffffff",
+      "padding": 3
+    }
+  },
+
+  "Number": {
+    "container": {
+      "borderColor": "#ff8833"
+    },
+    "label": {
+      "borderColor": "#ff8833",
+      "backgroundColor": "#ffb885",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#ff8833",
+      "backgroundColor": "#ffffff",
+      "padding": 3,
+      "whiteSpace": "pre"
+    }
+  },
+
+   "Object": {
+     "container": {
+       "borderColor": "#0000cc",
+       "flexDirection": "column"
+     },
+     "label": {
+       "borderColor": "#0000cc",
+       "backgroundColor": "#4444CC",
+       "color": "#ffffff",
+       "padding": 3
+     },
+     "content": {
+       "borderColor": "#0000cc",
+       "backgroundColor": "#ccddff",
+       "width": "-moz-available",
+       "width": "-webkit-fill-available",
+       "width": "fill-available",
+       "padding": 3
+     }
+   },
+
+  "Regexp": {
+
   },
 
   "String": {
@@ -96,5 +192,24 @@
       "color": "#222222",
       "padding": 3
     }
+  },
+
+  "Undefined": {
+    "container": {
+      "borderColor": "#333333"
+    },
+    "label": {
+      "borderColor": "#333333",
+      "backgroundColor": "#000000",
+      "color": "#ffffff",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#333333",
+      "backgroundColor": "#000000",
+      "color": "#ffffff",
+      "padding": 3
+    }
+
   }
 }
