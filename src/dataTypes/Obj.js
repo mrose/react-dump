@@ -8,6 +8,7 @@ export const Obj = ({ obj, expand, label, children = [] }) => {
   let rows = [];
   for (let element of children) {
     let { expand, name, index } = element;
+    element.format = 'htmlTable';
     rows.push(
       <Row
         key={index}

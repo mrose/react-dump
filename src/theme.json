@@ -44,6 +44,27 @@
     "padding": 0
   },
 
+  "Array": {
+    "container": {
+      "borderColor": "#006600",
+      "flexDirection": "column"
+    },
+    "label": {
+      "borderColor": "#006600",
+      "backgroundColor": "#009900",
+      "color": "#ffffff",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#006600",
+      "backgroundColor": "#ccffcc",
+      "width": "-moz-available",
+      "width": "-webkit-fill-available",
+      "width": "fill-available",
+      "padding": 3
+    }
+  },
+
   "Boolean": {
     "container": {
       "borderColor": "#eebb00"
@@ -62,6 +83,25 @@
     }
   },
 
+  "CircularReference": {
+    "container": {
+      "borderColor": "#333333"
+    },
+    "label": {
+      "borderColor": "#333333",
+      "backgroundColor": "#000000",
+      "color": "#ffffff",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#333333",
+      "backgroundColor": "#000000",
+      "color": "#ffffff",
+      "padding": 3
+    }
+
+  },
+
   "Date": {
     "container": {
       "borderColor": "#9252c7"
@@ -69,7 +109,6 @@
     "label": {
       "borderColor": "#9252c7",
       "backgroundColor": "#c78ef5",
-      "color": "#222222",
       "padding": 3,
       "width": "auto"
     },
@@ -106,6 +145,7 @@
     "label": {
       "borderColor": "#aa4400",
       "backgroundColor": "#cc6600",
+      "color": "#ffffff",
       "padding": 3
     },
     "content": {
@@ -151,33 +191,61 @@
     }
   },
 
-   "Object": {
-     "container": {
-       "borderColor": "#0000cc",
-       "flexDirection": "column"
-     },
-     "label": {
-       "borderColor": "#0000cc",
-       "backgroundColor": "#4444CC",
-       "color": "#ffffff",
-       "padding": 3
-     },
-     "content": {
-       "borderColor": "#0000cc",
-       "backgroundColor": "#ccddff",
-       "width": "-moz-available",
-       "width": "-webkit-fill-available",
-       "width": "fill-available",
-       "padding": 3
-     }
-   },
+  "Object": {
+    "container": {
+      "borderColor": "#0000cc",
+      "flexDirection": "column"
+    },
+    "label": {
+      "borderColor": "#0000cc",
+      "backgroundColor": "#4444CC",
+      "color": "#ffffff",
+      "padding": 3
+    },
+    "content": {
+      "display": "grid",
+      "grid-template-columns": "1fr 3px 1fr",
+      "grid-template-rows": "repeat(3, 1fr)",
+      "alignItems": "center",
+      "alignContent": "stretch",
+      "backgroundColor": "#ccddff",
+      "borderWidth": 1,
+      "borderStyle": "solid",
+      "borderColor": "#0000cc",
+      "fontFamily": "verdana, arial, helvetica, sans-serif",
+      "fontSize": "x-small",
+      "width": "-moz-available",
+      "width": "-webkit-fill-available",
+      "width": "fill-available"
+    }
+  },
 
-  "Regexp": {
+  "RegExp": {
+    "container": {
+      "borderColor": "#884488",
+      "flexDirection": "column"
+    },
+    "label": {
+      "borderColor": "#884488",
+      "backgroundColor": "#aa66aa",
+      "color": "#ffffff",
+      "padding": 3
+    },
+    "content": {
+      "borderColor": "#884488",
+      "backgroundColor": "#ffffff",
+      "padding": 3,
+      "whiteSpace": "pre",
+      "width": "-moz-available",
+      "width": "-webkit-fill-available",
+      "width": "fill-available"
+    }
 
   },
 
   "String": {
     "container": {
+      "alignItems": "stretch",
       "borderColor": "#888888"
     },
     "label": {
@@ -190,6 +258,7 @@
       "borderColor": "#888888",
       "backgroundColor": "#ffffff",
       "color": "#222222",
+      "flex-basis": "auto",
       "padding": 3
     }
   },
@@ -210,6 +279,24 @@
       "color": "#ffffff",
       "padding": 3
     }
+  },
 
-  }
+    "Unknown": {
+      "container": {
+        "borderColor": "#000000"
+      },
+      "label": {
+        "borderColor": "#000000",
+        "backgroundColor": "#999999",
+        "color": "#ffffff",
+        "padding": 3
+      },
+      "content": {
+        "borderColor": "#000000",
+        "backgroundColor": "#000000",
+        "color": "#ffffff",
+        "padding": 3
+      }
+    }
+
 }

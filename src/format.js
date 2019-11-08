@@ -4,6 +4,8 @@ import { getDataType } from "./index";
 import { dataTypes } from "./dataTypes/index";
 import escapeHtml from "escape-html";
 
+import _includes from 'lodash-es/includes';
+import _map from 'lodash-es/map';
 import _uniqueId from 'lodash-es/uniqueId';
 
 
@@ -72,36 +74,53 @@ const Row = (props) => {
 
 // simple, complex, + function
 // function = simple with flex-direction: column
-const useStyles = (dataType) => {
+const useStyles = (dataType, cl) => {
     const theme = useTheme();
     const dtt = (dataType in theme) ? theme[dataType] : { container:{}, label:{}, content: {} };
-    return createUseStyles((theme) => ({
-        container: {...theme.simpleContainer, ...dtt.container },
-        label: { ...theme.label, ...dtt.label },
-        content: { ...theme.content, ...dtt.content }
-    }))();
+    const container = {...theme.simpleContainer, ...dtt.container };
+    const label = { ...theme.label, ...dtt.label };
+    const content = (cl)
+      ? { ...theme.content, ...dtt.content, ...{"grid-template-rows": `repeat(${cl}, 1fr)`} }
+      : { ...theme.content, ...dtt.content }
+      ;
+    return createUseStyles((theme) => ({container, label, content}))();
 };
+
+const formatComplexChildren = (children, expand, format) => {
+  let i = 0;
+  return _map(children, (child) => {
+    child.expand = expand;
+    child.format = format;
+    return (
+      <>
+        <div style={{'gridRow':++i, 'gridColumn':1 }}>{child.label}</div>
+        <div style={{'gridRow':i, 'gridColumn':2 }}>{renderElement(child)}</div>
+      </>
+    );
+  });
+}
+
 /*
 NaN, Infinity, -Infinity, Symbol
 */
-const formatDataType = (dataType, el) => {
+const formatObjectType = (objectType, obj, expand, format) => {
     const t = {
-        "Array": () => "array",
-        "Boolean": (elem) => elem ? <span style={{color: '#008800'}}>{elem.toString()}</span> : <span style={{color: '#aa0000'}}>{elem.toString()}</span>,
-        "Circular-ref": () => "<a href={documentFragment}>{path.join('>>')}</a>",
-        "Date": (elem) => elem.toString(),
-        "Error": (elem) => elem.toString(),
-        "Function:": (elem) => escapeHtml(elem.toString().replace(/\t/g, "")),
-        "Math": (elem) => elem,
+        "Array": formatComplexChildren,
+        "Boolean": (obj) => obj ? <span style={{color: '#008800'}}>{obj.toString()}</span> : <span style={{color: '#aa0000'}}>{obj.toString()}</span>,
+        "CircularReference": () => "<a href={documentFragment}>{path.join('>>')}</a>",
+        "Date": (obj) => obj.toString(),
+        "Error": (obj) => obj.toString(),
+        "Function:": (obj) => escapeHtml(obj.toString().replace(/\t/g, "")),
+        "Math": (obj) => obj,
         "Null": () => "[null]",
-        "Number": (elem) => elem.toString(),
-        "Object": () => "object",
-        "RegExp": (elem) => elem.toString(),
-        "String": (elem) => elem.length ? escapeHtml(elem) : "[empty]",
+        "Number": (obj) => obj.toString(),
+        "Object": formatComplexChildren,
+        "RegExp": (obj) => `${obj.toString()} ${obj.flags}`,
+        "String": (obj) => obj.length ? escapeHtml(obj) : "[empty]",
         "Undefined": () => "[?]",
-        "Unknown": () => `[${getDataType(el, false)}]`
+        "Unknown": () => `[${getDataType(obj, false)}]`
     };
-    return (dataType in t) ? t[dataType](el) : `${dataType} not found`;
+    return (objectType in t) ? t[objectType](obj, expand) : `${objectType} not found`;
 };
 
 const renderElement = (props={}) => {
@@ -112,9 +131,10 @@ const renderElement = (props={}) => {
         index = 0,
         obj,
         expand = false,
-        format = 'htmlTable',
+        format = 'htmlFlex',
         id = _uniqueId('reactdump'),
         label = 'Unknown',
+        name = 'Unknown',
         path = [],
     } = props;
 
@@ -125,24 +145,25 @@ const renderElement = (props={}) => {
             break;
 
         case 'htmlFlex':
-            return <SimpleElement {...{dataType, obj, label, expanded:expand}} />;
-            break;
+          return <FlexElement {...{key:id, dataType, obj, children, label, name, expand}} />;
+          break;
     }
 
 };
 
-const SimpleElement = ({dataType, obj, label, expanded=true}) => {
-    const classes = useStyles(dataType);
-    const [isExpanded, setIsExpanded] = useState(expanded);
-    const handleClick = () => setIsExpanded(!isExpanded);
-    return (
-        <div className={classes.container}>
-            <div className={classes.label} onClick={handleClick}>{label}</div>
-            <div style={!isExpanded ? {display:"none"} : {}} className={classes.content}>
-                { formatDataType(dataType, obj) }
-            </div>
-        </div>
-    );
-};
+const FlexElement = ({dataType, obj, children=[], label, name, expand=true}) => {
+  const classes = useStyles(dataType, children.length);
+  const [isExpanded, setIsExpanded] = useState(expand);
+  const handleClick = () => setIsExpanded(!isExpanded);
+  const isComplex = _includes( ['Object','Array'], dataType);
+  return (
+      <div className={classes.container}>
+        <div className={classes.label} onClick={handleClick}>{isComplex ? label : name}</div>
+              <div style={!isExpanded ? {display:"none"} : {}} className={classes.content}>
+              { formatObjectType(dataType, isComplex ? children : obj, isExpanded, 'htmlFlex') }
+              </div>
+      </div>
+  );
+}
 
 export { renderElement, Row, Table };

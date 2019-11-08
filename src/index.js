@@ -28,7 +28,7 @@ import _uniqueId from 'lodash-es/uniqueId';
  * label   string, top level heading for the output
  * format  string, 'htmlTable' | 'htmlFlex'
  */
-export const Dump = ( {obj, expand=true, format='htmlTable', label='' } ) => {
+export const Dump = ( {obj, expand=true, format='htmlFlex', label='' } ) => {
     const eps = getElementProps( {obj, label} );
         return (
             <JssProvider classNamePrefix='react-dump-'>
@@ -88,7 +88,7 @@ export const getElementProps = ( props={} ) => {
     }
 
     if (!name.length) {
-        name = label;
+        name = dataType;
     }
     currentPath.push(name);
 
@@ -98,7 +98,7 @@ export const getElementProps = ( props={} ) => {
       documentFragment:'',  // used for circularReference
       id,                   // used for circularReference
       index:cache.index,    // keeping it distinct
-      label,                // label passed it (top level only) /+ number of child elements
+      label,                // label provided or dataType /+ number of child elements when complex
       name,                 // used for circularReference (defaults to dataType)
       obj,                  // the element itself
       path:currentPath      // used for circularReference
@@ -135,6 +135,7 @@ export const getElementProps = ( props={} ) => {
             obj:obj[i],
             cache,
             currentPath:[...currentPath],
+            label:i
         });
         elementProps.children.push(child);
     });

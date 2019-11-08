@@ -2,7 +2,7 @@ import {getElementProps} from '../src/index'
 
 describe('recurses through complex objects and returns a structure used for rendering', () => {
 
-  it('returns Undefined when no props are provided', () => {
+  it('returns an object representing "Undefined" when no object is provided', () => {
     const expected = {
       children:[],
       dataType:'Undefined',
@@ -18,12 +18,12 @@ describe('recurses through complex objects and returns a structure used for rend
     expect(received).toEqual(expected)
   })
 
-  it('returns a provided label at the top level when no props are provided', () => {
+  it('returns an object which includes the provided top level label when no object is provided', () => {
     const expected = {
       children:[],
       dataType:'Undefined',
       documentFragment:'',
-      id:'reactdump1',
+      id:'reactdump2',
       index:1,
       label:'Helloooo',
       name:'Undefined',
@@ -34,42 +34,161 @@ describe('recurses through complex objects and returns a structure used for rend
     expect(received).toEqual(expected)
   })
 
+  it('returns a provided label at the top level', () => {
+    const expected = {
+      children:[],
+      dataType:'String',
+      documentFragment:'',
+      id:'reactdump3',
+      index:1,
+      label:'Helloooo',
+      name:'String',
+      obj:'World',
+      path:['String']
+    };
+    const received = getElementProps({obj:expected.obj,label:expected.label});
+    expect(received).toEqual(expected)
+  })
+
+  it('returns an object with children element props when an object is provided', () => {
+      const obj = {'Item':'helloooo'};
+      const expected = {
+        children:[{
+          children:[],
+          dataType:'String',
+          documentFragment:'',
+          id:'reactdump5',
+          index:2,
+          label:'Item',
+          name:'String',
+          obj:'helloooo',
+          path:['Object','String']
+        }],
+        dataType:'Object',
+        documentFragment:'',
+        id:'reactdump4',
+        index:1,
+        label:'Object [1]',
+        name:'Object',
+        obj:obj,
+        path:['Object']
+      };
+      const received = getElementProps({obj});
+      expect(received).toEqual(expected)
+    })
+
+  it('returns an object with children element props when an array is provided', () => {
+      const obj = ['hello','young','lovers'];
+      const expected = {
+        children:[
+          { children:[],
+            dataType:'String',
+            documentFragment:'',
+            id:'reactdump7',
+            index:2,
+            label:'0',
+            name:'String',
+            obj:'hello',
+            path:['Array','String']
+          },
+          { children:[],
+            dataType:'String',
+            documentFragment:'',
+            id:'reactdump8',
+            index:3,
+            label:'1',
+            name:'String',
+            obj:'young',
+            path:['Array','String']
+          },
+          { children:[],
+            dataType:'String',
+            documentFragment:'',
+            id:'reactdump9',
+            index:4,
+            label:'2',
+            name:'String',
+            obj:'lovers',
+            path:['Array','String']
+          }
+        ],
+        dataType:'Array',
+        documentFragment:'',
+        id:'reactdump6',
+        index:1,
+        label:'Array [3]',
+        name:'Array',
+        obj:obj,
+        path:['Array']
+      };
+      const received = getElementProps({obj});
+      expect(received).toEqual(expected)
+    })
+
 /*
-  it('creates the object class name as the default cache options label when no top label is provided', () => {
-    const obj = 'Hello, world'
-    const cache = {
-        bFilteredLevel: false
-      , level:0
-      , objects: [obj]
-      , paths: [["String"]]
-      , opts: [{"expand": true, "label": "String"}]
-    }
-    expect(getElementProps(obj)).toEqual(cache)
-  })
+  it('parses an object correctly finding child element props with circular references', () => {
+    const a = ['world'];
+    const obj = {one:'helloooo', two:a, three:a};
+    const expected = {
+      children:[
+        {
+          children:[],
+          dataType:'String',
+          documentFragment:'',
+          id:'reactdump5',
+          index:2,
+          label:'String',
+          name:'String',
+          obj:'helloooo',
+          path:['Object','String']
+        },
+        {
+          children:[
+            {
+              children:[],
+              dataType:'String',
+              documentFragment:'',
+              id:'reactdump5',
+              index:3,
+              label:'String',
+              name:'String',
+              obj:'world',
+              path:['Object','Array','String']
+            },
+          ],
+          dataType:'Array',
+          documentFragment:'',
+          id:'reactdump5',
+          index:2,
+          label:'Array [1]',
+          name:'Array',
+          obj:['world'],
+          path:['Object','Array']
+        },
+        {
+          children:[],
+          dataType:'CircularReference',
+          documentFragment:'',
+          id:'reactdump5',
+          index:2,
+          label:'CircularReference',
+          name:'CircularReference',
+          obj:['world'],
+          path:['Object','Array']
+        }
 
-  it('appends the object class name to the default cache options label when a top label is provided', () => {
-    const obj = 'Hello, world'
-    const opts = { label: 'Toppy' }
-    const cache = {
-        bFilteredLevel: false
-      , level:0
-      , objects: [obj]
-      , paths: [['Toppy - String']]
-      , opts: [{"expand": true, "label": "Toppy - String"}]
-    }
-    expect(getElementProps(obj, opts)).toEqual(cache)
-  })
-
-  it('can recurse if the provided object is Array', () => {
-    const obj = ['a','b']
-    const cache = {
-        bFilteredLevel: false
-      , level:1
-      , objects: [['a', 'b'], 'a', 'b']
-      , paths: [['Array'], ['Array','String'], ['Array','String']]
-      , opts: [{'expand': true, 'label': 'Array (2)'}, {'expand': true, 'label': 'String'}, {'expand': true, 'label': 'String'}]
-    }
-    expect(getElementProps(obj)).toEqual(cache)
+      ],
+      dataType:'Object',
+      documentFragment:'',
+      id:'reactdump6',
+      index:1,
+      label:'Object [3]',
+      name:'Object',
+      obj:obj,
+      path:['Object']
+    };
+    const received = getElementProps(obj);
+    expect(received).toEqual(expected)
   })
 */
 })

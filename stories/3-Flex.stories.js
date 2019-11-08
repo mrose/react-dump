@@ -16,7 +16,10 @@ export default {
     parameters: {},
 };
 
-export const withArray = () => <Dump obj={[]} format="htmlFlex" />;
+export const withArray = () => {
+  const obj = ['hello','young','lovers'];
+  return <Dump obj={obj} format="htmlFlex" />;
+};
 withArray.story = { name: 'with Array' };
 
 export const withBooleanFalse = () => <Dump obj={false} format="htmlFlex" />;
@@ -49,7 +52,10 @@ withNull.story = { name: 'with Null' };
 export const withNumber = () => <Dump obj={42} format="htmlFlex" />;
 withNumber.story = { name: 'with Number' };
 
-export const withObject = () => <Dump obj={{}} format="htmlFlex" />;
+export const withObject = () => {
+  const obj = {'first':'hello', 'second':'world'};
+  return <Dump obj={obj} format="htmlFlex" />;
+};
 withObject.story = { name: 'with Object' };
 
 export const withRegex = () => <Dump obj={re} format="htmlFlex" />;
@@ -60,3 +66,21 @@ withString.story = { name: 'with String' };
 
 export const withUndefined = () => <Dump obj={undefined} format="htmlFlex" />;
 withUndefined.story = { name: 'with Undefined' };
+
+export const withUnknown = () => <Dump obj={Atomics} format="htmlFlex" />;
+withUnknown.story = { name: 'with Unknown' };
+
+export const withEmptyString = () => <Dump obj="" format="htmlFlex"/>;
+withEmptyString.story = { name: 'with empty text' };
+
+export const withEmoji = () => <Dump obj="😀 😎 👍 💯" format="htmlFlex"/>;
+withEmoji.story = { name: "with emoji" };
+
+export const withGeoJson = () => <Dump obj={geojson} format="htmlFlex"/>;
+withGeoJson.story = { name: 'with a complicated structure' };
+
+export const withAllTypes = () => {
+    const t = allTypes();
+    return <Dump obj={t} format="htmlFlex"/>;
+};
+withAllTypes.story = { name: 'with all types' };

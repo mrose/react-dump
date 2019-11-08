@@ -12,20 +12,20 @@ export default {
     parameters: {},
 };
 
-export const withText = () => <Dump obj="aaaaaaa"/>;
+export const withText = () => <Dump obj="aaaaaaa" format="htmlTable"/>;
 withText.story = { name: 'with text' };
 
-export const withEmptyString = () => <Dump obj="" />;
+export const withEmptyString = () => <Dump obj="" format="htmlTable"/>;
 withEmptyString.story = { name: 'with empty text' };
 
-export const withEmoji = () => <Dump obj="😀 😎 👍 💯" />;
+export const withEmoji = () => <Dump obj="😀 😎 👍 💯" format="htmlTable"/>;
 withEmoji.story = { name: "with emoji" };
 
-export const withGeoJson = () => <Dump obj={geojson} />;
+export const withGeoJson = () => <Dump obj={geojson} format="htmlTable"/>;
 withGeoJson.story = { name: 'with a complicated structure' };
 
 export const withAllTypes = () => {
     const t = allTypes();
-    return <Dump obj={t} />;
+    return <Dump obj={t} format="htmlTable"/>;
 };
 withAllTypes.story = { name: 'with all types' };

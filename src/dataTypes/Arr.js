@@ -8,6 +8,7 @@ export const Arr = ({ obj, expand, label, children = [] }) => {
   // nb 'of' returns the element, 'for' returns the index
   for (let element of children) {
     let { expand, name, index } = element;
+    element.format = 'htmlTable';
     rows.push(
       <Row
         key={index}

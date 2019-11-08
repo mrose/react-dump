@@ -2,7 +2,7 @@ const allTypes = () => {
   const dt = new Date();
   const er = new Error("hello, I'm an error");
   const fn = () => "Hello world";
-  const re = new RegExp("ab+c");
+  const re = new RegExp("ab+c", "i");
   const mp = new Map();
   const all = {
     array: [
