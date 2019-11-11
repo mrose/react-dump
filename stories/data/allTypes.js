@@ -21,7 +21,7 @@ const allTypes = () => {
     math: Math.PI,
     null: null,
     number: 42,
-    object: {
+    "some object": {
       foo: "bar",
       baz: "qux"
     },

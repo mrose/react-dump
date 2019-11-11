@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { createUseStyles, useTheme, ThemeProvider } from "react-jss";
 import { getDataType } from "./index";
-import { dataTypes } from "./dataTypes/index";
 import escapeHtml from "escape-html";
+import theme from "./theme.json";
 
 import _includes from 'lodash-es/includes';
 import _map from 'lodash-es/map';
@@ -93,7 +93,7 @@ const formatComplexChildren = (children, expand, format) => {
     child.format = format;
     return (
       <>
-        <div style={{'gridRow':++i, 'gridColumn':1 }}>{child.label}</div>
+        <div style={{'gridRow':++i, 'gridColumn':1 }}>{child.name}</div>
         <div style={{'gridRow':i, 'gridColumn':2 }}>{renderElement(child)}</div>
       </>
     );
@@ -103,14 +103,18 @@ const formatComplexChildren = (children, expand, format) => {
 /*
 NaN, Infinity, -Infinity, Symbol
 */
-const formatObjectType = (objectType, obj, expand, format) => {
+// TODO: circularRef needs mo loving:   <a href='#{props.documentFragment}'>{path.join( '>>' )}</a>
+// (circularRef) specially when target is collapsed
+
+// TODO: string:  var val = '<pre><code class="lang-html">' + hljs.highlight('xml', obj).value + '</code></pre>';
+const formatObjectType = (objectType, obj, expand, format, documentFragment, path) => {
     const t = {
         "Array": formatComplexChildren,
         "Boolean": (obj) => obj ? <span style={{color: '#008800'}}>{obj.toString()}</span> : <span style={{color: '#aa0000'}}>{obj.toString()}</span>,
-        "CircularReference": () => "<a href={documentFragment}>{path.join('>>')}</a>",
+        "CircularReference": () => <a href={documentFragment}>{path.join('>>')}</a>,
         "Date": (obj) => obj.toString(),
         "Error": (obj) => obj.toString(),
-        "Function:": (obj) => escapeHtml(obj.toString().replace(/\t/g, "")),
+        "Function:": (obj) => <pre><code className="lang-javascript">{escapeHtml(obj.toString().replace(/\t/g, ""))}</code></pre>,
         "Math": (obj) => obj,
         "Null": () => "[null]",
         "Number": (obj) => obj.toString(),
@@ -130,7 +134,7 @@ const renderElement = (props={}) => {
         documentFragment = '',
         index = 0,
         obj,
-        expand = false,
+        expand = true,
         format = 'htmlFlex',
         id = _uniqueId('reactdump'),
         label = 'Unknown',
@@ -140,30 +144,56 @@ const renderElement = (props={}) => {
 
     switch (format) {
         case 'htmlTable':
-            const Element = dataTypes[dataType];
-            return <Element {...{ key:id, obj, id, expand, label, children, path, documentFragment }} />;
-            break;
+          const { tableClassName, labelClassName, contentCols } = (dataType in theme) ? theme[dataType] : { tableClassName:"", labelClassName:"" };
+          const isComplex = _includes( ['Object','Array'], dataType);
+          const tblProps = isComplex ? { className:tableClassName, label, expand } : { className:tableClassName, expand };
+          return (
+            <Table {...tblProps}>
+              { isComplex
+              ? (
+                  _map(children, (element) => {
+                    let { expand, label, name, index } = element;
+                    element.format = 'htmlTable';
+                    return (
+                      <Row
+                        key={index}
+                        id={"reactdump" + index}
+                        className={labelClassName}
+                        label={name}
+                        title={name}
+                        expand={expand}
+                      >
+                        {renderElement(element)}
+                      </Row>
+                    );
+                  })
+                )
+              : <Row {...{ className:labelClassName, label, expand, cols:contentCols }}>{formatObjectType(dataType, isComplex ? children : obj, expand, 'htmlTable', documentFragment, path)}</Row>
+              }
+            </Table>
+          );
+          break;
 
         case 'htmlFlex':
-          return <FlexElement {...{key:id, dataType, obj, children, label, name, expand}} />;
+          return <FlexElement {...{dataType, obj, children, label, name, expand, documentFragment, path}} />;
           break;
     }
 
 };
 
-const FlexElement = ({dataType, obj, children=[], label, name, expand=true}) => {
+const FlexElement = ({dataType, obj, children=[], label, name, expand=true, documentFragment, path}) => {
   const classes = useStyles(dataType, children.length);
   const [isExpanded, setIsExpanded] = useState(expand);
   const handleClick = () => setIsExpanded(!isExpanded);
   const isComplex = _includes( ['Object','Array'], dataType);
   return (
-      <div className={classes.container}>
-        <div className={classes.label} onClick={handleClick}>{isComplex ? label : name}</div>
-              <div style={!isExpanded ? {display:"none"} : {}} className={classes.content}>
-              { formatObjectType(dataType, isComplex ? children : obj, isExpanded, 'htmlFlex') }
-              </div>
+    <div className={classes.container}>
+      <div className={classes.label} onClick={handleClick}>{label}</div>
+      <div style={!isExpanded ? {display:"none"} : {}} className={classes.content}>
+        { formatObjectType(dataType, isComplex ? children : obj, isExpanded, 'htmlFlex', documentFragment, path) }
       </div>
+    </div>
   );
 }
 
-export { renderElement, Row, Table };
+export { renderElement };

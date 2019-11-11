@@ -59,8 +59,8 @@ describe('recurses through complex objects and returns a structure used for rend
           documentFragment:'',
           id:'reactdump5',
           index:2,
-          label:'Item',
-          name:'String',
+          label:'String',
+          name:'Item',
           obj:'helloooo',
           path:['Object','String']
         }],
@@ -86,8 +86,8 @@ describe('recurses through complex objects and returns a structure used for rend
             documentFragment:'',
             id:'reactdump7',
             index:2,
-            label:'0',
-            name:'String',
+            label:'String',
+            name:'0',
             obj:'hello',
             path:['Array','String']
           },
@@ -96,8 +96,8 @@ describe('recurses through complex objects and returns a structure used for rend
             documentFragment:'',
             id:'reactdump8',
             index:3,
-            label:'1',
-            name:'String',
+            label:'String',
+            name:'1',
             obj:'young',
             path:['Array','String']
           },
@@ -106,8 +106,8 @@ describe('recurses through complex objects and returns a structure used for rend
             documentFragment:'',
             id:'reactdump9',
             index:4,
-            label:'2',
-            name:'String',
+            label:'String',
+            name:'3',
             obj:'lovers',
             path:['Array','String']
           }

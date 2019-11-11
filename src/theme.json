@@ -62,7 +62,11 @@
       "width": "-webkit-fill-available",
       "width": "fill-available",
       "padding": 3
-    }
+    },
+    "tableClassName": "reactdump reactdump-Array",
+    "labelClassName": "reactdump-label reactdump-Array",
+    "contentCols": 2
+
   },
 
   "Boolean": {
@@ -80,7 +84,11 @@
       "backgroundColor": "#ffffff",
       "color": "#222222",
       "padding": 3
-    }
+    },
+    "tableClassName": "reactdump reactdump-Boolean",
+    "labelClassName": "reactdump-label reactdump-Boolean",
+    "contentCols": 2
+
   },
 
   "CircularReference": {
@@ -98,7 +106,10 @@
       "backgroundColor": "#000000",
       "color": "#ffffff",
       "padding": 3
-    }
+    },
+    "tableClassName": "reactdump reactdump-Circular-Reference",
+    "labelClassName": "reactdump-label reactdump-Circular-Reference",
+    "contentCols": 1
 
   },
 
@@ -117,7 +128,11 @@
       "backgroundColor": "#ffffff",
       "color": "#222222",
       "padding": 3
-    }
+    },
+    "tableClassName": "reactdump reactdump-Date",
+    "labelClassName": "reactdump-label reactdump-Date",
+    "contentCols": 2
+
   },
 
   "Error": {
@@ -134,7 +149,11 @@
       "backgroundColor": "#ffffff",
       "padding": 3,
       "whiteSpace": "pre"
-    }
+    },
+    "tableClassName":"reactdump reactdump-Error",
+    "labelClassName":"reactdump-label reactdump-Error",
+    "contentCols": 2
+
   },
 
   "Function": {
@@ -153,7 +172,18 @@
       "backgroundColor": "#ffffff",
       "padding": 3,
       "whiteSpace": "pre"
-    }
+    },
+    "tableClassName": "reactdump reactdump-Function",
+    "labelClassName": "reactdump-label reactdump-Function",
+    "contentCols": 1
+
+  },
+
+  "Math": {
+    "tableClassName": "reactdump reactdump-Math",
+    "labelClassName": "reactdump-label reactdump-Math",
+    "contentCols": 1
+
   },
 
   "Null": {
@@ -171,7 +201,11 @@
       "backgroundColor": "#000000",
       "color": "#ffffff",
       "padding": 3
-    }
+    },
+    "tableClassName": "reactdump reactdump-Null",
+    "labelClassName": "reactdump-label reactdump-Null",
+    "contentCols": 2
+
   },
 
   "Number": {
@@ -188,7 +222,11 @@
       "backgroundColor": "#ffffff",
       "padding": 3,
       "whiteSpace": "pre"
-    }
+    },
+    "tableClassName": "reactdump reactdump-Number",
+    "labelClassName": "reactdump-label reactdump-Number",
+    "contentCols": 2
+
   },
 
   "Object": {
@@ -217,7 +255,11 @@
       "width": "-moz-available",
       "width": "-webkit-fill-available",
       "width": "fill-available"
-    }
+    },
+    "tableClassName": "reactdump reactdump-Object",
+    "labelClassName": "reactdump-label reactdump-Object",
+    "contentCols": 2
+
   },
 
   "RegExp": {
@@ -239,7 +281,10 @@
       "width": "-moz-available",
       "width": "-webkit-fill-available",
       "width": "fill-available"
-    }
+    },
+    "tableClassName": "reactdump reactdump-RegExp",
+    "labelClassName": "reactdump-label reactdump-RegExp",
+    "contentCols": 1
 
   },
 
@@ -260,7 +305,11 @@
       "color": "#222222",
       "flex-basis": "auto",
       "padding": 3
-    }
+    },
+    "tableClassName": "reactdump reactdump-String",
+    "labelClassName": "reactdump-label reactdump-String",
+    "contentCols": 2
+
   },
 
   "Undefined": {
@@ -278,7 +327,11 @@
       "backgroundColor": "#000000",
       "color": "#ffffff",
       "padding": 3
-    }
+    },
+    "tableClassName": "reactdump reactdump-Undefined",
+    "labelClassName": "reactdump-label reactdump-Undefined",
+    "contentCols": 2
+
   },
 
     "Unknown": {
@@ -296,7 +349,11 @@
         "backgroundColor": "#000000",
         "color": "#ffffff",
         "padding": 3
-      }
+      },
+      "tableClassName": "reactdump reactdump-Unknown",
+      "labelClassName": "reactdump-label reactdump-Unknown",
+      "contentCols": 2
+
     }
 
 }

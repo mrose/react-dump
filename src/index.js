@@ -3,7 +3,6 @@ import './dump.css';
 import {createUseStyles, useTheme, ThemeProvider, JssProvider} from 'react-jss';
 import theme from './theme.json';
 import { renderElement } from './format';
-import { dataTypes } from "./dataTypes/index";
 
 import _forEach from 'lodash-es/forEach';
 import _includes from 'lodash-es/includes';
@@ -40,20 +39,21 @@ export const Dump = ( {obj, expand=true, format='htmlFlex', label='' } ) => {
 };
 
 export function getDataType( elem, unknown=true ) {
+    const types = new Set(['Array','Boolean','Date','Error','Function','Math','Null','Number','Object','RegExp','String','Undefined']);
     const toString = Object.prototype.toString;
-    let dataType = toString.call( elem );
-    dataType = dataType.split(' ')[1];
-    dataType = dataType.substring(0, dataType.length-1);
-    if ( unknown && _indexOf(_keys(dataTypes), dataType) === -1 ) {
-      dataType = 'Unknown';
+    let type = toString.call( elem );
+    type = type.split(' ')[1];
+    type = type.substring(0, type.length-1);
+    if ( unknown && !types.has(type) ) {
+      type = 'Unknown';
     }
-    return dataType;
+    return type;
 }
 
 export function findCircularRef( element, cache ) {
   const { objects:elements, paths } = cache;
   if ( typeof element === 'object' ) {
-      let i = elements.indexOf( element );
+      let i = _indexOf(elements, element);
       if (i !== -1) {
           return paths[i];
       }
@@ -90,7 +90,7 @@ export const getElementProps = ( props={} ) => {
     if (!name.length) {
         name = dataType;
     }
-    currentPath.push(name);
+    currentPath.push(label);
 
     let elementProps = {
       children:[],          // an array of elementProps
@@ -135,7 +135,7 @@ export const getElementProps = ( props={} ) => {
             obj:obj[i],
             cache,
             currentPath:[...currentPath],
-            label:i
+            name:i
         });
         elementProps.children.push(child);
     });
