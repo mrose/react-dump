@@ -81,6 +81,10 @@ withGeoJson.story = { name: 'with a complicated structure' };
 
 export const withAllTypes = () => {
     const t = allTypes();
-    return <Dump obj={t} format="htmlFlex"/>;
+    return (
+      <div>
+        <Dump obj={t} format="htmlFlex"/>
+      </div>
+    );
 };
 withAllTypes.story = { name: 'with all types' };
