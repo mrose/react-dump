@@ -1,77 +1,77 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {getDataType} from '../src/index'
+import {getObjectType} from '../src/index'
 
 describe('properly determines data types', () => {
 
   it('detects Array', () => {
     const a = ['a','b','c']
-    expect(getDataType(a)).toBe('Array')
+    expect(getObjectType(a)).toBe('Array')
   })
 
   it('detects Boolean', () => {
     const b = false
-    expect(getDataType(b)).toBe('Boolean')
+    expect(getObjectType(b)).toBe('Boolean')
   })
 
   it('detects Date', () => {
     const d = new Date(2014, 1, 1)
-    expect(getDataType(d)).toBe('Date')
+    expect(getObjectType(d)).toBe('Date')
   })
 
   it('detects Error', () => {
     const e = new Error('Whoops!')
-    expect(getDataType(e)).toBe('Error')
+    expect(getObjectType(e)).toBe('Error')
   })
 
   it('detects Function', () => {
     const f = function () {}
-    expect(getDataType(f)).toBe('Function')
+    expect(getObjectType(f)).toBe('Function')
   })
 
   it('detects Math', () => {
     const m = Math
-    expect(getDataType(m)).toBe('Math')
+    expect(getObjectType(m)).toBe('Math')
   })
 
   it('detects Null', () => {
     let n = null
-    expect(getDataType(n)).toBe('Null')
+    expect(getObjectType(n)).toBe('Null')
   })
 
   it('detects Number', () => {
     let n = Math.PI
-    expect(getDataType(n)).toBe('Number')
+    expect(getObjectType(n)).toBe('Number')
   })
 
   it('detects Object', () => {
     let o = { }
-    expect(getDataType(o)).toBe('Object')
+    expect(getObjectType(o)).toBe('Object')
   })
 
   it('detects RegExp', () => {
     let r = new RegExp(/ab+c/)
-    expect(getDataType(r)).toBe('RegExp')
+    expect(getObjectType(r)).toBe('RegExp')
   })
 
   it('detects String', () => {
     let s = 'hello world'
-    expect(getDataType(s)).toBe('String')
+    expect(getObjectType(s)).toBe('String')
   })
 
   it('detects Undefined', () => {
     let u
-    expect(getDataType(u)).toBe('Undefined')
+    expect(getObjectType(u)).toBe('Undefined')
   })
 
   it('returns "Unknown" when the dataType is not known and the unknown flag is true', () => {
     let m = new Map()
-    expect(getDataType(m, true)).toBe('Unknown')
+    expect(getObjectType(m, true)).toBe('Unknown')
   })
 
     it('returns the name of an "unknown" dataType when the unknown flag is false', () => {
       let m = new Map()
-      expect(getDataType(m, false)).toBe('Map')
+      expect(getObjectType(m, false)).toBe('Map')
     })
 
 })

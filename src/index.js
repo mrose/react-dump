@@ -25,10 +25,10 @@ import _uniqueId from 'lodash-es/uniqueId';
  * obj     variable to be dumped
  * expand  boolean, expands views
  * label   string, top level heading for the output
- * format  string, 'htmlTable' | 'htmlFlex'
  */
-export const Dump = ( {obj, expand=true, format='htmlFlex', label='' } ) => {
+export const Dump = ( {obj, expand=true, label='' } ) => {
     const eps = getElementProps( {obj, label} );
+    const format = 'htmlTable';
     return (
         <JssProvider classNamePrefix='react-dump-'>
             <ThemeProvider {...{theme}}>
@@ -38,7 +38,7 @@ export const Dump = ( {obj, expand=true, format='htmlFlex', label='' } ) => {
     );
 };
 
-export function getDataType( elem, unknown=true ) {
+export function getObjectType( elem, unknown=true ) {
     const types = new Set(['Array','Boolean','Date','Error','Function','Math','Null','Number','Object','RegExp','String','Undefined']);
     const toString = Object.prototype.toString;
     let type = toString.call( elem );
@@ -81,37 +81,37 @@ export const getElementProps = ( props={} ) => {
     } = props;
 
     cache.index++;
-    const dataType = getDataType(obj);
+    const objType = getObjectType(obj);
 
     if (!label.length) {
-        label = dataType;
+        label = objType;
     }
 
     if (!name.length) {
-        name = dataType;
+        name = objType;
     }
     currentPath.push(label);
 
     let elementProps = {
       children:[],          // an array of elementProps
-      dataType,             // derived dataType
+      objType,             // derived object type
       documentFragment:'',  // used for circularReference
       id,                   // used for circularReference
       index:cache.index,    // keeping it distinct
-      label,                // label provided or dataType /+ number of child elements when complex
-      name,                 // used for circularReference (defaults to dataType)
+      label,                // label provided or objType /+ number of child elements when complex
+      name,                 // used for circularReference (defaults to objType)
       obj,                  // the element itself
       path:currentPath      // used for circularReference
     };
 
-    if ( !_includes( ['Object','Array'], dataType ) ) {
+    if ( !_includes( ['Object','Array'], objType ) ) {
       return elementProps;
     }
 
-    // if the current object is a complex object which already exists in cache, return a circular reference
+    // when the current object is a complex object which already exists in cache, return a circular reference
     const circularReference = findCircularRef( obj, cache );
     if ( circularReference.currentPath ) {
-      elementProps.dataType = 'CircularReference';
+      elementProps.objType = 'CircularReference';
       elementProps.index = cache.index;
       elementProps.path = circularReference.currentPath;
       elementProps.documentFragment = circularReference.documentFragment;

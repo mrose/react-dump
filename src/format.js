@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createUseStyles, useTheme, ThemeProvider } from "react-jss";
-import { getDataType } from "./index";
+import { getObjectType } from "./index";
 import escapeHtml from "escape-html";
 import theme from "./theme.json";
 
@@ -74,9 +74,9 @@ const Row = (props) => {
 
 // simple, complex, + function
 // function = simple with flex-direction: column
-const useStyles = (dataType, cl) => {
+const useStyles = (objType, cl) => {
     const theme = useTheme();
-    const dtt = (dataType in theme) ? theme[dataType] : { container:{}, label:{}, content: {} };
+    const dtt = (objType in theme) ? theme[objType] : { container:{}, label:{}, content: {} };
     const container = {...theme.simpleContainer, ...dtt.container };
     const label = { ...theme.label, ...dtt.label };
     const content = (cl)
@@ -122,7 +122,7 @@ const formatObjectType = (objectType, obj, expand, format, documentFragment, pat
         "RegExp": (obj) => `${obj.toString()} ${obj.flags}`,
         "String": (obj) => obj.length ? escapeHtml(obj) : "[empty]",
         "Undefined": () => "[?]",
-        "Unknown": () => `[${getDataType(obj, false)}]`
+        "Unknown": () => `[${getObjectType(obj, false)}]`
     };
     return (objectType in t) ? t[objectType](obj, expand) : `${objectType} not found`;
 };
@@ -130,12 +130,12 @@ const formatObjectType = (objectType, obj, expand, format, documentFragment, pat
 const renderElement = (props={}) => {
     let {
         children = [],
-        dataType = 'Unknown',
+        objType = 'Unknown',
         documentFragment = '',
         index = 0,
         obj,
         expand = true,
-        format = 'htmlFlex',
+        format = 'htmlTable',
         id = _uniqueId('reactdump'),
         label = 'Unknown',
         name = 'Unknown',
@@ -144,8 +144,8 @@ const renderElement = (props={}) => {
 
     switch (format) {
         case 'htmlTable':
-          const { tableClassName, labelClassName, contentCols } = (dataType in theme) ? theme[dataType] : { tableClassName:"", labelClassName:"" };
-          const isComplex = _includes( ['Object','Array'], dataType);
+          const { tableClassName, labelClassName, contentCols } = (objType in theme) ? theme[objType] : { tableClassName:"", labelClassName:"" };
+          const isComplex = _includes( ['Object','Array'], objType);
           const tblProps = isComplex ? { className:tableClassName, label, expand } : { className:tableClassName, expand };
           return (
             <Table {...tblProps}>
@@ -168,29 +168,29 @@ const renderElement = (props={}) => {
                     );
                   })
                 )
-              : <Row {...{ className:labelClassName, label, expand, cols:contentCols }}>{formatObjectType(dataType, isComplex ? children : obj, expand, 'htmlTable', documentFragment, path)}</Row>
+              : <Row {...{ className:labelClassName, label, expand, cols:contentCols }}>{formatObjectType(objType, isComplex ? children : obj, expand, 'htmlTable', documentFragment, path)}</Row>
               }
             </Table>
           );
           break;
 
         case 'htmlFlex':
-          return <FlexElement {...{dataType, obj, children, label, name, expand, documentFragment, path}} />;
+          return <FlexElement {...{objType, obj, children, label, name, expand, documentFragment, path}} />;
           break;
     }
 
 };
 
-const FlexElement = ({dataType, obj, children=[], label, name, expand=true, documentFragment, path}) => {
-  const classes = useStyles(dataType, children.length);
+const FlexElement = ({objType, obj, children=[], label, name, expand=true, documentFragment, path}) => {
+  const classes = useStyles(objType, children.length);
   const [isExpanded, setIsExpanded] = useState(expand);
   const handleClick = () => setIsExpanded(!isExpanded);
-  const isComplex = _includes( ['Object','Array'], dataType);
+  const isComplex = _includes( ['Object','Array'], objType);
   return (
     <div className={classes.container}>
       <div className={classes.label} onClick={handleClick}>{label}</div>
       <div style={!isExpanded ? {display:"none"} : {}} className={classes.content}>
-        { formatObjectType(dataType, isComplex ? children : obj, isExpanded, 'htmlFlex', documentFragment, path) }
+        { formatObjectType(objType, isComplex ? children : obj, isExpanded, 'htmlFlex', documentFragment, path) }
       </div>
     </div>
   );
