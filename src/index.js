@@ -29,13 +29,13 @@ import _uniqueId from 'lodash-es/uniqueId';
  */
 export const Dump = ( {obj, expand=true, format='htmlFlex', label='' } ) => {
     const eps = getElementProps( {obj, label} );
-        return (
-            <JssProvider classNamePrefix='react-dump-'>
-                <ThemeProvider {...{theme}}>
-                    { renderElement( {expand, format, ...eps} ) }
-                </ThemeProvider>
-            </JssProvider>
-        );
+    return (
+        <JssProvider classNamePrefix='react-dump-'>
+            <ThemeProvider {...{theme}}>
+                { renderElement( {expand, format, ...eps} ) }
+            </ThemeProvider>
+        </JssProvider>
+    );
 };
 
 export function getDataType( elem, unknown=true ) {

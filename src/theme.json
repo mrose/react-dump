@@ -1,4 +1,15 @@
 {
+  "table" :  {
+    "border-collapse": "separate",
+    "border-spacing": "2",
+    "width": "auto",
+    "line-height": "normal",
+    "font-size": "x-small",
+    "font-family": "verdana, arial, helvetica, sans-serif",
+    "background-color": "#dddddd",
+    "color": "#222222"
+  },
+
   "simpleContainer": {
     "display": "flex",
     "alignItems": "center",
@@ -62,6 +73,46 @@
       "width": "-webkit-fill-available",
       "width": "fill-available",
       "padding": 3
+    },
+    "table": {
+      "backgroundColor": "#006600",
+      "fontSize": "x-small",
+      "fontFamily": "verdana, arial, helvetica, sans-serif",
+      "borderSpacing": 2,
+      "color": "#222222",
+      "borderCollapse": "seperate",
+      "width": "auto",
+      "lineHeight": "normal"
+    },
+    "th": {
+      "backgroundColor": "#009900",
+      "cursor": "pointer",
+      "textAlign": "left",
+      "color": "white",
+      "padding": 5,
+      "borderCollapse": "seperate",
+      "borderSpacing": 2,
+      "width": "auto",
+      "lineHeight": "normal"
+    },
+    "tdLabel": {
+      "backgroundColor": "#ccffcc",
+      "cursor": "pointer",
+      "verticalAlign": "top",
+      "padding": 3,
+      "borderCollapse": "seperate",
+      "borderSpacing": 2,
+      "width": "auto",
+      "lineHeight": "normal"
+    },
+    "tdData": {
+      "backgroundColor": "#ffffff",
+      "verticalAlign": "top",
+      "padding": 3,
+      "borderCollapse": "seperate",
+      "borderSpacing": 2,
+      "width": "auto",
+      "lineHeight": "normal"
     },
     "tableClassName": "reactdump reactdump-Array",
     "labelClassName": "reactdump-label reactdump-Array",
@@ -334,7 +385,7 @@
 
   },
 
-    "Unknown": {
+  "Unknown": {
       "container": {
         "borderColor": "#000000"
       },
