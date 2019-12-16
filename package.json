@@ -5,29 +5,29 @@
   },
   "description": "A visual debugging component for React",
   "devDependencies": {
-    "@babel/cli": "^7.6.0",
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0",
-    "@storybook/addon-actions": "^5.2.1",
-    "@storybook/addon-links": "^5.2.1",
-    "@storybook/addons": "^5.2.1",
-    "@storybook/react": "^5.2.1",
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "@storybook/addon-actions": "^5.2.8",
+    "@storybook/addon-links": "^5.2.8",
+    "@storybook/addons": "^5.2.8",
+    "@storybook/react": "^5.2.8",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "core-js": "^3.2.1",
+    "core-js": "^3.5.0",
     "escape-html": "^1.0.3",
-    "eslint": "^6.4.0",
+    "eslint": "^6.7.2",
     "jest": "^24.9.0",
     "lodash-es": "^4.17.15",
     "react-jss": "^10.0.0",
-    "rollup": "^1.21.4",
+    "rollup": "^1.27.13",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-embed-css": "^1.0.5",
+    "rollup-plugin-embed-css": "^1.0.11",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.1.2"
+    "rollup-plugin-terser": "^5.1.3"
   },
   "files": [
     "dist"
@@ -62,7 +62,7 @@
   },
   "version": "0.9.0",
   "dependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }
