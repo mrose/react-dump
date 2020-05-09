@@ -1,5 +1,8 @@
 import React from 'react';
 import './dump.css';
+import jss from 'jss';
+import jssPluginNested from 'jss-plugin-nested';
+import preset from 'jss-preset-default';
 import {createUseStyles, useTheme, ThemeProvider, JssProvider} from 'react-jss';
 import theme from './theme.json';
 import { renderElement } from './format';
@@ -21,6 +24,8 @@ import _uniqueId from 'lodash-es/uniqueId';
  * top: null // The number of rows to display. For a structure, this is the number of nested levels to display (useful for large stuctures)
 */
 
+jss.setup(preset({ jssPluginNested:{} }));
+
 /*
  * obj     variable to be dumped
  * expand  boolean, expands views
@@ -30,7 +35,7 @@ export const Dump = ( {obj, expand=true, label='' } ) => {
     const eps = getElementProps( {obj, label} );
     const format = 'htmlTable';
     return (
-        <JssProvider classNamePrefix='react-dump-'>
+        <JssProvider jss={jss} classNamePrefix='react-dump-'>
             <ThemeProvider {...{theme}}>
                 { renderElement( {expand, format, ...eps} ) }
             </ThemeProvider>
@@ -83,13 +88,10 @@ export const getElementProps = ( props={} ) => {
     cache.index++;
     const objType = getObjectType(obj);
 
-    if (!label.length) {
-        label = objType;
-    }
+    if (!label.length) label = objType;
 
-    if (!name.length) {
-        name = objType;
-    }
+    if (!name.length) name = objType;
+
     currentPath.push(label);
 
     let elementProps = {
@@ -104,9 +106,7 @@ export const getElementProps = ( props={} ) => {
       path:currentPath      // used for circularReference
     };
 
-    if ( !_includes( ['Object','Array'], objType ) ) {
-      return elementProps;
-    }
+    if ( !_includes( ['Object','Array'], objType ) ) return elementProps;
 
     // when the current object is a complex object which already exists in cache, return a circular reference
     const circularReference = findCircularRef( obj, cache );
@@ -125,9 +125,7 @@ export const getElementProps = ( props={} ) => {
     // cache
     cache.objects.push( obj );
     cache.paths.push( { currentPath, documentFragment:'#reactdump' + cache.index } );
-    if ( elementKeys.length ) {
-        cache.depth++; // for level throttling someday
-    }
+    if ( elementKeys.length ) cache.depth++; // for level throttling someday
 
     // recurse through complex objects when they have children
     _forEach(elementKeys, ( i ) => {
