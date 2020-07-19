@@ -1,0 +1,139 @@
+@use 'colors';
+
+// elems map
+$lms: (
+  'array':'green',
+  'boolean':'yellow',
+  'circular':'light_blue',
+  'date':'deep_purple',
+  'error':'red',
+  'function':'brown',
+  'null':'grey',
+  'number':'orange',
+  'object':'indigo',
+  'regex':'purple',
+  'string':'grey',
+  'undefined':'grey',
+  'unknown':'deep_orange',
+);
+
+$weights: (
+  'border': '900',
+  'label_background': '700',
+  'key_background': '100',
+  'value_background': '50',
+);
+
+@function gen($elem, $semsel) {
+  @return '#{map-get($lms, $elem)}_#{map-get($weights, $semsel)}';
+}
+
+@function getMdc($nm) {
+  @return map-get(colors.$mdc, $nm);
+}
+
+// sass does not allow dynamic evaluated variables names so we'll do it by hand.
+// array
+$array_border_color: getMdc(gen('array','border'));
+$array_value_background_color: getMdc(gen('array','value_background'));
+$array_value_text_color: getMdc('black_darker');
+$array_key_background_color: getMdc(gen('array','key_background'));
+$array_key_text_color: getMdc('black_darker');
+$array_label_background_color: getMdc(gen('array', 'label_background'));
+$array_label_text_color: getMdc('white_darker'); // !default
+//boolean
+$boolean_border_color: getMdc(gen('boolean','border'));
+$boolean_value_background_color: getMdc(gen('boolean','value_background'));
+$boolean_value_text_color: getMdc('black_darker');
+$boolean_key_background_color: getMdc(gen('boolean','key_background'));
+$boolean_key_text_color: getMdc('black_darker');
+$boolean_label_background_color: getMdc(gen('boolean', 'label_background'));
+$boolean_label_text_color: getMdc('white_darker'); // !default
+//circular
+$circular_border_color: getMdc(gen('circular','border'));
+$circular_value_background_color: getMdc(gen('circular','value_background'));
+$circular_value_text_color: getMdc('black_darker');
+$circular_key_background_color: getMdc(gen('circular','key_background'));
+$circular_key_text_color: getMdc('black_darker');
+$circular_label_background_color: getMdc(gen('circular', 'label_background'));
+$circular_label_text_color: getMdc('white_darker'); // !default
+//date
+$date_border_color: getMdc(gen('date','border'));
+$date_value_background_color: getMdc(gen('date','value_background'));
+$date_value_text_color: getMdc('black_darker');
+$date_key_background_color: getMdc(gen('date','key_background'));
+$date_key_text_color: getMdc('black_darker');
+$date_label_background_color: getMdc(gen('date', 'label_background'));
+$date_label_text_color: getMdc('white_darker'); // !default
+//error
+$error_border_color: getMdc(gen('error','border'));
+$error_value_background_color: getMdc(gen('error','value_background'));
+$error_value_text_color: getMdc('black_darker');
+$error_key_background_color: getMdc(gen('error','key_background'));
+$error_key_text_color: getMdc('black_darker');
+$error_label_background_color: getMdc(gen('error', 'label_background'));
+$error_label_text_color: getMdc('white_darker'); // !default
+//function
+$function_border_color: getMdc(gen('function','border'));
+$function_value_background_color: getMdc(gen('function','value_background'));
+$function_value_text_color: getMdc('black_darker');
+$function_key_background_color: getMdc(gen('function','key_background'));
+$function_key_text_color: getMdc('black_darker');
+$function_label_background_color: getMdc(gen('function', 'label_background'));
+$function_label_text_color: getMdc('white_darker'); // !default
+//null
+$null_border_color: getMdc(gen('null','border'));
+$null_value_background_color: getMdc(gen('null','value_background'));
+$null_value_text_color: getMdc('black_darker');
+$null_key_background_color: getMdc(gen('null','key_background'));
+$null_key_text_color: getMdc('black_darker');
+$null_label_background_color: getMdc(gen('null', 'label_background'));
+$null_label_text_color: getMdc('white_darker'); // !default
+//number
+$number_border_color: getMdc(gen('number','border'));
+$number_value_background_color: getMdc(gen('number','value_background'));
+$number_value_text_color: getMdc('black_darker');
+$number_key_background_color: getMdc(gen('number','key_background'));
+$number_key_text_color: getMdc('black_darker');
+$number_label_background_color: getMdc(gen('number', 'label_background'));
+$number_label_text_color: getMdc('white_darker'); // !default
+//object
+$object_border_color: getMdc(gen('object','border'));
+$object_value_background_color: getMdc(gen('object','value_background'));
+$object_value_text_color: getMdc('black_darker');
+$object_key_background_color: getMdc(gen('object','key_background'));
+$object_key_text_color: getMdc('black_darker');
+$object_label_background_color: getMdc(gen('object', 'label_background'));
+$object_label_text_color: getMdc('white_darker'); // !default
+// regex
+$regex_border_color: getMdc(gen('regex','border'));
+$regex_value_background_color: getMdc(gen('regex','value_background'));
+$regex_value_text_color: getMdc('black_darker');
+$regex_key_background_color: getMdc(gen('regex','key_background'));
+$regex_key_text_color: getMdc('black_darker');
+$regex_label_background_color: getMdc(gen('regex', 'label_background'));
+$regex_label_text_color: getMdc('white_darker'); // !default
+// string
+$string_border_color: getMdc(gen('string','border'));
+$string_value_background_color: getMdc(gen('string','value_background'));
+$string_value_text_color: getMdc('black_darker');
+$string_key_background_color: getMdc(gen('string','key_background'));
+$string_key_text_color: getMdc('black_darker');
+$string_label_background_color: getMdc(gen('string', 'label_background'));
+$string_label_text_color: getMdc('white_darker'); // !default
+//undefined
+$undefined_border_color: getMdc(gen('undefined','border'));
+$undefined_value_background_color: getMdc(gen('undefined','value_background'));
+$undefined_value_text_color: getMdc('black_darker');
+$undefined_key_background_color: getMdc(gen('undefined','key_background'));
+$undefined_key_text_color: getMdc('black_darker');
+$undefined_label_background_color: getMdc(gen('undefined', 'label_background'));
+$undefined_label_text_color: getMdc('white_darker'); // !default
+//unknown
+$unknown_border_color: getMdc(gen('unknown','border'));
+$unknown_value_background_color: getMdc(gen('unknown','value_background'));
+$unknown_value_text_color: getMdc('black_darker');
+$unknown_key_background_color: getMdc(gen('unknown','key_background'));
+$unknown_key_text_color: getMdc('black_darker');
+$unknown_label_background_color: getMdc(gen('unknown', 'label_background'));
+$unknown_label_text_color: getMdc('white_darker'); // !default

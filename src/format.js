@@ -46,12 +46,12 @@ const Thead = ({className, colSpan, label, onClick}) => {
 
 const Row = (props) => {
     const {
-        className="",
+        className = '',
         cols = 2,
         expand:exp = true,
-        id=_uniqueId('reactdump'),
-        label = "",
-        title = "",
+        id = _uniqueId('reactdump'),
+        label = '',
+        title = '',
     } = props;
     const [expand, setExpand] = useState(exp);
 

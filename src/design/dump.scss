@@ -1,0 +1,236 @@
+@use 'basePalette';
+
+$color_0: #dddddd;
+
+$color_1: #222222;
+
+/* simpleContainer borderColor
+
+*/
+$color_2: #ffffff;
+$color_3: #aaaaaa;
+$color_5: #cccccc;
+$color_6: #707000;
+$color_7: #adad00;
+$color_8: #ffff9e;
+$color_10: #006600;
+$color_11: #009900;
+$color_12: #ccffcc;
+$color_13: #eebb00;
+$color_14: #ffda75;
+$color_15: #aa0000;
+$color_16: #008800;
+$color_17: #333333;
+$color_18: #9252c7;
+$color_19: #c78ef5;
+$color_20: #cc3300;
+$color_21: #aa4400;
+$color_22: #cc6600;
+$color_23: #ff8833;
+$color_24: #ffb885;
+$color_25: #0000cc;
+$color_26: #4444cc;
+$color_27: #ccddff;
+$color_28: #884488;
+$color_29: #aa66aa;
+$color_30: #ffddff;
+$color_31: #888888;
+
+//fonts
+$font_0: 'verdana';
+$font_1: 'arial';
+$font_2: 'helvetica';
+$font_3: 'sans-serif';
+
+// used for pre code
+$font_4: 'Consolas';
+$font_5: 'Menlo';
+$font_6: 'Monaco';
+$font_7: 'Lucida Console';
+$font_8: 'monospace';
+$font_9: 'Courier New';
+$font_10: 'serif';
+
+//@extend-elements
+//original selectors
+//table.dump: table.dump th: table.dump td
+%extend_1 {
+  border-collapse: separate;
+  border-spacing: 2px;
+  width: auto;
+  line-height: normal;
+}
+
+
+table {
+  &.dump {
+    @extend %extend_1;
+    font-size: x-small;
+    font-family: $font_0 $font_1 $font_2 $font_3;
+//    border-spacing: 2px;
+    background-color: white;
+    color: black;
+    th {
+      @extend %extend_1;
+      background-color: white;
+      cursor: pointer;
+      text-align: left;
+      color: black;
+      padding: 5px;
+    }
+    td {
+      @extend %extend_1;
+      vertical-align: top;
+      padding: 3px;
+      background-color: white;
+      &.dump-data {
+        background-color: white;
+        pre {
+          text-align: left;
+          line-height: normal;
+          background-color: white;
+          border: 0;
+          padding: 0;
+          code {
+            font-size: small;
+            font-family: $font_4 $font_5 $font_6 $font_7 $font_8 $font_9 $font_10;
+          }
+        }
+      }
+    }
+    .label {
+      cursor: pointer;
+    }
+  }
+  &.array {
+    background-color: basePalette.$array_label_background_color;
+    th.array {
+      background-color: basePalette.$array_key_background_color;
+    }
+    td.array {
+      background-color: basePalette.$array_value_background_color;
+    }
+  }
+  &.boolean {
+    background-color: basePalette.$boolean_label_background_color;
+    td {
+      &.boolean {
+        background-color: basePalette.$boolean_value_background_color;
+      }
+      &.dump-data span {
+        &.dump-no {
+          color: $color_15;
+        }
+        &.dump-yes {
+          color: $color_16;
+        }
+      }
+    }
+  }
+  &.circular {
+    background-color: basePalette.$circular_label_background_color;
+    td {
+      &.circular {
+        background-color: basePalette.$circular_value_background_color;
+      }
+      &.label {
+        color: $color_2;
+      }
+    }
+  }
+  &.error {
+    background-color: basePalette.$error_label_background_color;
+    th.error {
+      background-color: basePalette.$error_key_background_color;
+    }
+    td.dump-data {
+      white-space: pre;
+    }
+  }
+  &.date {
+    background-color: basePalette.$date_label_background_color;
+    td.date {
+      background-color: basePalette.$date_value_background_color;
+    }
+  }
+  &.function {
+    background-color: basePalette.$function_label_background_color;
+    th.function {
+      background-color: basePalette.$function_key_background_color;
+    }
+  }
+  &.null {
+    background-color: basePalette.$null_label_background_color;
+    td.dump-data {
+      color: $color_2;
+      background-color: basePalette.$null_value_background_color;
+    }
+  }
+  &.number {
+    background-color: basePalette.$number_label_background_color;
+    td.number {
+      background-color: basePalette.$number_value_background_color;
+    }
+  }
+  &.object {
+    background-color: basePalette.$object_label_background_color;
+    th.object {
+      background-color: basePalette.$object_key_background_color;
+    }
+    td.object {
+      background-color: basePalette.$object_value_background_color;
+    }
+  }
+  &.regex {
+    background-color: basePalette.$regex_label_background_color;
+    th.regex {
+      background-color: basePalette.$regex_key_background_color;
+    }
+    td.regex {
+      background-color: basePalette.$regex_value_background_color;
+    }
+  }
+  &.string {
+    background-color: basePalette.$string_label_background_color;
+    td {
+      &.string {
+        background-color: basePalette.$string_value_background_color;
+      }
+      &.dump-data {
+        white-space: pre;
+      }
+    }
+  }
+  &.undefined {
+    background-color: basePalette.$undefined_label_background_color;
+    td.dump-data {
+      color: $color_2;
+      background-color: $color_17;
+    }
+  }
+  &.unknown {
+    background-color: basePalette.$unknown_label_background_color;
+    td.dump-data {
+      color: $color_2;
+      background-color: $color_20;
+    }
+  }
+  &.error-thrown th.error-thrown {
+    background-color: $color_17;
+  }
+}
+--table.dump {
+  background-color: $color_3;
+  td {
+    background-color: $color_2;
+    vertical-align: top;
+    padding: 3px;
+    background-color: $color_2;
+  }
+  th {
+    text-align: left;
+    color: $color_2;
+    padding: 5px;
+    background-color: $color_5;
+  }
+}

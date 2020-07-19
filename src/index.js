@@ -24,7 +24,21 @@ import _uniqueId from 'lodash-es/uniqueId';
  * top: null // The number of rows to display. For a structure, this is the number of nested levels to display (useful for large stuctures)
 */
 
-jss.setup(preset({ jssPluginNested:{} }));
+jss.setup(preset({ jssPluginNested:{} }))
+/* example:
+const theme = {
+  table: {
+    "border-collapse": "separate",
+    "border-spacing": "2",
+    width: "auto",
+    "line-height": "normal",
+    "font-size": "x-small",
+    "font-family": "verdana, arial, helvetica, sans-serif",
+    "background-color": "#dddddd",
+    color: "#222222"
+  }
+};
+*/
 
 /*
  * obj     variable to be dumped
@@ -35,7 +49,7 @@ export const Dump = ( {obj, expand=true, label='' } ) => {
     const eps = getElementProps( {obj, label} );
     const format = 'htmlTable';
     return (
-        <JssProvider jss={jss} classNamePrefix='react-dump-'>
+        <JssProvider jss={jss} classNamePrefix='dump-'>
             <ThemeProvider {...{theme}}>
                 { renderElement( {expand, format, ...eps} ) }
             </ThemeProvider>

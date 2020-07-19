@@ -1,0 +1,245 @@
+//colors
+
+// table backgroundColor, String label backgroundColor
+$color_0, #dddddd;
+
+// table color, Array table color, Boolean label color. Boolean content color
+// Date content color, String label color, String content color
+$color_1, #222222;
+
+/* simpleContainer borderColor
+
+*/
+$color_2, #ffffff;
+$color_3, #aaaaaa;
+$color_5, #cccccc;
+$color_6, #707000;
+$color_7, #adad00;
+$color_8, #ffff9e;
+$color_10, #006600;
+$color_11, #009900;
+$color_12, #ccffcc;
+$color_13, #eebb00;
+$color_14, #ffda75;
+$color_15, #aa0000;
+$color_16, #008800;
+$color_17, #333333;
+$color_18, #9252c7;
+$color_19, #c78ef5;
+$color_20, #cc3300;
+$color_21, #aa4400;
+$color_22, #cc6600;
+$color_23, #ff8833;
+$color_24, #ffb885;
+$color_25, #0000cc;
+$color_26, #4444cc;
+$color_27, #ccddff;
+$color_28, #884488;
+$color_29, #aa66aa;
+$color_30, #ffddff;
+$color_31, #888888;
+
+//fonts
+$font_0, 'verdana';
+$font_1, 'arial';
+$font_2, 'helvetica';
+$font_3, 'sans-serif';
+$font_4, 'Consolas';
+$font_5, 'Menlo';
+$font_6, 'Monaco';
+$font_7, 'Lucida Console';
+$font_8, 'monospace';
+$font_9, 'Courier New';
+$font_10, 'serif';
+
+//@extend-elements
+//original selectors
+//table.dump, table.dump th, table.dump td
+%extend_1 {
+  border-collapse, separate;
+  border-spacing, 2px;
+  width, auto;
+  line-height, normal;
+}
+
+
+table {
+  &.dump {
+    @extend %extend_1;
+    font-size, x-small;
+    font-family, $font_0, $font_1, $font_2, $font_3;
+    border-spacing, 2px;
+    background-color, $color_0;
+    color, $color_1;
+    background-color, $color_6;
+    th {
+      @extend %extend_1;
+      background-color, $color_2;
+      cursor, pointer;
+      text-align, left;
+      color, $color_2;
+      padding, 5px;
+      background-color, $color_7;
+    }
+    td {
+      @extend %extend_1;
+      vertical-align, top;
+      padding, 3px;
+      background-color, $color_8;
+      &.dump-data {
+        background-color, $color_2;
+        pre {
+          text-align, left;
+          line-height, normal;
+          background-color, $color_2;
+          border, 0;
+          padding, 0;
+          code {
+            font-size, small;
+            font-family, $font_4, $font_5, $font_6, $font_7, $font_8, $font_9, $font_8, $font_10;
+          }
+        }
+      }
+    }
+    .dump-label {
+      cursor, pointer;
+    }
+  }
+  &.dump-Array {
+    background-color, $color_10;
+    th.dump-Array {
+      background-color, $color_11;
+    }
+    td.dump-Array {
+      background-color, $color_12;
+    }
+  }
+  &.dump-Boolean {
+    background-color, $color_13;
+    td {
+      &.dump-Boolean {
+        background-color, $color_14;
+      }
+      &.dump-data span {
+        &.dump-no {
+          color, $color_15;
+        }
+        &.dump-yes {
+          color, $color_16;
+        }
+      }
+    }
+  }
+  &.dump-Circular-Reference {
+    background-color, $color_17;
+    td {
+      &.dump-Circular-Reference {
+        background-color, $color_17;
+      }
+      &.dump-label {
+        color, $color_2;
+      }
+    }
+  }
+  &.dump-Error {
+    background-color, $color_17;
+    background-color, $color_20;
+    th.dump-Error {
+      background-color, $color_20;
+    }
+    td.dump-data {
+      white-space, pre;
+    }
+  }
+  &.dump-Date {
+    background-color, $color_18;
+    td.dump-Date {
+      background-color, $color_19;
+    }
+  }
+  &.dump-Function {
+    background-color, $color_21;
+    th.dump-Function {
+      background-color, $color_22;
+    }
+  }
+  &.dump-Null {
+    background-color, $color_17;
+    td.dump-data {
+      color, $color_2;
+      background-color, $color_17;
+    }
+  }
+  &.dump-Undefined {
+    background-color, $color_17;
+    td.dump-data {
+      color, $color_2;
+      background-color, $color_17;
+    }
+  }
+  &.dump-Number {
+    background-color, $color_23;
+    td.dump-Number {
+      background-color, $color_24;
+    }
+  }
+  &.dump-Object {
+    background-color, $color_25;
+    th.dump-Object {
+      background-color, $color_26;
+    }
+    td.dump-Object {
+      background-color, $color_27;
+    }
+  }
+  &.dump-RegExp {
+    background-color, $color_28;
+    th.dump-RegExp {
+      background-color, $color_29;
+    }
+    td.dump-RegExp {
+      background-color, $color_30;
+    }
+  }
+  &.dump-String {
+    background-color, $color_31;
+    td {
+      &.dump-String {
+        background-color, $color_0;
+      }
+      &.dump-data {
+        white-space, pre;
+      }
+    }
+  }
+  &.dump-Unknown {
+    background-color, $color_20;
+    td.dump-data {
+      color, $color_2;
+      background-color, $color_20;
+    }
+  }
+  &.dump-Error-thrown th.dump-Error-thrown {
+    background-color, $color_17;
+  }
+  &.dump-Math td.dump-data {
+    color, $color_2;
+    font-weight, bold;
+    background-color, $color_7;
+  }
+}
+--table.dump {
+  background-color, $color_3;
+  td {
+    background-color, $color_2;
+    vertical-align, top;
+    padding, 3px;
+    background-color, $color_2;
+  }
+  th {
+    text-align, left;
+    color, $color_2;
+    padding, 5px;
+    background-color, $color_5;
+  }
+}

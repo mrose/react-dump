@@ -1,9 +1,15 @@
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import resolve from '@rollup/plugin-node-resolve';
 import embedCSS from 'rollup-plugin-embed-css';
-import json from 'rollup-plugin-json';
+import scss from 'rollup-plugin-scss';
 import { terser } from 'rollup-plugin-terser';
+
+
+// n.b.:  May 23, 2020: @rollup/plugin-commonjs is stuck at 11.0.2 due to outstanding bug
+// for babelHelpers see
+// https://github.com/rollup/plugins/tree/master/packages/babel#babelhelpers
 
 export default [
     {
@@ -18,9 +24,11 @@ export default [
               preferConst: true,
               compact:true
             }),
-            embedCSS(),
+            scss(),
+//            embedCSS(),
             babel({
-                exclude: 'node_modules/**'
+              babelHelpers: 'bundled',
+              exclude: 'node_modules/**'
             }),
             commonjs(),
             terser(),
