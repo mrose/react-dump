@@ -1,9 +1,8 @@
-import React from 'react'
-import Table from '../Table'
-import Row from '../Row'
+import React from 'react';
+import { Row, Table } from '../format';
 
-function Date( props ) {
-  const obj = props.obj || null
+
+export const Date = ( props ) => {
   const opts = props.opts ||  { expand:true
                               , format:'html'
                               , label:'Date'
@@ -18,5 +17,4 @@ function Date( props ) {
     </Table>
   )
 
-}
-export default Date
+};

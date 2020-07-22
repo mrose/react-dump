@@ -1,9 +1,8 @@
-import React from 'react'
-import Table from '../Table'
-import Row from '../Row'
+import React from 'react';
+import { Row, Table } from '../format';
 
-function Math( props ) {
-  const obj = props.obj || null
+
+export const Math = ( props ) => {
   const opts = props.opts ||  { expand:true
                               , format:'html'
                               , label:'Math'
@@ -18,5 +17,4 @@ function Math( props ) {
     </Table>
   )
 
-}
-export default Math
+};

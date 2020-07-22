@@ -1,9 +1,8 @@
-import React from 'react'
-import Table from '../Table'
-import Row from '../Row'
+import React from 'react';
+import { Row, Table } from '../format';
 
-function Error( props ) {
-  const obj = props.obj || 'whoops! :)'
+
+export const Error = ( props ) => {
   const opts = props.opts ||  { expand:true
                               , format:'html'
                               , label:'Error'
@@ -18,5 +17,4 @@ function Error( props ) {
     </Table>
   )
 
-}
-export default Error
+};

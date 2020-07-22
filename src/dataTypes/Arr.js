@@ -1,9 +1,8 @@
-import React from 'react'
-import renderElement from '../renderElement'
-import Table from '../Table'
-import Row from '../Row'
+import React from 'react';
+import { renderElement ,Row, Table } from '../format';
 
-function Arr( props ) {
+
+export const Arr = ( props ) => {
   const obj = props.obj || { }
   const opts = props.opts ||  { expand:true
                               , format:'html'
@@ -27,5 +26,4 @@ function Arr( props ) {
     </Table>
   )
 
-}
-export default Arr
+};

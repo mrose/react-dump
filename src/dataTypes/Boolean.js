@@ -1,8 +1,8 @@
-import React from 'react'
-import Table from '../Table'
-import Row from '../Row'
+import React from 'react';
+import { Row, Table } from '../format';
 
-function Boolean( props ) {
+
+export const Boolean = ( props ) => {
   const obj = props.obj
   const opts = props.opts ||  { expand:true
                               , format:'html'
@@ -17,5 +17,4 @@ function Boolean( props ) {
     </Table>
   )
 
-}
-export default Boolean
+};

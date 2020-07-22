@@ -1,8 +1,8 @@
-import React from 'react'
-import Table from '../Table'
-import Row from '../Row'
+import React from 'react';
+import { Row, Table } from '../format';
 
-function CircularReference( props ) {
+
+export const CircularReference = ( props ) => {
   const obj = props.obj || null
   const opts = props.opts ||  { expand:true
                               , format:'html'
@@ -24,5 +24,4 @@ function CircularReference( props ) {
     </Table>
   )
 
-}
-export default CircularReference
+};
