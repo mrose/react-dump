@@ -1,9 +1,7 @@
-/src/
-/lib/*.html
-/lib/*.map
-/lib/*.json
-/tests/
-/scripts/
-/public/
+.storybook
 /config/
-yarn.lock
+/src/
+/stories/
+/test/
+.gitignore
+rollup.config.js
